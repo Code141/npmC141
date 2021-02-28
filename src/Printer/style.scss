@@ -1,0 +1,48 @@
+.printer{
+	font-size: 13px;
+	font-weight: lighter;
+	background: rgb(40, 40, 40);
+	color: rgb(120, 120, 255);
+}
+
+button {
+	cursor: pointer;
+}
+
+div.inline {
+	display: inline-block;
+}
+
+div.name {
+	display: inline-block;
+}
+
+div.name:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+div.caler {
+	display: inline-block;
+}
+
+.printTab {
+	padding-left: 15px;
+	margin-left: 3px;
+	border-left: 1px solid blue;
+}
+
+span.object {
+	color: red;
+}
+
+span.boolean {
+	color: green;
+}
+
+span.number {
+	color: blue;
+}
+
+span.string {
+	color: cyan;
+}

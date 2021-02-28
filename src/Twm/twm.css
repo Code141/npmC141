@@ -1,0 +1,154 @@
+.TWM div {
+  transition: border 1s, padding 1s, margin 1s, opacity 1s;
+}
+
+.TWM_main {
+  overflow: hidden;
+}
+
+.TWM_group {
+  display: flex;
+  height: 100%;
+}
+
+.TWM_window {
+  width: 100%;
+  height: 100%;
+  overflow:hidden;
+}
+
+.TWM_window > div {
+  height:100%;
+  width:100%;
+  overflow: auto;
+}
+
+.TWM_separator_v, .TWM_separator_h {
+  background-color: rgba(96, 96, 96, 1);
+}
+
+.TWM_separator_v:hover, .TWM_separator_h:hover{
+  background: rgba(160, 160, 160, 1);
+}
+
+/*
+.TWM_separator_v:hover ~ div {
+  opacity: 0.5;
+}
+
+.TWM_separator_h:hover ~ div {
+  opacity: 0.5;
+}
+*/
+
+.TWM_separator_v div:hover {
+  cursor: ew-resize;
+}
+
+.TWM_separator_h div:hover {
+  cursor: ns-resize;
+}
+
+.TWM_separator_v {
+  width: 2px;
+  height: 100%;
+}
+
+.TWM_separator_h {
+  width: 100%;
+  height: 2px;
+}
+
+.TWM_separator_v div{
+  position:relative;
+  width: 8px;
+  height: 100%;
+  margin-left: -3px;
+}
+
+.TWM_separator_h div{
+  position:relative;
+  width: 100%;
+  height: 8px;
+  margin-top: -3px;
+}
+
+/*-- DEBUG --------------*/
+
+/*-- DEBUG HOLDER -------*/
+
+/*
+
+.TWM_separator_v:hover, .TWM_separator_h:hover{
+  background:red;
+}
+
+.TWM_separator_v {
+  width: 2px;
+  height: 100%;
+}
+
+.TWM_separator_h {
+  width: 100%;
+  height: 2px;
+}
+
+.TWM_separator_v div{
+  background: rgba(0, 128, 0, 0.3);
+  position:relative;
+  margin-left: -3px;
+}
+
+.TWM_separator_h div{
+  background: rgba(0, 128, 0, 0.3);
+  position:relative;
+  margin-top: -3px;
+}
+
+*/
+
+/*-- DEBUG WINDOW -------*/
+
+div.TWM_debug .TWM {
+  transition: border 1s, padding 1s, margin 1s, opacity 1s;
+}
+
+div.TWM_debug .TWM_main {
+  border: 2px dashed;
+  padding: 10px;
+}
+
+div.TWM_debug .TWM_group,
+div.TWM_debug .TWM_window {
+  border: 3px solid;
+  padding: 10px;
+}
+div.TWM_debug .TWM_window {
+  border-color: green;
+  padding: 10px;
+}
+
+div.TWM_debug .TWM_window > * {
+  border: 1px solid white;
+  opacity: 0.5;
+  overflow: hidden;
+}
+
+div.TWM_debug .TWM_group {
+  border-color: red;
+}
+
+div.TWM_debug .TWM_separator_v {
+  border: 0px solid;
+  width: 4px;
+  margin: 0px 10px;
+  background-color: blue;
+}
+
+div.TWM_debug .TWM_separator_h {
+  border: 0px solid;
+  height: 4px;
+  margin: 10px 0px;
+  background-color: blue;
+}
+
