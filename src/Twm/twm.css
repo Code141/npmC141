@@ -14,20 +14,22 @@
 .TWM_window {
   width: 100%;
   height: 100%;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .TWM_window > div {
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
   overflow: auto;
 }
 
-.TWM_separator_v, .TWM_separator_h {
+.TWM_separator_v,
+.TWM_separator_h {
   background-color: rgba(96, 96, 96, 1);
 }
 
-.TWM_separator_v:hover, .TWM_separator_h:hover{
+.TWM_separator_v:hover,
+.TWM_separator_h:hover {
   background: rgba(160, 160, 160, 1);
 }
 
@@ -59,15 +61,15 @@
   height: 2px;
 }
 
-.TWM_separator_v div{
-  position:relative;
+.TWM_separator_v div {
+  position: relative;
   width: 8px;
   height: 100%;
   margin-left: -3px;
 }
 
-.TWM_separator_h div{
-  position:relative;
+.TWM_separator_h div {
+  position: relative;
   width: 100%;
   height: 8px;
   margin-top: -3px;
@@ -151,4 +153,3 @@ div.TWM_debug .TWM_separator_h {
   margin: 10px 0px;
   background-color: blue;
 }
-

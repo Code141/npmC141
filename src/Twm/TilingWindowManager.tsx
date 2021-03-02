@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React from "react";
+
 import Group from "./Group";
-//import "./twm.css";
 
 function TilingWindowManager(props: any) {
   const { direction, ratio, children } = props.arbo;

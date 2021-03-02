@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+// @ts-nocheck
+import React, { useState, useRef } from "react";
 
 import Window from "./Window";
 import Separator from "./Separator";
 
-function Group(props: any) {
-  const { direction, ratio, children } = props;
-  const firstState: any = { direction, children };
+class Group extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const [state, setState] = useState(firstState);
+    const { direction, ratio, children } = this.props;
+    this.state = { direction, children };
 
-  let ref: any = React.createRef();
-  //??<HTMLInputElement>
+    this.resize = this.resize.bind(this);
+    this.ref = React.createRef();
+  }
 
-  function apply_resize(id: any, size: any) {
-    setState({
-      children: state.children.map((child: any, i: any) => {
+  apply_resize(id, size) {
+    this.setState({
+      children: this.state.children.map((child, i) => {
         if (id === i) return { ...child, ratio: child.ratio + size };
         else if (id + 1 === i) return { ...child, ratio: child.ratio - size };
         else return { ...child };
@@ -22,46 +25,45 @@ function Group(props: any) {
     });
   }
 
-  function resize(id: any) {
-    let initialPos = props.direction
-      ? // @ts-ignore
-        window.event.clientY
-      : // @ts-ignore
-        window.event.clientX;
+  resize(id) {
+    let initialPos = this.props.direction
+      ? window.event.clientY
+      : window.event.clientX;
 
-    let mouseMoveHandler = function (e: any) {
-      console.log(ref);
+    let mouseMoveHandler = function (e) {
       let pos, ratio, size;
 
-      if (props.direction) {
+      if (this.props.direction) {
         pos = e.y;
-        ratio = ref.current?.clientHeight;
+        ratio = this.ref.current.clientHeight;
       } else {
         pos = e.x;
-        ratio = ref.current?.clientWidth;
+        ratio = this.ref.current.clientWidth;
       }
 
       // WORK DIRECTLY WITH PIXEL GIVE PROBABLY MORE PRECISION
       size = ((pos - initialPos) / ratio) * 100;
 
       let margin = 10;
-      let child_a_ratio = state.children[id].ratio;
-      let child_b_ratio = state.children[id + 1].ratio;
+      let child_a_ratio = this.state.children[id].ratio;
+      let child_b_ratio = this.state.children[id + 1].ratio;
 
       // WORK DIRECTLY WITH PIXEL GIVE PROBABLY MORE PRECISION
       // CHECK CHILDREN IN SELECTED ARBO MIN/MAX SIZE
 
       if (child_a_ratio + size < margin)
-        apply_resize(id, margin - child_a_ratio);
+        this.apply_resize(id, margin - child_a_ratio);
       else if (child_b_ratio - size < margin)
-        apply_resize(id, child_b_ratio - margin);
+        this.apply_resize(id, child_b_ratio - margin);
       else {
-        apply_resize(id, size);
+        this.apply_resize(id, size);
         initialPos = pos;
       }
     };
 
-    let removeMouseListener = function () {
+    mouseMoveHandler = mouseMoveHandler.bind(this);
+
+    let removeMouseListener = function (e) {
       document.removeEventListener("mousemove", mouseMoveHandler, true);
       document.removeEventListener("mouseup", removeMouseListener, true);
       document.body.style["pointer-events"] = "auto";
@@ -71,11 +73,11 @@ function Group(props: any) {
     document.body.style["pointer-events"] = "none";
   }
 
-  function print_children() {
-    const { windows } = props;
-    const { direction, children } = state;
+  print_children() {
+    const { windows } = this.props;
+    const { direction, children } = this.state;
 
-    return children.map((el: any, id: any) => {
+    return children.map((el, id) => {
       let child = null;
 
       if (el.component) {
@@ -105,27 +107,31 @@ function Group(props: any) {
           key={id * 2 + 1}
           direction={direction}
           id={id}
-          callback={resize}
+          callback={this.resize}
         />
       );
 
-      if (id + 1 < props.children.length) return [child, separator];
+      if (id + 1 < this.props.children.length) return [child, separator];
       else return child;
     });
   }
+  render() {
+    const { ratio, parentDirection } = this.props;
+    const { direction, children } = this.state;
 
-  return (
-    <div
-      ref={ref}
-      className="TWM_group"
-      style={{
-        flexDirection: direction ? "column" : "row",
-        width: props.parentDirection ? "100%" : ratio + "%",
-        height: props.parentDirection ? ratio + "%" : "100%",
-      }}
-    >
-      {print_children()}
-    </div>
-  );
+    return (
+      <div
+        ref={this.ref}
+        className="TWM_group"
+        style={{
+          flexDirection: direction ? "column" : "row",
+          width: parentDirection ? "100%" : ratio + "%",
+          height: parentDirection ? ratio + "%" : "100%",
+        }}
+      >
+        {this.print_children()}
+      </div>
+    );
+  }
 }
 export default Group;
