@@ -72,7 +72,7 @@ let serializedArbo = {
   }
 }
 
-<ConnectedTilingWindowManager
+<TilingWindowManager
   arbo={serializedArbo}
   windows={windows}
   debug={false}
