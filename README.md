@@ -33,7 +33,7 @@ let customDrawer = [
 ```
 
 ### TillingWindowManager
-The main goal of the arbo is to stay serialised (can be store in anything, cookies, store, be passed throughout HTTP sockets etc... )  
+The main goal of the arbo is to stay serialised (can be store in anything, cookies, store, be passed throughout HTTP or sockets, etc... )  
 Userfull if you want sync multiple screens or drag and drop a custom composition from a browser to another.
 
 Take in argument:  
