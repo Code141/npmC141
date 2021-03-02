@@ -1,10 +1,7 @@
 # npmC141
-
 ```javascript
 import { Print } from "c141";
-```
 
-```javascript
 let customDrawer = [
   {
     filter: (element: any) => element.value.constructor === Array,
@@ -29,12 +26,9 @@ let customDrawer = [
 />
 ```
 
-
 ```javascript
 import { TilingWindowManager } from "c141";
-```
 
-```javascript
 const windows = {
   logger: <ConnectedLogger />,
   Parameters: <ConnectedParameters />,
