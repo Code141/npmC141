@@ -1,5 +1,7 @@
 # npmC141
-React utilities lib
+C141's Personal React components utilities.  
+Smalls, fasts, do only what they must, nothing less, nothing more.
+Can enjoyly work separatly, together, or separatly or together.
 
 ### Print
 Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
