@@ -1,4 +1,8 @@
 # npmC141
+React utilities lib
+
+### Print
+
 ```javascript
 import { Print } from "c141";
 
@@ -25,6 +29,8 @@ let customDrawer = [
   maxDeepness={10};
 />
 ```
+
+### TillingWindowManager
 
 ```javascript
 import { TilingWindowManager } from "c141";
