@@ -34,7 +34,8 @@ let customDrawer = [
 
 ### TillingWindowManager
 The main goal of the arbo is to stay serialised (can be store in anything, cookies, store, be passed throughout HTTP or sockets, etc... )  
-Userfull if you want sync multiple screens or drag and drop a custom composition from a browser to another.
+Userfull if you want sync multiple screens or drag and drop a custom composition from a browser to another.  
+There is a drag and drop separator between each window or group to resize groups.
 
 Take in argument:  
 - Arbo: description of (possibly nested) tilled window  
