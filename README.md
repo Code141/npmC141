@@ -1,8 +1,40 @@
 # npmC141
 
 ```javascript
-import { TilingWindowManager } from "c141";
+import { Print } from "c141";
+```
 
+```javascript
+let customDrawer = [
+  {
+    filter: (element: any) => element.value.constructor === Array,
+    Component: PrintArray,
+  },
+  {
+    filter: (element: any) => element.value.constructor === Object,
+    Component: PrintDictionary,
+  },
+  {
+    filter: () => true,
+    Component: PrintOther,
+  },
+];
+
+<Print
+  name={"My print"};
+  value={};
+  drawer={customDrawer};
+  deepness={0};
+  maxDeepness={10};
+/>
+```
+
+
+```javascript
+import { TilingWindowManager } from "c141";
+```
+
+```javascript
 const windows = {
   logger: <ConnectedLogger />,
   Parameters: <ConnectedParameters />,
@@ -35,7 +67,6 @@ let serializedArbo = {
   windows={windows}
   debug={false}
 />
-
 ```
 
 
