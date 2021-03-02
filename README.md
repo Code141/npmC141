@@ -1,6 +1,6 @@
 # npmC141
 C141's Personal React components utilities.  
-Smalls, fasts, do only what they must, nothing less, nothing more.
+Smalls, fasts, do only what they must, nothing less, nothing more.  
 Can enjoyly work separatly, together, or separatly or together.
 
 ### Print
