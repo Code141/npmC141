@@ -1,28 +1,63 @@
 // @ts-nocheck
 import React, { useState, useRef } from "react";
-
 import Window from "./Window";
 import Separator from "./Separator";
+
+function apply_resize(id, size, state, setState) {
+  setState({
+    children: state.children.map((child, i) => {
+      if (id === i) return { ...child, ratio: child.ratio + size };
+      else if (id + 1 === i) return { ...child, ratio: child.ratio - size };
+      else return { ...child };
+    }),
+  });
+}
+
+function print_children(props, state, resize) {
+  const { windows, direction } = props;
+  const { children } = state;
+
+  return children.map((el, id) => {
+    child = el.component ? (
+      <Window
+        key={id * 2}
+        direction={direction}
+        ratio={el.ratio}
+        component={windows[el.component]}
+      />
+    ) : (
+      <Group
+        key={id * 2}
+        windows={windows}
+        direction={el.direction}
+        parentDirection={direction}
+        ratio={el.ratio}
+        children={el.children}
+      />
+    );
+
+    let separator = (
+      <Separator
+        key={id * 2 + 1}
+        direction={direction}
+        id={id}
+        callback={resize}
+      />
+    );
+    return id + 1 < children.length ? [child, separator] : child;
+  });
+}
 
 class Group extends React.Component {
   constructor(props) {
     super(props);
 
     const { direction, ratio, children } = this.props;
-    this.state = { direction, children };
+    this.state = { children };
 
     this.resize = this.resize.bind(this);
+    this.setState = this.setState.bind(this);
     this.ref = React.createRef();
-  }
-
-  apply_resize(id, size) {
-    this.setState({
-      children: this.state.children.map((child, i) => {
-        if (id === i) return { ...child, ratio: child.ratio + size };
-        else if (id + 1 === i) return { ...child, ratio: child.ratio - size };
-        else return { ...child };
-      }),
-    });
   }
 
   resize(id) {
@@ -44,21 +79,19 @@ class Group extends React.Component {
       // WORK DIRECTLY WITH PIXEL GIVE PROBABLY MORE PRECISION
       size = ((pos - initialPos) / ratio) * 100;
 
-      let margin = 10;
+      let margin = 10; // PERCENT ??
       let child_a_ratio = this.state.children[id].ratio;
       let child_b_ratio = this.state.children[id + 1].ratio;
 
       // WORK DIRECTLY WITH PIXEL GIVE PROBABLY MORE PRECISION
       // CHECK CHILDREN IN SELECTED ARBO MIN/MAX SIZE
 
-      if (child_a_ratio + size < margin)
-        this.apply_resize(id, margin - child_a_ratio);
-      else if (child_b_ratio - size < margin)
-        this.apply_resize(id, child_b_ratio - margin);
+      if (child_a_ratio + size < margin) size = margin - child_a_ratio;
+      else if (child_b_ratio - size < margin) size = child_b_ratio - margin;
       else {
-        this.apply_resize(id, size);
         initialPos = pos;
       }
+      apply_resize(id, size, this.state, this.setState);
     };
 
     mouseMoveHandler = mouseMoveHandler.bind(this);
@@ -73,51 +106,9 @@ class Group extends React.Component {
     document.body.style["pointer-events"] = "none";
   }
 
-  print_children() {
-    const { windows } = this.props;
-    const { direction, children } = this.state;
-
-    return children.map((el, id) => {
-      let child = null;
-
-      if (el.component) {
-        child = (
-          <Window
-            key={id * 2}
-            direction={direction}
-            ratio={el.ratio}
-            component={windows[el.component]}
-          />
-        );
-      } else {
-        child = (
-          <Group
-            key={id * 2}
-            windows={windows}
-            direction={el.direction}
-            parentDirection={direction}
-            ratio={el.ratio}
-            children={el.children}
-          />
-        );
-      }
-
-      let separator = (
-        <Separator
-          key={id * 2 + 1}
-          direction={direction}
-          id={id}
-          callback={this.resize}
-        />
-      );
-
-      if (id + 1 < this.props.children.length) return [child, separator];
-      else return child;
-    });
-  }
   render() {
-    const { ratio, parentDirection } = this.props;
-    const { direction, children } = this.state;
+    const { ratio, parentDirection, direction } = this.props;
+    const { children } = this.state;
 
     return (
       <div
@@ -129,9 +120,10 @@ class Group extends React.Component {
           height: parentDirection ? ratio + "%" : "100%",
         }}
       >
-        {this.print_children()}
+        {print_children(this.props, this.state, this.resize)}
       </div>
     );
   }
 }
+
 export default Group;

@@ -219,28 +219,38 @@ function Separator(props) {
         React__default['default'].createElement("div", { onMouseDown: function () { return props.callback(props.id); } })));
 }
 
+function apply_resize(id, size, state, setState) {
+    setState({
+        children: state.children.map(function (child, i) {
+            if (id === i)
+                return __assign(__assign({}, child), { ratio: child.ratio + size });
+            else if (id + 1 === i)
+                return __assign(__assign({}, child), { ratio: child.ratio - size });
+            else
+                return __assign({}, child);
+        }),
+    });
+}
+function print_children(props, state, resize) {
+    var windows = props.windows, direction = props.direction;
+    var children = state.children;
+    return children.map(function (el, id) {
+        child = el.component ? (React__default['default'].createElement(Window, { key: id * 2, direction: direction, ratio: el.ratio, component: windows[el.component] })) : (React__default['default'].createElement(Group, { key: id * 2, windows: windows, direction: el.direction, parentDirection: direction, ratio: el.ratio, children: el.children }));
+        var separator = (React__default['default'].createElement(Separator, { key: id * 2 + 1, direction: direction, id: id, callback: resize }));
+        return id + 1 < children.length ? [child, separator] : child;
+    });
+}
 var Group = /** @class */ (function (_super) {
     __extends(Group, _super);
     function Group(props) {
         var _this = _super.call(this, props) || this;
-        var _a = _this.props, direction = _a.direction; _a.ratio; var children = _a.children;
-        _this.state = { direction: direction, children: children };
+        var _a = _this.props; _a.direction; _a.ratio; var children = _a.children;
+        _this.state = { children: children };
         _this.resize = _this.resize.bind(_this);
+        _this.setState = _this.setState.bind(_this);
         _this.ref = React__default['default'].createRef();
         return _this;
     }
-    Group.prototype.apply_resize = function (id, size) {
-        this.setState({
-            children: this.state.children.map(function (child, i) {
-                if (id === i)
-                    return __assign(__assign({}, child), { ratio: child.ratio + size });
-                else if (id + 1 === i)
-                    return __assign(__assign({}, child), { ratio: child.ratio - size });
-                else
-                    return __assign({}, child);
-            }),
-        });
-    };
     Group.prototype.resize = function (id) {
         var initialPos = this.props.direction
             ? window.event.clientY
@@ -257,19 +267,19 @@ var Group = /** @class */ (function (_super) {
             }
             // WORK DIRECTLY WITH PIXEL GIVE PROBABLY MORE PRECISION
             size = ((pos - initialPos) / ratio) * 100;
-            var margin = 10;
+            var margin = 50;
             var child_a_ratio = this.state.children[id].ratio;
             var child_b_ratio = this.state.children[id + 1].ratio;
             // WORK DIRECTLY WITH PIXEL GIVE PROBABLY MORE PRECISION
             // CHECK CHILDREN IN SELECTED ARBO MIN/MAX SIZE
             if (child_a_ratio + size < margin)
-                this.apply_resize(id, margin - child_a_ratio);
+                size = margin - child_a_ratio;
             else if (child_b_ratio - size < margin)
-                this.apply_resize(id, child_b_ratio - margin);
+                size = child_b_ratio - margin;
             else {
-                this.apply_resize(id, size);
                 initialPos = pos;
             }
+            apply_resize(id, size, this.state, this.setState);
         };
         mouseMoveHandler = mouseMoveHandler.bind(this);
         var removeMouseListener = function (e) {
@@ -281,33 +291,14 @@ var Group = /** @class */ (function (_super) {
         document.addEventListener("mouseup", removeMouseListener, true);
         document.body.style["pointer-events"] = "none";
     };
-    Group.prototype.print_children = function () {
-        var _this = this;
-        var windows = this.props.windows;
-        var _a = this.state, direction = _a.direction, children = _a.children;
-        return children.map(function (el, id) {
-            var child = null;
-            if (el.component) {
-                child = (React__default['default'].createElement(Window, { key: id * 2, direction: direction, ratio: el.ratio, component: windows[el.component] }));
-            }
-            else {
-                child = (React__default['default'].createElement(Group, { key: id * 2, windows: windows, direction: el.direction, parentDirection: direction, ratio: el.ratio, children: el.children }));
-            }
-            var separator = (React__default['default'].createElement(Separator, { key: id * 2 + 1, direction: direction, id: id, callback: _this.resize }));
-            if (id + 1 < _this.props.children.length)
-                return [child, separator];
-            else
-                return child;
-        });
-    };
     Group.prototype.render = function () {
-        var _a = this.props, ratio = _a.ratio, parentDirection = _a.parentDirection;
-        var _b = this.state, direction = _b.direction; _b.children;
+        var _a = this.props, ratio = _a.ratio, parentDirection = _a.parentDirection, direction = _a.direction;
+        this.state.children;
         return (React__default['default'].createElement("div", { ref: this.ref, className: "TWM_group", style: {
                 flexDirection: direction ? "column" : "row",
                 width: parentDirection ? "100%" : ratio + "%",
                 height: parentDirection ? ratio + "%" : "100%",
-            } }, this.print_children()));
+            } }, print_children(this.props, this.state, this.resize)));
     };
     return Group;
 }(React__default['default'].Component));
