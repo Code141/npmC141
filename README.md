@@ -2,6 +2,8 @@
 React utilities lib
 
 ### Print
+Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
+And recursively pass it as props to the assosciated component with a filter function.
 
 ```javascript
 import { Print } from "c141";
@@ -9,15 +11,15 @@ import { Print } from "c141";
 let customDrawer = [
   {
     filter: (element: any) => element.value.constructor === Array,
-    Component: PrintArray,
+    Component: PrintArray
   },
   {
     filter: (element: any) => element.value.constructor === Object,
-    Component: PrintDictionary,
+    Component: PrintDictionary
   },
   {
     filter: () => true,
-    Component: PrintOther,
+    Component: PrintOther
   },
 ];
 
@@ -31,6 +33,14 @@ let customDrawer = [
 ```
 
 ### TillingWindowManager
+The main goal of the arbo is to stay serialised (can be store in anything, cookies, store, be passed throughout HTTP sockets etc... ) 
+Userfull if you want sync multiple screens or drag and drop a custom composition from a browser to another.
+
+Take in argument:
+serialised arbo description of (possibly nested) tilled window  
+  with: direction (0: vertical, 1: horizontal), component name, and the ratio in percent. 
+
+An object wich assosciate a window to a component (like here, possibly connected)
 
 ```javascript
 import { TilingWindowManager } from "c141";
