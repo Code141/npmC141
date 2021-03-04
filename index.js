@@ -24,7 +24,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-___$insertStyle(".printer {\n  font-size: 13px;\n  font-weight: lighter;\n  background: #282828;\n  color: #7878ff;\n}\n\nbutton {\n  cursor: pointer;\n}\n\ndiv.inline {\n  display: inline-block;\n}\n\ndiv.name {\n  display: inline-block;\n}\n\ndiv.name:hover {\n  background-color: rgba(0, 0, 0, 0.1);\n}\n\ndiv.caler {\n  display: inline-block;\n}\n\n.printTab {\n  padding-left: 15px;\n  margin-left: 3px;\n  border-left: 1px solid blue;\n}\n\nspan.object {\n  color: red;\n}\n\nspan.boolean {\n  color: green;\n}\n\nspan.number {\n  color: blue;\n}\n\nspan.string {\n  color: cyan;\n}");
+___$insertStyle(".printer {\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n}\n.printer button {\n  cursor: pointer;\n}\n.printer div.inline {\n  display: inline-block;\n}\n.printer div.name {\n  display: inline-block;\n}\n.printer div.name:hover {\n  background-color: rgba(0, 0, 0, 0.1);\n}\n.printer div.caler {\n  display: inline-block;\n}\n.printer .printTab {\n  padding-left: 11px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n}\n.printer span.object {\n  color: red;\n}\n.printer span.number,\n.printer span.boolean {\n  color: #86de74;\n}\n.printer span.string {\n  color: #ff7de9;\n}\n.printer span.grey {\n  color: #939395;\n}\n.printer span.Pointing_Small_Triangle {\n  color: #939395;\n}");
 
 var defaultDrawer = [
     {
@@ -65,42 +65,51 @@ function PrintOther(props) {
     // BUT DIV HEIGT=21
     return (React__default['default'].createElement("div", null,
         React__default['default'].createElement("div", { className: "name" }, props.name),
-        ":\u00A0",
+        React__default['default'].createElement("span", { className: "grey" }, ":\u00A0"),
         React__default['default'].createElement("div", { className: "inline" }, jsx)));
 }
 function PrintDictionary(props) {
     return props.isOpen ? (React__default['default'].createElement("div", null,
         React__default['default'].createElement("div", { className: "name", onClick: function () { return props.setIsOpen(false); } },
-            React__default['default'].createElement("span", null, "\u25BE"),
+            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25BC"),
             "\u00A0",
             props.name,
-            ":"),
-        "{...}",
+            React__default['default'].createElement("span", { className: "grey" }, ":\u00A0")),
+        "{",
+        React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+        "}",
         React__default['default'].createElement("div", { className: "printTab" }, props.children))) : (React__default['default'].createElement("div", null,
         React__default['default'].createElement("div", { className: "name", onClick: function () { return props.setIsOpen(true); } },
-            React__default['default'].createElement("span", null, "\u25B8"),
+            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25B6"),
             "\u00A0",
             props.name,
-            ": Object\u00A0 { ..hahahahahahah.. }")));
+            React__default['default'].createElement("span", { className: "grey" }, ":"),
+            "\u00A0Object {",
+            React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+            "}")));
 }
 function PrintArray(props) {
     return props.isOpen ? (React__default['default'].createElement("div", null,
         React__default['default'].createElement("div", { className: "name", onClick: function () { return props.setIsOpen(false); } },
-            React__default['default'].createElement("span", null, "\u25BE"),
+            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25BC"),
             "\u00A0",
             props.name),
         "(",
         props.value.length,
-        ") [...]",
+        ") [",
+        React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+        "]",
         React__default['default'].createElement("div", { className: "printTab" }, props.children))) : (React__default['default'].createElement("div", null,
         React__default['default'].createElement("div", { className: "name", onClick: function () { return props.setIsOpen(true); } },
-            React__default['default'].createElement("span", null, "\u25B8"),
+            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25B6"),
+            "\u00A0",
             props.name,
-            ": Array(",
+            React__default['default'].createElement("span", { className: "grey" }, ":\u00A0"),
+            " Array(",
             props.value.length,
-            ")\u00A0 [.",
-            props.children,
-            ".]")));
+            ")\u00A0[",
+            React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+            "]")));
 }
 
 /*
@@ -161,6 +170,9 @@ function Loop(props) {
             return (React__default['default'].createElement(Component, { name: props.name, value: props.value, isOpen: isOpen, setIsOpen: setIsOpen }, child));
         }
     }
+    // NO FILTER FOR THIS
+    // MUST RETURN SOMETHING
+    // OR AT LEST, LOG
 }
 
 /*! *****************************************************************************
@@ -267,7 +279,7 @@ var Group = /** @class */ (function (_super) {
             }
             // WORK DIRECTLY WITH PIXEL GIVE PROBABLY MORE PRECISION
             size = ((pos - initialPos) / ratio) * 100;
-            var margin = 50;
+            var margin = 10; // PERCENT ??
             var child_a_ratio = this.state.children[id].ratio;
             var child_b_ratio = this.state.children[id + 1].ratio;
             // WORK DIRECTLY WITH PIXEL GIVE PROBABLY MORE PRECISION

@@ -38,7 +38,8 @@ function PrintOther(props: any) {
 
   return (
     <div>
-      <div className={"name"}>{props.name}</div>:&nbsp;
+      <div className={"name"}>{props.name}</div>
+      <span className={"grey"}>:&nbsp;</span>
       <div className={"inline"}>{jsx}</div>
     </div>
   );
@@ -48,17 +49,21 @@ function PrintDictionary(props: any) {
   return props.isOpen ? (
     <div>
       <div className={"name"} onClick={() => props.setIsOpen(false)}>
-        <span>&#9662;</span>
-        &nbsp;{props.name}:
+        <span className="Pointing_Small_Triangle">&#9660;</span>
+        &nbsp;{props.name}
+        <span className={"grey"}>:&nbsp;</span>
       </div>
-      &#123;...&#125;
+      &#123;<span className="grey">&#8230;</span>&#125;
       <div className={"printTab"}>{props.children}</div>
     </div>
   ) : (
     <div>
       <div className={"name"} onClick={() => props.setIsOpen(true)}>
-        <span>&#9656;</span>
-        &nbsp;{props.name}: Object&nbsp; &#123; ..hahahahahahah.. &#125;
+        <span className="Pointing_Small_Triangle">&#9654;</span>
+        &nbsp;{props.name}
+        <span className="grey">:</span>
+        &nbsp;Object &#123;
+        <span className="grey">&#8230;</span>&#125;
       </div>
     </div>
   );
@@ -68,17 +73,19 @@ function PrintArray(props: any) {
   return props.isOpen ? (
     <div>
       <div className={"name"} onClick={() => props.setIsOpen(false)}>
-        <span>&#9662;</span>
+        <span className="Pointing_Small_Triangle">&#9660;</span>
         &nbsp;{props.name}
       </div>
-      ({props.value.length}) [...]
+      ({props.value.length}) [<span className="grey">&#8230;</span>]
       <div className={"printTab"}>{props.children}</div>
     </div>
   ) : (
     <div>
       <div className={"name"} onClick={() => props.setIsOpen(true)}>
-        <span>&#9656;</span>
-        {props.name}: Array({props.value.length})&nbsp; [.{props.children}.]
+        <span className="Pointing_Small_Triangle">&#9654;</span>
+        &nbsp;{props.name}
+        <span className={"grey"}>:&nbsp;</span> Array({props.value.length}
+        )&nbsp;[<span className="grey">&#8230;</span>]
       </div>
     </div>
   );
