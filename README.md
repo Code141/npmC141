@@ -33,7 +33,7 @@ let customDrawer = [
   maxDeepness={10};
 />
 ```
-By default, if any drawer is provided, the printer will use his own standard built-in drawer, stylised as :
+If you don't provide a drawer, the printer will use his own standard built-in drawer, who print for you components stylised as :
 
 ![Alt text](/images/print.jpg?raw=true "Title")
 
