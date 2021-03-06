@@ -24,9 +24,8 @@ import { Print } from "c141";
 ### Twm
 A Tiling Window Manager with an organization of the screen into mutually non-overlapping frames.
 Give him a serialised description of what component must be desplayed where, ratio of each, and will print it in concatened in resizeable groups.
+
 Full documentation [here](src/Twm/README.md)
-
-
 ```javascript
 import { TilingWindowManager } from "c141";
 
