@@ -37,5 +37,22 @@ import { TilingWindowManager } from "c141";
 />
 ```
 
+### Cbsoo
+Coordinate-based stacking of overlapping objects (windows) that tries to fully emulate the desktop metaphor. 
+-TO CODE-
+
+### DandG
+DragAndDrop components wrapper
+-TO CODE-
+
+### Log
+Formated logger
+-TO CLEAN/PUSH-
+
+### LazyScroll
+Render chunks of list with scroll detector to only render what's necessary
+-TO CODE-
+
+
 
 
