@@ -7,7 +7,7 @@ Can enjoyly work separatly, together, or separatly, or together.
 Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
 If you don't provide a drawer, the printer will use his own standard built-in drawer.  
 
-Full documentation [here](src/Printer/README.md)
+Full documentation here [PRINT README](src/Printer/README.md)
 ```javascript
 import { Print } from "c141";
 
@@ -25,7 +25,7 @@ import { Print } from "c141";
 A Tiling Window Manager with an organization of the screen into mutually non-overlapping frames.
 Give him a serialised description of what component must be desplayed where, ratio of each, and will print it in concatened in resizeable groups.
 
-Full documentation [here](src/Twm/README.md)
+Full documentation here [TWM README](src/Twm/README.md)
 ```javascript
 import { TilingWindowManager } from "c141";
 
