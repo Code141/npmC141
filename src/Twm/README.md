@@ -45,3 +45,10 @@ let serializedArbo = {
   debug={false}
 />
 ```
+
+TODO
+  - permeit inject CSS
+  - margin on window (like i3-wm-gaps)
+  - provide shortcuts to move window (need css to visualise which window is selected)
+  - Lock resizing (then hide separator)
+  - permeit tilled drag and drop
