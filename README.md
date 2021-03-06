@@ -4,8 +4,21 @@ Smalls, fasts, do only what they must, nothing less, nothing more.
 Can enjoyly work separatly, together, or separatly, or together.  
 Feel free to Create issues if you find a bug, need something be implemented, or you'v got an idea.
 
+### Print
+Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
+If you don't provide a drawer, the printer will use his own standard built-in drawer.  
 
+Full documentation here [PRINT README](src/Printer/README.md)
+```javascript
+import { Print } from "c141";
 
+<Print
+  value={objToPrint};
+  drawer={};
+  deepness={0};
+  maxDeepness={10};
+/>
+```
 
 ### Twm
 A Tiling Window Manager with an organization of the screen into mutually non-overlapping frames.
@@ -34,21 +47,5 @@ List wrapper, render chunks of list, scroll detector to only render what's neces
 ### Log -TO CLEAN/PUSH-
 Formated logger
 
-
-### Print
-Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
-If you don't provide a drawer, the printer will use his own standard built-in drawer.  
-
-Full documentation here [PRINT README](src/Printer/README.md)
-```javascript
-import { Print } from "c141";
-
-<Print
-  value={objToPrint};
-  drawer={};
-  deepness={0};
-  maxDeepness={10};
-/>
-```
 
 
