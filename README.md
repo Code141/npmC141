@@ -46,7 +46,7 @@ $colorBlue: #75bfff;
 $colorDarkgBlue: #232327;
 $colorPink: #ff7de9;
 ```
-In the future, it will provide theme editor to apply you own theme.
+In the future, it will provide a way to listen theme input to apply you own theme.
 
 ### TillingWindowManager
 The main goal of the arbo is to stay serialised (can be store in anything, cookies, store, be passed throughout HTTP or sockets, etc... )  
