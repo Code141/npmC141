@@ -26,8 +26,8 @@ function Print(props: any) {
   let name = props.name;
   let value = props.value;
   let drawer = props.drawer ? props.drawer : DefaultDrawer;
-  let deepness = 0;
-  let maxDeepness = 40;
+  let deepness = props.deepness;
+  let maxDeepness = props.maxDeepness;
 
   return (
     <div className="printer">

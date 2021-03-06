@@ -48,17 +48,17 @@ function PrintOther(props: any) {
 function PrintDictionary(props: any) {
   return props.isOpen ? (
     <div>
-      <div className={"name"} onClick={() => props.setIsOpen(false)}>
+      <div className={"dirname"} onClick={() => props.setIsOpen(false)}>
         <span className="Pointing_Small_Triangle">&#9660;</span>
         &nbsp;{props.name}
         <span className={"grey"}>:&nbsp;</span>
+        &#123;<span className="grey">&#8230;</span>&#125;
       </div>
-      &#123;<span className="grey">&#8230;</span>&#125;
       <div className={"printTab"}>{props.children}</div>
     </div>
   ) : (
     <div>
-      <div className={"name"} onClick={() => props.setIsOpen(true)}>
+      <div className={"dirname"} onClick={() => props.setIsOpen(true)}>
         <span className="Pointing_Small_Triangle">&#9654;</span>
         &nbsp;{props.name}
         <span className="grey">:</span>
@@ -72,20 +72,22 @@ function PrintDictionary(props: any) {
 function PrintArray(props: any) {
   return props.isOpen ? (
     <div>
-      <div className={"name"} onClick={() => props.setIsOpen(false)}>
+      <div className={"dirname"} onClick={() => props.setIsOpen(false)}>
         <span className="Pointing_Small_Triangle">&#9660;</span>
         &nbsp;{props.name}
+        <span className="grey">: ({props.value.length})</span>&nbsp;[
+        <span className="grey">&#8230;</span>]
       </div>
-      ({props.value.length}) [<span className="grey">&#8230;</span>]
       <div className={"printTab"}>{props.children}</div>
     </div>
   ) : (
     <div>
-      <div className={"name"} onClick={() => props.setIsOpen(true)}>
+      <div className={"dirname"} onClick={() => props.setIsOpen(true)}>
         <span className="Pointing_Small_Triangle">&#9654;</span>
         &nbsp;{props.name}
-        <span className={"grey"}>:&nbsp;</span> Array({props.value.length}
-        )&nbsp;[<span className="grey">&#8230;</span>]
+        <span className={"grey"}>:</span>&nbsp;Array
+        <span className="grey">({props.value.length})</span>&nbsp;[
+        <span className="grey">&#8230;</span>]
       </div>
     </div>
   );

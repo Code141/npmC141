@@ -4,7 +4,7 @@ $colorBlue: #75bfff;
 $colorDarkgBlue: #232327;
 $colorPink: #ff7de9;
 
-.printer{
+.printer {
 	font-size: 11px;
 	background: $colorDarkgBlue;
 	color: $colorBlue;
@@ -23,9 +23,14 @@ $colorPink: #ff7de9;
 		display: inline-block;
 	}
 
-	div.name:hover {
-		background-color: rgba(0, 0, 0, 0.1);
+	div.dirname {
+		width: 100%;
 	}
+
+	div.dirname:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
 
 	div.caler {
 		display: inline-block;

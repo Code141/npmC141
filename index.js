@@ -24,7 +24,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-___$insertStyle(".printer {\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n}\n.printer button {\n  cursor: pointer;\n}\n.printer div.inline {\n  display: inline-block;\n}\n.printer div.name {\n  display: inline-block;\n}\n.printer div.name:hover {\n  background-color: rgba(0, 0, 0, 0.1);\n}\n.printer div.caler {\n  display: inline-block;\n}\n.printer .printTab {\n  padding-left: 11px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n}\n.printer span.object {\n  color: red;\n}\n.printer span.number,\n.printer span.boolean {\n  color: #86de74;\n}\n.printer span.string {\n  color: #ff7de9;\n}\n.printer span.grey {\n  color: #939395;\n}\n.printer span.Pointing_Small_Triangle {\n  color: #939395;\n}");
+___$insertStyle(".printer {\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n}\n.printer button {\n  cursor: pointer;\n}\n.printer div.inline {\n  display: inline-block;\n}\n.printer div.name {\n  display: inline-block;\n}\n.printer div.dirname {\n  width: 100%;\n}\n.printer div.dirname:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer div.caler {\n  display: inline-block;\n}\n.printer .printTab {\n  padding-left: 11px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n}\n.printer span.object {\n  color: red;\n}\n.printer span.number,\n.printer span.boolean {\n  color: #86de74;\n}\n.printer span.string {\n  color: #ff7de9;\n}\n.printer span.grey {\n  color: #939395;\n}\n.printer span.Pointing_Small_Triangle {\n  color: #939395;\n}");
 
 var defaultDrawer = [
     {
@@ -70,16 +70,16 @@ function PrintOther(props) {
 }
 function PrintDictionary(props) {
     return props.isOpen ? (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "name", onClick: function () { return props.setIsOpen(false); } },
+        React__default['default'].createElement("div", { className: "dirname", onClick: function () { return props.setIsOpen(false); } },
             React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25BC"),
             "\u00A0",
             props.name,
-            React__default['default'].createElement("span", { className: "grey" }, ":\u00A0")),
-        "{",
-        React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
-        "}",
+            React__default['default'].createElement("span", { className: "grey" }, ":\u00A0"),
+            "{",
+            React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+            "}"),
         React__default['default'].createElement("div", { className: "printTab" }, props.children))) : (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "name", onClick: function () { return props.setIsOpen(true); } },
+        React__default['default'].createElement("div", { className: "dirname", onClick: function () { return props.setIsOpen(true); } },
             React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25B6"),
             "\u00A0",
             props.name,
@@ -90,24 +90,29 @@ function PrintDictionary(props) {
 }
 function PrintArray(props) {
     return props.isOpen ? (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "name", onClick: function () { return props.setIsOpen(false); } },
+        React__default['default'].createElement("div", { className: "dirname", onClick: function () { return props.setIsOpen(false); } },
             React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25BC"),
             "\u00A0",
-            props.name),
-        "(",
-        props.value.length,
-        ") [",
-        React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
-        "]",
+            props.name,
+            React__default['default'].createElement("span", { className: "grey" },
+                ": (",
+                props.value.length,
+                ")"),
+            "\u00A0[",
+            React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+            "]"),
         React__default['default'].createElement("div", { className: "printTab" }, props.children))) : (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "name", onClick: function () { return props.setIsOpen(true); } },
+        React__default['default'].createElement("div", { className: "dirname", onClick: function () { return props.setIsOpen(true); } },
             React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25B6"),
             "\u00A0",
             props.name,
-            React__default['default'].createElement("span", { className: "grey" }, ":\u00A0"),
-            " Array(",
-            props.value.length,
-            ")\u00A0[",
+            React__default['default'].createElement("span", { className: "grey" }, ":"),
+            "\u00A0Array",
+            React__default['default'].createElement("span", { className: "grey" },
+                "(",
+                props.value.length,
+                ")"),
+            "\u00A0[",
             React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
             "]")));
 }
@@ -132,8 +137,8 @@ function Print(props) {
     var name = props.name;
     var value = props.value;
     var drawer = props.drawer ? props.drawer : defaultDrawer;
-    var deepness = 0;
-    var maxDeepness = 40;
+    var deepness = props.deepness;
+    var maxDeepness = props.maxDeepness;
     return (React__default['default'].createElement("div", { className: "printer" }, React__default['default'].createElement(Loop, { name: name, value: value, drawer: drawer, deepness: deepness, maxDeepness: maxDeepness })));
 }
 function Loop(props) {
