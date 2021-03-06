@@ -5,21 +5,6 @@ Can enjoyly work separatly, together, or separatly, or together.
 Feel free to Create issues if you find a bug, need something be implemented, or you'v got an idea.
 
 
-### Print
-Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
-If you don't provide a drawer, the printer will use his own standard built-in drawer.  
-
-Full documentation here [PRINT README](src/Printer/README.md)
-```javascript
-import { Print } from "c141";
-
-<Print
-  value={objToPrint};
-  drawer={};
-  deepness={0};
-  maxDeepness={10};
-/>
-```
 
 
 ### Twm
@@ -37,22 +22,33 @@ import { TilingWindowManager } from "c141";
 />
 ```
 
-### Cbsoo
+### Cbsoo -TO CODE-
 Coordinate-based stacking of overlapping objects (windows) that tries to fully emulate the desktop metaphor. 
--TO CODE-
 
-### DandG
+### DandG -TO CODE-
 DragAndDrop components wrapper
--TO CODE-
 
-### Log
+### LazyScroll -TO CODE-
+List wrapper, render chunks of list, scroll detector to only render what's necessary
+
+### Log -TO CLEAN/PUSH-
 Formated logger
--TO CLEAN/PUSH-
-
-### LazyScroll
-Render chunks of list with scroll detector to only render what's necessary
--TO CODE-
 
 
+### Print
+Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
+If you don't provide a drawer, the printer will use his own standard built-in drawer.  
+
+Full documentation here [PRINT README](src/Printer/README.md)
+```javascript
+import { Print } from "c141";
+
+<Print
+  value={objToPrint};
+  drawer={};
+  deepness={0};
+  maxDeepness={10};
+/>
+```
 
 
