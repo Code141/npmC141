@@ -49,9 +49,18 @@ Provide own dimention to parents and children. Support winBar to display informa
 ### DandG -TO CODE-
 DragAndDrop components wrapper  
 
-### LazyScroll -TO CODE-
-List wrapper, render chunks of list, scroll detector to only render what's necessary  
+### LazyList -TO CODE-
+List wrapper, render chunks of list, scroll detector to only render what's necessary
 
+```javascript
+import { LazyList } from "c141";
 
+<LazyList
+  list={new Array(1000)}
+  Offset={0}
+  length={0}
+/>
+
+```
 
 
