@@ -37,30 +37,40 @@ import { TilingWindowManager } from "c141";
 ```
 
 ### Log -TO CLEAN/PUSH-
-Formated logger
+Formated logger  
 
-### Cbsoo -TO CODE-
+
+#TODO!
+
+### Cbsoo
 Coordinate-based stacking of overlapping objects (windows) that tries to fully emulate the desktop metaphor. 
 
-### Win -TO CODE-
+### Win
 Wrap a component into a Window. Can be inserted in Cbsoo or Twm.
 Provide own dimention to parents and children. Support winBar to display information or menu, resize, close.  
 
-### DandG -TO CODE-
+### DandG
 DragAndDrop components wrapper  
+```javascript
+import { DandG } from "c141";
 
-### LazyList -TO CODE-
+<DandG
+  list={new Array(1000)}
+  Offset={0}
+  length={0}
+/>
+```
+
+### LazyList
 List wrapper, render chunks of list, scroll detector to only render what's necessary
 
 ```javascript
 import { LazyList } from "c141";
 
 <LazyList
-  list={new Array(1000)}
+  list={}
   Offset={0}
   length={0}
 />
 
 ```
-
-
