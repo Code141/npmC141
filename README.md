@@ -33,7 +33,7 @@ let customDrawer = [
   maxDeepness={10};
 />
 ```
-By default, if any drawer is provided, the printer will use his built-in standar drawers and print this components stylised as :
+By default, if any drawer is provided, the printer will use his own standard built-in drawer, stylised as :
 ![Alt text](/images/print.jpg?raw=true "Title")
 
 ### TillingWindowManager
