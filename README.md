@@ -1,7 +1,9 @@
 # npmC141
 C141's Personal React components utilities.  
 Smalls, fasts, do only what they must, nothing less, nothing more.  
-Can enjoyly work separatly, together, or separatly, or together.
+Can enjoyly work separatly, together, or separatly, or together.  
+Feel free to Create issues if you find a bug, need something be implemented, or you'v got an idea.
+
 
 ### Print
 Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
@@ -12,7 +14,6 @@ Full documentation here [PRINT README](src/Printer/README.md)
 import { Print } from "c141";
 
 <Print
-  name={"My print"};
   value={objToPrint};
   drawer={};
   deepness={0};
