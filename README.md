@@ -74,7 +74,7 @@ import { LazyList } from "c141";
 />
 
 ```
+# IDEAS ! ------------------------------------------------------
 
-### IDEA
 When keypress <LEADER> for 2sec without any other key event, shadow screen and display general basic cheatsheet.
 Each keybinded element must provide his own cheatsheet to the global man. On mouseover an element, make it bright and display only his related keyEvents on the cheatsheet.
