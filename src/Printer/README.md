@@ -25,7 +25,6 @@ let customDrawer = [
   name={"My print"};
   value={};
   drawer={customDrawer};
-  deepness={0};
   maxDeepness={10};
 />
 ```
