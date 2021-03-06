@@ -34,7 +34,19 @@ let customDrawer = [
 />
 ```
 By default, if any drawer is provided, the printer will use his own standard built-in drawer, stylised as :
+
 ![Alt text](/images/print.jpg?raw=true "Title")
+
+With this color palette
+ 
+```javascript
+$colorGrey: #939395;
+$colorGreen: #86de74;
+$colorBlue: #75bfff;
+$colorDarkgBlue: #232327;
+$colorPink: #ff7de9;
+```
+In the future, it will provide theme editor to apply you own theme.
 
 ### TillingWindowManager
 The main goal of the arbo is to stay serialised (can be store in anything, cookies, store, be passed throughout HTTP or sockets, etc... )  
