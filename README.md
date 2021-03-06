@@ -20,6 +20,7 @@ import { Print } from "c141";
 />
 ```
 
+
 ### Twm
 A Tiling Window Manager with an organization of the screen into mutually non-overlapping frames.  
 Give him a serialised description of what component must be desplayed where, ratio of each, vertical or horizontal split, and will print it in concatened in resizeable groups.
@@ -38,11 +39,15 @@ import { TilingWindowManager } from "c141";
 ### Cbsoo -TO CODE-
 Coordinate-based stacking of overlapping objects (windows) that tries to fully emulate the desktop metaphor. 
 
+### Win -TO CODE-
+Wrap a component into a Window. Can be inserted in Cbsoo or Twm.
+Provide own dimention to parents and children. Support winBar to display information or menu, resize, close.  
+
 ### DandG -TO CODE-
-DragAndDrop components wrapper
+DragAndDrop components wrapper  
 
 ### LazyScroll -TO CODE-
-List wrapper, render chunks of list, scroll detector to only render what's necessary
+List wrapper, render chunks of list, scroll detector to only render what's necessary  
 
 ### Log -TO CLEAN/PUSH-
 Formated logger
