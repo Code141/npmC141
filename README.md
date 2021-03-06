@@ -33,7 +33,8 @@ let customDrawer = [
   maxDeepness={10};
 />
 ```
-If you don't provide a drawer, the printer will use his own standard built-in drawer, who print for you components stylised as :
+If you don't provide a drawer, the printer will use his own standard built-in drawer.
+Here an example of standard built-in drawer render :
 
 ![Alt text](/images/print.jpg?raw=true "Title")
 
@@ -46,7 +47,11 @@ $colorBlue: #75bfff;
 $colorDarkgBlue: #232327;
 $colorPink: #ff7de9;
 ```
-In the future, it will provide you a way to override color palette with your own theme.
+TODO:
+- In the future, it will provide you a way to override color palette with your own theme.  
+- Add to standar drawer more renderers componants to handle objects types like arrayBuffer, hexDump with 'addOffset|Hex|acii' etc.  
+- I will add loop detector in case of circular referance, you could choose to display a component that avert that it won't print current object because he has been already draw and set an onClick option to jump to it.
+- Implement a preview of child into the {} [], when the current object is folded, just as the real Mozilla devtool printer.
 
 ### TillingWindowManager
 The main goal of the arbo is to stay serialised (can be store in anything, cookies, store, be passed throughout HTTP or sockets, etc... )  
