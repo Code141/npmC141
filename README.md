@@ -40,7 +40,7 @@ import { TilingWindowManager } from "c141";
 Formated logger  
 
 
-#TODO!
+# TODO ! ------------------------------------------------------
 
 ### Cbsoo
 Coordinate-based stacking of overlapping objects (windows) that tries to fully emulate the desktop metaphor. 
@@ -74,3 +74,7 @@ import { LazyList } from "c141";
 />
 
 ```
+
+### IDEA
+When keypress <LEADER> for 2sec without any other key event, shadow screen and display general basic cheatsheet.
+Each keybinded element must provide his own cheatsheet to the global man. On mouseover an element, make it bright and display only his related keyEvents on the cheatsheet.
