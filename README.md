@@ -42,8 +42,8 @@ Formated logger
 
 # TODO ! ------------------------------------------------------
 
-### Cbsoo
-Coordinate-based stacking of overlapping objects (windows) that tries to fully emulate the desktop metaphor. 
+### Cwm
+Coordinate-based stacking of overlapping windows manager.
 
 ### Win
 Wrap a component into a Window. Can be inserted in Cbsoo or Twm.
