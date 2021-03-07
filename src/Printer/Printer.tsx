@@ -2,15 +2,6 @@ import React from "react";
 import { defaultDrawer } from "./DefaultDrawer";
 import "./style.scss";
 
-/*
-	undefined : typeof instance === "undefined"
-	Boolean : typeof instance === "boolean"
-	Number : typeof instance === "number"
-	String : typeof instance === "string"
-	BigInt : typeof instance === "bigint"
-	Symbol : typeof instance === "symbol"
-	*/
-
 // create usual filters like
 // shadow (don't draw the element himself but draw children)
 // don't draw
@@ -41,6 +32,8 @@ function selectDrawer(props: any) {
   for (let i = 0, l = props.drawer.length; i < l; i++) {
     let { filter, Component } = props.drawer[i];
     if (filter(props)) {
+      // SUBDRAWER
+
       return Component(props, (maxChild: any, drawerOverride: any) =>
         loop(props, maxChild, drawerOverride)
       );

@@ -11,6 +11,39 @@ import {
   PrintArray,
 } from "./Components";
 import "./style.scss";
+/*
+
+
+    Data Types
+        undefined
+        Boolean
+        Number
+        String
+        BigInt
+        Symbol
+
+    Structural Types:
+        Object
+						 new Object
+						 new Array
+						 new Map
+						 new Set
+						 new WeakMap
+						 new WeakSet
+						 new Date
+						 and almost everything made with new keywor
+        Function
+						a non-data structure, though it also answers for
+						typeof operator: typeof instance === "function".
+						This is merely a special shorthand for Functions,
+						though every Function constructor is derived from
+						Object constructor.
+
+    Structural Root Primitive:
+        null WARNING typeof instance === "object".
+					Special primitive type having additional usage for its value: if object is not inherited, then null is shown;
+
+ */
 
 let defaultDrawer = [
   {
