@@ -1,16 +1,15 @@
-$colorGrey: #939395;
-$colorGreen: #86de74;
-$colorBlue: #75bfff;
-$colorDarkgBlue: #232327;
-$colorPink: #ff7de9;
+@import "../scss/colors.scss";
 
 .printer {
-	font-size: 11px;
-	background: $colorDarkgBlue;
-	color: $colorBlue;
+
 	font-family: "Ubuntu Mono", monospace ;
 	text-rendering: optimizespeed;
 	line-height: 14px;
+	font-size: 11px;
+
+	background: $backgroundColor;
+	color: $blue; // MAIN COLOR TEXT
+
 	button {
 		cursor: pointer;
 	}
@@ -28,7 +27,7 @@ $colorPink: #ff7de9;
 	}
 
 	div.dirname:hover {
-		background-color: rgba(0, 0, 0, 0.2);
+		background-color: $dirHoverColor;
 	}
 
 
@@ -39,7 +38,7 @@ $colorPink: #ff7de9;
 	.printTab {
 		padding-left: 11px;
 		margin-left: 3px;
-		border-left: 1px solid $colorBlue;
+		border-left: 1px solid $tabLineColor;
 	}
 
 	span.object {
@@ -47,20 +46,30 @@ $colorPink: #ff7de9;
 	}
 
 
-	span.number,
+
+
+
+	span.number{
+		color: $numberColor;
+	}
 	span.boolean {
-		color: $colorGreen;
+		color: $booleanColor;
 	}
 
 	span.string {
-		color: $colorPink;
+		color: $stringColor;
 	}
 
+
+
+
+
+
 	span.grey {
-		color: $colorGrey;
+		color: $grey;
 	}
 
 	span.Pointing_Small_Triangle{
-		color: $colorGrey;
+		color: $grey;
 	}
 }

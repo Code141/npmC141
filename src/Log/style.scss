@@ -1,0 +1,118 @@
+@import "../scss/colors.scss";
+
+.log {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	background-color: $backgroundColor;
+
+	font-family: "Ubuntu Mono", monospace ;
+	text-rendering: optimizespeed;
+	line-height: 14px;
+	font-size: 11px;
+
+	.sep {
+		display: inline;
+		margin: 0px 3px;
+		border-left: 1px solid rgba(63, 63, 63, 0.9);
+	}
+
+	.header {
+		height: 30px;
+		background-color: rgba(31, 31, 31, 1);
+		border-bottom: 1px solid rgba(63, 63, 63, 1);
+
+		button {
+			border: none;
+			font-size: 12px;
+			font-weight: lighter;
+			background-color: rgba(255, 255, 255, 0.2);
+			color: rgba(255, 255, 255, 1);
+			border-radius: 3px;
+			padding: 0px 6px;
+			margin: 5px 2px;
+		}
+
+		button:hover {
+			cursor: pointer;
+			background-color: rgba(255, 255, 255, 0.3);
+		}
+
+		button.off {
+			background-color: rgba(255, 255, 255, 0);
+			border: 1px dashed rgba(255, 255, 255, 0.1);
+			color: rgba(255, 255, 255, 1);
+		}
+
+		button.off:hover {
+			background-color: rgba(255, 255, 255, 0.05);
+			border: 1px dashed rgba(255, 255, 255, 0);
+		}
+
+		.channels_list {
+			margin: 0px 10px;
+			float: left;
+		}
+
+		.types_list {
+			margin: 0px 10px;
+			float: right;
+		}
+	}
+
+	.logList {
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		overflow-y: auto;
+
+		p {
+			padding: 3px; // firefox OK
+		}
+
+		p + p {
+			border-top: 1px solid rgba(255, 255, 255, 0.08);
+		}
+
+		// TODO Finish elipsis
+		.msg{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.time {
+			color: rgba(255, 255, 255, 0.8);
+			margin: 0px 0px;
+		}
+
+		.statusCode {
+			background-color: rgba(255, 255, 255, 0.05);
+			padding: 0px 5px;
+			border-radius: 3px;
+			margin: 0px 0px;
+			float: right;
+		}
+
+		.debug {
+			color: $grey;
+		}
+
+		.info {
+			color: rgb(64, 64, 255);
+		}
+
+		.warn {
+			color: $yellowText;
+			background-color: $yellow;
+		}
+
+		.error {
+			color: $redText;
+			background-color: $red;
+		}
+	}
+
+}

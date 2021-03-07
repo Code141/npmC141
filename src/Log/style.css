@@ -1,0 +1,110 @@
+.log {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.log #logList {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sub_header .optionButton,
+.sub_header .closeButton {
+  width: 28px;
+  height: 28px;
+}
+
+.log div.sub_header {
+  height: 30px;
+  background-color: rgba(31, 31, 31, 1);
+  border-bottom: 1px solid rgba(63, 63, 63, 1);
+}
+
+div.sub_header button {
+  border: none;
+  font-size: 12px;
+  font-weight: lighter;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 1);
+  border-radius: 3px;
+  padding: 0px 6px;
+  margin: 5px 2px;
+}
+
+div.sub_header button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+div.sub_header button.off {
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 1);
+}
+
+div.sub_header button.off:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0);
+}
+
+div.sub_header .channels_list {
+  margin: 0px 10px;
+  float: left;
+}
+
+div.sub_header .types_list {
+  margin: 0px 10px;
+  float: right;
+}
+
+.sep {
+  display: inline;
+  margin: 0px 3px;
+  border-left: 1px solid rgba(63, 63, 63, 0.9);
+}
+
+.log p {
+  padding: 5px;
+}
+
+.log p + p {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.log .time {
+  color: rgb(255, 255, 255, 0.8);
+  margin: 0px 0px;
+}
+
+.log .statusCode {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0px 5px;
+  border-radius: 5px;
+  margin: 0px 0px;
+  float: right;
+}
+
+.log .info {
+  color: rgb(64, 64, 255);
+  background-color: rgba(64, 64, 255, 0.1);
+}
+
+.log .debug {
+  color: rgb(125, 125, 125);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+
+.log .warn {
+  color: rgb(255, 125, 64);
+  background-color: rgba(255, 125, 64, 0.1);
+}
+
+.log .error {
+  color: rgb(255, 64, 64);
+  background-color: rgba(255, 64, 64, 0.1);
+}

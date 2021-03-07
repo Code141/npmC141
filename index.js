@@ -24,7 +24,9 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-___$insertStyle(".printer {\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n}\n.printer button {\n  cursor: pointer;\n}\n.printer div.inline {\n  display: inline-block;\n}\n.printer div.name {\n  display: inline-block;\n}\n.printer div.dirname {\n  width: 100%;\n}\n.printer div.dirname:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer div.caler {\n  display: inline-block;\n}\n.printer .printTab {\n  padding-left: 11px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n}\n.printer span.object {\n  color: red;\n}\n.printer span.number,\n.printer span.boolean {\n  color: #86de74;\n}\n.printer span.string {\n  color: #ff7de9;\n}\n.printer span.grey {\n  color: #939395;\n}\n.printer span.Pointing_Small_Triangle {\n  color: #939395;\n}");
+___$insertStyle("/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}");
+
+___$insertStyle("/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n}\n.printer button {\n  cursor: pointer;\n}\n.printer div.inline {\n  display: inline-block;\n}\n.printer div.name {\n  display: inline-block;\n}\n.printer div.dirname {\n  width: 100%;\n}\n.printer div.dirname:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer div.caler {\n  display: inline-block;\n}\n.printer .printTab {\n  padding-left: 11px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n}\n.printer span.object {\n  color: red;\n}\n.printer span.number {\n  color: #86de74;\n}\n.printer span.boolean {\n  color: #86de74;\n}\n.printer span.string {\n  color: #ff7de9;\n}\n.printer span.grey {\n  color: #939395;\n}\n.printer span.Pointing_Small_Triangle {\n  color: #939395;\n}");
 
 var defaultDrawer = [
     {
@@ -180,6 +182,69 @@ function Loop(props) {
     // OR AT LEST, LOG
 }
 
+___$insertStyle("/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.log {\n  box-sizing: border-box;\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  height: 100%;\n  background-color: #232327;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n}\n.log .sep {\n  display: inline;\n  margin: 0px 3px;\n  border-left: 1px solid rgba(63, 63, 63, 0.9);\n}\n.log .header {\n  height: 30px;\n  background-color: #1f1f1f;\n  border-bottom: 1px solid #3f3f3f;\n}\n.log .header button {\n  border: none;\n  font-size: 12px;\n  font-weight: lighter;\n  background-color: rgba(255, 255, 255, 0.2);\n  color: white;\n  border-radius: 3px;\n  padding: 0px 6px;\n  margin: 5px 2px;\n}\n.log .header button:hover {\n  cursor: pointer;\n  background-color: rgba(255, 255, 255, 0.3);\n}\n.log .header button.off {\n  background-color: rgba(255, 255, 255, 0);\n  border: 1px dashed rgba(255, 255, 255, 0.1);\n  color: white;\n}\n.log .header button.off:hover {\n  background-color: rgba(255, 255, 255, 0.05);\n  border: 1px dashed rgba(255, 255, 255, 0);\n}\n.log .header .channels_list {\n  margin: 0px 10px;\n  float: left;\n}\n.log .header .types_list {\n  margin: 0px 10px;\n  float: right;\n}\n.log .logList {\n  box-sizing: border-box;\n  width: 100%;\n  height: 100%;\n  overflow-y: auto;\n}\n.log .logList p {\n  padding: 3px;\n}\n.log .logList p + p {\n  border-top: 1px solid rgba(255, 255, 255, 0.08);\n}\n.log .logList .msg {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.log .logList .time {\n  color: rgba(255, 255, 255, 0.8);\n  margin: 0px 0px;\n}\n.log .logList .statusCode {\n  background-color: rgba(255, 255, 255, 0.05);\n  padding: 0px 5px;\n  border-radius: 3px;\n  margin: 0px 0px;\n  float: right;\n}\n.log .logList .debug {\n  color: #939395;\n}\n.log .logList .info {\n  color: #4040ff;\n}\n.log .logList .warn {\n  color: #fce2a1;\n  background-color: #42381f;\n}\n.log .logList .error {\n  color: #ffb3d2;\n  background-color: #4b2f36;\n}");
+
+// @ts-nocheck
+function Log(props) {
+    var hms = props.hms, ms = props.ms, type = props.type, channel = props.channel, msg = props.msg, statusCode = props.statusCode;
+    return (React__default['default'].createElement("p", { className: type },
+        React__default['default'].createElement("span", { className: "time" },
+            hms,
+            ".",
+            ms,
+            React__default['default'].createElement("strong", null,
+                " [",
+                channel,
+                "] ")),
+        React__default['default'].createElement("span", { className: "msg" }, msg),
+        React__default['default'].createElement("span", { className: "statusCode" }, statusCode)));
+}
+function render_header(list, cb) {
+    return list.map(function (el, id) { return (React__default['default'].createElement("button", { key: id, className: el.display ? "" : "off", onClick: function () { return cb(el); } },
+        el.name,
+        " ",
+        el.display ? "" : "(" + el.nb + ")")); });
+}
+function render_channels(channels, types) {
+    var cb1 = function (e) {
+        console.log("CLICK CHANNELS ", e);
+    };
+    var cb2 = function (e) {
+        console.log("CLICK TYPES ", e);
+    };
+    var channels = (React__default['default'].createElement("div", { className: "channels_list" },
+        "Channels",
+        React__default['default'].createElement("div", { className: "sep" }),
+        React__default['default'].createElement("button", null, "All"),
+        React__default['default'].createElement("button", null, "\u2620\u2622 \uD83D\uDDD1"),
+        React__default['default'].createElement("div", { className: "sep" }),
+        render_header(channels, cb1)));
+    var types = (React__default['default'].createElement("div", { className: "types_list" },
+        render_header(types, cb2),
+        React__default['default'].createElement("div", { className: "sep" }),
+        React__default['default'].createElement("button", { className: "channel" }, "All"),
+        "Types"));
+    return [channels, types];
+}
+function render_list(logs) {
+    var date = new Date();
+    return logs.map(function (log, id) {
+        // WARNING  // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+        // CONVERSION OF TIME IN RENDER KILL PERFORMANCE (take 40/50ms|20/40ms without)
+        date.setTime(log.timestamp);
+        var hms = date.toLocaleTimeString("fr-FR");
+        var ms = date.getUTCMilliseconds().toString().padStart(3, "0");
+        // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+        // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+        return (React__default['default'].createElement(Log, { key: id, hms: hms, ms: ms, type: log.type, channel: log.channel, msg: log.msg, statusCode: log.statusCode }));
+    });
+}
+function Logger(props) {
+    return (React__default['default'].createElement("div", { className: "log", style: { width: props.width } },
+        React__default['default'].createElement("div", { className: "header" }, render_channels(props.channels, props.types)),
+        React__default['default'].createElement("div", { className: "logList" }, render_list(props.logs))));
+}
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -331,7 +396,7 @@ function TilingWindowManager(props) {
         React__default['default'].createElement(Group, { windows: windows, direction: direction, ratio: ratio, children: children })));
 }
 
-exports.DefaultDrawer = defaultDrawer;
+exports.Log = Logger;
 exports.Print = Print;
 exports.TilingWindowManager = TilingWindowManager;
 //# sourceMappingURL=index.js.map

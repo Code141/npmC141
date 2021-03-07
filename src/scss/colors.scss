@@ -1,0 +1,32 @@
+$grey: #939395;
+$green: #86de74;
+$blue: #75bfff;
+$darkBlue: #232327;
+$pink: #ff7de9;
+
+$red: #4b2f36;
+$redText: #ffb3d2;
+$yellow: #42381f;
+$yellowText: #fce2a1;
+
+// PRINTER AND LOGGER
+$backgroundColor: $darkBlue;
+
+// PRINTER
+$tabLineColor: $blue;
+$dirHoverColor: rgba(0, 0, 0, 0.2);
+// type
+$numberColor: $green;
+$booleanColor: $green;
+
+$stringColor: $pink;
+
+
+$scrollBg: #38383d;
+$scrollBar: #737373;
+
+/* Thin Scrollbar */
+:root {
+  scrollbar-color: $scrollBar $scrollBg !important;
+  scrollbar-width: thin !important;
+}
