@@ -68,7 +68,107 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-___$insertStyle("/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n}\n.printer button {\n  cursor: pointer;\n}\n.printer div.inline {\n  display: inline-block;\n}\n.printer div.name {\n  display: inline-block;\n}\n.printer div.dirname {\n  width: 100%;\n}\n.printer div.dirname:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer div.caler {\n  display: inline-block;\n}\n.printer .printTab {\n  padding-left: 11px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n}\n.printer span.object {\n  color: red;\n}\n.printer span.number {\n  color: #86de74;\n}\n.printer span.boolean {\n  color: #86de74;\n}\n.printer span.string {\n  color: #ff7de9;\n}\n.printer span.grey {\n  color: #939395;\n}\n.printer span.Pointing_Small_Triangle {\n  color: #939395;\n}");
+___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  padding: 5px;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  /* HOVER SELECT FEATURE\n  \t.fold:hover {\n  \t\t.foldHeadLine{\n  \t\t\tcolor: white;\n  \t\t}\n  \t\tbackground-color: rgba(0, 0, 0, 0.2);\n  \t\tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \t\tmargin: -1px;\n  \t}\n  \t*/\n  text-overflow: ellipsis;\n}\n.printer .gluedPreview > :nth-of-type(n + 2)::before {\n  color: #FFFFFF;\n  content: \", \";\n}\n.printer .gluedPreview > :before, .printer .gluedPreview:last-child:after {\n  content: \" \";\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}\n.printer div.name {\n  display: inline-block;\n}\n.printer div.foldHeadLine {\n  width: 100%;\n}\n.printer div.foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .printTab {\n  padding-left: 11px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n}\n.printer span.object {\n  color: red;\n}\n.printer span.name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer span.number {\n  color: #86de74;\n}\n.printer span.boolean {\n  color: #86de74;\n}\n.printer span.string {\n  color: #ff7de9;\n}\n.printer span.string::after, .printer span.string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer span.grey {\n  color: #939395;\n}\n.printer span.Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n}");
+
+/*EXPORT TO ANOTHER PLACE THE FOLDER*/
+function Fold(props) {
+    var _a = React.useState(props.deepness < props.maxDeepness), isOpen = _a[0], setIsOpen = _a[1];
+    return isOpen ? (React__default['default'].createElement("div", { className: "fold" },
+        React__default['default'].createElement("div", { className: "foldHeadLine", onClick: function () { return setIsOpen(false); } },
+            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25BC"),
+            props.open()),
+        React__default['default'].createElement("div", { className: "printTab" }, props.loop()))) : (React__default['default'].createElement("div", { className: "fold" },
+        React__default['default'].createElement("div", { className: "foldHeadLine", onClick: function () { return setIsOpen(true); } },
+            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25B6"),
+            props.close())));
+}
+var name = function (name) { return React__default['default'].createElement("span", { className: "name" }, name); };
+function PrintStringType(props) {
+    return (React__default['default'].createElement("div", null,
+        React__default['default'].createElement("span", { className: "string" }, props.value)));
+}
+function PrintNamedStringType(props) {
+    return (React__default['default'].createElement("div", null,
+        name(props.name),
+        React__default['default'].createElement("span", { className: "string" }, props.value)));
+}
+function PrintNumberType(props) {
+    return (React__default['default'].createElement("div", null,
+        React__default['default'].createElement("span", { className: "Number" }, props.value)));
+}
+function PrintNamedNumberType(props) {
+    return (React__default['default'].createElement("div", null,
+        name(props.name),
+        React__default['default'].createElement("span", { className: "Number" }, props.value)));
+}
+function PrintBooleanType(props) {
+    return (React__default['default'].createElement("div", null,
+        React__default['default'].createElement("span", { className: "Boolean" }, props.value ? "true" : "false")));
+}
+function PrintNamedBooleanType(props) {
+    return (React__default['default'].createElement("div", null,
+        name(props.name),
+        React__default['default'].createElement("span", { className: "Boolean" }, props.value ? "true" : "false")));
+}
+function PrintOther(props) {
+    var type = typeof props.value;
+    var jsx;
+    if (type === "string") {
+        jsx = React__default['default'].createElement("span", { className: "string" }, props.value);
+    }
+    else if (type === "number") {
+        jsx = React__default['default'].createElement("span", { className: "number" }, props.value);
+    }
+    else if (type === "boolean") {
+        jsx = React__default['default'].createElement("span", { className: "boolean" }, props.value ? "true" : "false");
+    }
+    else {
+        jsx = React__default['default'].createElement("span", { className: "UNSUPPORTED" },
+            "UNSUPORTED ",
+            type);
+    }
+    return (React__default['default'].createElement("div", null,
+        name(props.name),
+        React__default['default'].createElement("div", { className: "inline" }, jsx)));
+}
+function PrintDictionary(props) {
+    var open = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
+        name(props.name),
+        "{",
+        React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+        "}")); };
+    //find way to inject MAXDEPTH = 0 HERE
+    var close = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
+        name(props.name),
+        "Object {",
+        React__default['default'].createElement("span", { className: "inline gluedPreview" }, props.loop(3, previewObject)),
+        "}")); };
+    return React__default['default'].createElement(Fold, __assign({}, props, { open: open, close: close }));
+}
+function PrintArray(props) {
+    var open = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
+        name(props.name),
+        React__default['default'].createElement("span", { className: "grey" },
+            "(",
+            props.value.length,
+            ")"),
+        "\u00A0[",
+        React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+        "]")); };
+    var close = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
+        name(props.name),
+        "Array",
+        React__default['default'].createElement("span", { className: "grey" },
+            "(",
+            props.value.length,
+            ")"),
+        "\u00A0[",
+        React__default['default'].createElement("span", { className: "inline gluedPreview" },
+            props.loop(10, previewArray),
+            props.value.length > 10 ? (React__default['default'].createElement("span", { className: "grey" }, "\u2026")) : null),
+        "]")); };
+    return React__default['default'].createElement(Fold, __assign({}, props, { open: open, close: close }));
+}
 
 var defaultDrawer = [
     {
@@ -84,87 +184,50 @@ var defaultDrawer = [
         Component: function (props, loop) { return React__default['default'].createElement(PrintOther, __assign({}, props, { loop: loop })); },
     },
 ];
-function PrintOther(props) {
-    var type = typeof props.value;
-    var jsx;
-    if (type === "string") {
-        jsx = React__default['default'].createElement("span", { className: "string" },
-            "\"",
-            props.value,
-            "\"");
-    }
-    else if (type === "number") {
-        jsx = React__default['default'].createElement("span", { className: "number" }, props.value);
-    }
-    else if (type === "boolean") {
-        jsx = React__default['default'].createElement("span", { className: "boolean" }, props.value ? "true" : "false");
-    }
-    else {
-        jsx = React__default['default'].createElement("span", { className: "UNSUPPORTED" }, "UNSUPORTED");
-        console.error("UNSUPPORTED");
-        console.error(props.value);
-    }
-    // PADD RIGHT TO COMPENS ARROW OF OTHER PROPS
-    // AND SPAN HEIGT= 17
-    // BUT DIV HEIGT=21
-    return (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "name" },
-            "\u00A0\u00A0",
-            props.name),
-        React__default['default'].createElement("span", { className: "grey" }, ":\u00A0"),
-        React__default['default'].createElement("div", { className: "inline" }, jsx)));
-}
-function PrintDictionary(props) {
-    var _a = React.useState(props.deepness < props.maxDeepness), isOpen = _a[0], setIsOpen = _a[1];
-    console.log(props);
-    return isOpen ? (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "dirname", onClick: function () { return setIsOpen(false); } },
-            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25BC"),
-            "\u00A0",
-            props.name,
-            React__default['default'].createElement("span", { className: "grey" }, ":\u00A0"),
+var previewArray = [
+    {
+        filter: function (element) { return typeof element.value === "string"; },
+        Component: function (props) { return React__default['default'].createElement(PrintStringType, { value: props.value }); },
+    },
+    {
+        filter: function (element) { return typeof element.value === "number"; },
+        Component: function (props) { return React__default['default'].createElement(PrintNumberType, { value: props.value }); },
+    },
+    {
+        filter: function (element) { return typeof element.value === "boolean"; },
+        Component: function (props) { return React__default['default'].createElement(PrintBooleanType, { value: props.value }); },
+    },
+    {
+        filter: function (element) { return typeof element.value === "object"; },
+        Component: function () { return (React__default['default'].createElement("div", null,
             "{",
             React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
-            "}"),
-        React__default['default'].createElement("div", { className: "printTab" }, props.loop(props)))) : (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "dirname", onClick: function () { return setIsOpen(true); } },
-            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25B6"),
-            "\u00A0",
-            props.name,
-            React__default['default'].createElement("span", { className: "grey" }, ":"),
-            "\u00A0Object {",
-            React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
-            "}")));
-}
-function PrintArray(props) {
-    var _a = React.useState(props.deepness < props.maxDeepness), isOpen = _a[0], setIsOpen = _a[1];
-    return isOpen ? (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "dirname", onClick: function () { return setIsOpen(false); } },
-            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25BC"),
-            "\u00A0",
-            props.name,
-            React__default['default'].createElement("span", { className: "grey" },
-                ": (",
-                props.value.length,
-                ")"),
-            "\u00A0[",
-            React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
-            "]"),
-        React__default['default'].createElement("div", { className: "printTab" }, props.loop(props)))) : (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "dirname", onClick: function () { return setIsOpen(true); } },
-            React__default['default'].createElement("span", { className: "Pointing_Small_Triangle" }, "\u25B6"),
-            "\u00A0",
-            props.name,
-            React__default['default'].createElement("span", { className: "grey" }, ":"),
-            "\u00A0Array",
-            React__default['default'].createElement("span", { className: "grey" },
-                "(",
-                props.value.length,
-                ")"),
-            "\u00A0[",
-            React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
-            "]")));
-}
+            "}")); },
+    },
+];
+var previewObject = [
+    {
+        filter: function (element) { return typeof element.value === "string"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedStringType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof element.value === "number"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedNumberType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof element.value === "boolean"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedBooleanType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof element.value === "object"; },
+        Component: function (props) { return (React__default['default'].createElement("div", null,
+            React__default['default'].createElement("span", { className: "name" }, props.name),
+            React__default['default'].createElement("span", null,
+                "{",
+                React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
+                "}"))); },
+    },
+];
 
 /*
     undefined : typeof instance === "undefined"
@@ -191,45 +254,57 @@ function Print(props) {
     var maxDeepness = props.maxDeepness ? props.maxDeepness : 0;
     return (React__default['default'].createElement("div", { className: "printer" }, selectDrawer({ name: name, value: value, drawer: drawer, deepness: deepness, maxDeepness: maxDeepness })));
 }
+// at the end, rename in PRINT and set default value inside
 function selectDrawer(props) {
     for (var i = 0, l = props.drawer.length; i < l; i++) {
-        var e = props.drawer[i];
-        if (e.filter(props)) {
-            return e.Component(props, loop);
+        var _a = props.drawer[i], filter = _a.filter, Component = _a.Component;
+        if (filter(props)) {
+            return Component(props, function (maxChild, drawerOverride) {
+                return loop(props, maxChild, drawerOverride);
+            });
         }
     }
-    // NO DRAWER FINDED. DRAW DRAWER NOT SUPPORTER OR DRAW DEFAULT DRAWER ?
+    // NO DRAWER FINDED. IF DEBUG ON
+    // TRY WITH DEFAULT DRAWER WRAPPED IN RED DIV ALERT
 }
-function loop(props) {
+function loop(props, maxChild, drawerOverride) {
+    var maxDeepness = props.maxDeepness;
+    var drawer = drawerOverride ? drawerOverride : props.drawer;
     var child = null;
-    // transformer Loop en FONCTION NON REACT
-    // could return info from child
-    // could return total nblines
     var l;
     if (props.value.constructor === Array) {
         l = props.value.length;
+        if (maxChild) {
+            l = maxChild < l ? maxChild : l;
+            maxDeepness = 0;
+        }
         child = new Array(l);
         for (var i = 0; i < l; i++) {
             child[i] = selectDrawer({
                 name: i,
                 value: props.value[i],
-                drawer: props.drawer,
+                drawer: drawer,
                 deepness: props.deepness + 1,
-                maxDeepness: props.maxDeepness,
+                maxDeepness: maxDeepness,
             });
         }
     }
     else if (props.value.constructor === Object) {
         var entries = Object.entries(props.value);
         l = entries.length;
+        if (maxChild) {
+            l = maxChild < l ? maxChild : l;
+            maxDeepness = 0;
+        }
         child = new Array(l);
+        l = maxChild ? (maxChild < l ? maxChild : l) : l;
         for (var i = 0; i < l; i++) {
             child[i] = selectDrawer({
                 name: entries[i][0],
                 value: entries[i][1],
-                drawer: props.drawer,
+                drawer: drawer,
                 deepness: props.deepness + 1,
-                maxDeepness: props.maxDeepness,
+                maxDeepness: maxDeepness,
             });
         }
     }

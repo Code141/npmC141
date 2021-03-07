@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultDrawer from "./DefaultDrawer";
+import { defaultDrawer } from "./DefaultDrawer";
 import "./style.scss";
 
 /*
@@ -27,7 +27,7 @@ function Print(props: any) {
 
   let name = props.name;
   let value = props.value;
-  let drawer = props.drawer ? props.drawer : DefaultDrawer;
+  let drawer = props.drawer ? props.drawer : defaultDrawer;
   let deepness = 0; // accumulatore
   let maxDeepness = props.maxDeepness ? props.maxDeepness : 0;
   return (
@@ -36,49 +36,60 @@ function Print(props: any) {
     </div>
   );
 }
-
+// at the end, rename in PRINT and set default value inside
 function selectDrawer(props: any) {
   for (let i = 0, l = props.drawer.length; i < l; i++) {
-    let e = props.drawer[i];
-    if (e.filter(props)) {
-      return e.Component(props, loop);
+    let { filter, Component } = props.drawer[i];
+    if (filter(props)) {
+      return Component(props, (maxChild: any, drawerOverride: any) =>
+        loop(props, maxChild, drawerOverride)
+      );
     }
   }
-  // NO DRAWER FINDED. DRAW DRAWER NOT SUPPORTER OR DRAW DEFAULT DRAWER ?
+  // NO DRAWER FINDED. IF DEBUG ON
+  // TRY WITH DEFAULT DRAWER WRAPPED IN RED DIV ALERT
 }
 
-function loop(props: any): any {
+function loop(props: any, maxChild: any, drawerOverride: any): any {
+  let maxDeepness = props.maxDeepness;
+  let drawer: any = drawerOverride ? drawerOverride : props.drawer;
   let child = null;
-
-  // transformer Loop en FONCTION NON REACT
-  // could return info from child
-  // could return total nblines
-
   let l: number;
 
   if (props.value.constructor === Array) {
     l = props.value.length;
+    if (maxChild) {
+      l = maxChild < l ? maxChild : l;
+      maxDeepness = 0;
+    }
+
     child = new Array(l);
     for (let i = 0; i < l; i++) {
       child[i] = selectDrawer({
         name: i,
         value: props.value[i],
-        drawer: props.drawer,
+        drawer: drawer,
         deepness: props.deepness + 1,
-        maxDeepness: props.maxDeepness,
+        maxDeepness: maxDeepness,
       });
     }
   } else if (props.value.constructor === Object) {
     let entries = Object.entries(props.value);
     l = entries.length;
+
+    if (maxChild) {
+      l = maxChild < l ? maxChild : l;
+      maxDeepness = 0;
+    }
     child = new Array(l);
+    l = maxChild ? (maxChild < l ? maxChild : l) : l;
     for (let i = 0; i < l; i++) {
       child[i] = selectDrawer({
         name: entries[i][0],
         value: entries[i][1],
-        drawer: props.drawer,
+        drawer: drawer,
         deepness: props.deepness + 1,
-        maxDeepness: props.maxDeepness,
+        maxDeepness: maxDeepness,
       });
     }
   }

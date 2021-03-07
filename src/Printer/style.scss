@@ -1,7 +1,7 @@
 @import "../scss/colors.scss";
 
 .printer {
-
+	padding: 5px;
 	font-family: "Ubuntu Mono", monospace ;
 	text-rendering: optimizespeed;
 	line-height: 14px;
@@ -10,11 +10,36 @@
 	background: $backgroundColor;
 	color: $blue; // MAIN COLOR TEXT
 
-	button {
-		cursor: pointer;
+/* HOVER SELECT FEATURE
+	.fold:hover {
+		.foldHeadLine{
+			color: white;
+		}
+		background-color: rgba(0, 0, 0, 0.2);
+		border: 1px solid rgba(255, 0, 0, 0.3);
+		margin: -1px;
+	}
+	*/
+
+	.gluedPreview{
+		> :nth-of-type(n + 2) {
+			&::before {
+				color: #FFFFFF;
+				content: ", ";
+			}
+		}
+		> :before,
+		&:last-child:after{
+			content: "\00a0";
+		}
 	}
 
-	div.inline {
+
+
+
+	.inline,
+	.inline > *
+	{
 		display: inline-block;
 	}
 
@@ -22,17 +47,12 @@
 		display: inline-block;
 	}
 
-	div.dirname {
+	div.foldHeadLine{
 		width: 100%;
 	}
 
-	div.dirname:hover {
+	div.foldHeadLine:hover {
 		background-color: $dirHoverColor;
-	}
-
-
-	div.caler {
-		display: inline-block;
 	}
 
 	.printTab {
@@ -41,13 +61,17 @@
 		border-left: 1px solid $tabLineColor;
 	}
 
+		text-overflow: ellipsis;
+
+
 	span.object {
 		color: red;
 	}
 
-
-
-
+	span.name::after{
+		color: $grey;
+		content: ": ";
+	}
 
 	span.number{
 		color: $numberColor;
@@ -58,12 +82,12 @@
 
 	span.string {
 		color: $stringColor;
+		&::after,
+		&::before{
+			color: $grey;
+			content: '"';
+		}
 	}
-
-
-
-
-
 
 	span.grey {
 		color: $grey;
@@ -71,5 +95,6 @@
 
 	span.Pointing_Small_Triangle{
 		color: $grey;
+		cursor: pointer;
 	}
 }

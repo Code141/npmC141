@@ -1,4 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import {
+  PrintStringType,
+  PrintNumberType,
+  PrintBooleanType,
+  PrintNamedStringType,
+  PrintNamedNumberType,
+  PrintNamedBooleanType,
+  PrintOther,
+  PrintDictionary,
+  PrintArray,
+} from "./Components";
 import "./style.scss";
 
 let defaultDrawer = [
@@ -18,84 +29,59 @@ let defaultDrawer = [
   },
 ];
 
-function PrintOther(props: any) {
-  let type = typeof props.value;
-  let jsx: any;
-
-  if (type === "string") {
-    jsx = <span className={"string"}>"{props.value}"</span>;
-  } else if (type === "number") {
-    jsx = <span className={"number"}>{props.value}</span>;
-  } else if (type === "boolean") {
-    jsx = <span className={"boolean"}>{props.value ? "true" : "false"}</span>;
-  } else {
-    jsx = <span className={"UNSUPPORTED"}>UNSUPORTED</span>;
-    console.error("UNSUPPORTED");
-    console.error(props.value);
-  }
-
-  // PADD RIGHT TO COMPENS ARROW OF OTHER PROPS
-  // AND SPAN HEIGT= 17
-  // BUT DIV HEIGT=21
-
-  return (
-    <div>
-      <div className={"name"}>&nbsp;&nbsp;{props.name}</div>
-      <span className={"grey"}>:&nbsp;</span>
-      <div className={"inline"}>{jsx}</div>
-    </div>
-  );
-}
-
-function PrintDictionary(props: any) {
-  const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
-  console.log(props);
-  return isOpen ? (
-    <div>
-      <div className={"dirname"} onClick={() => setIsOpen(false)}>
-        <span className="Pointing_Small_Triangle">&#9660;</span>
-        &nbsp;{props.name}
-        <span className={"grey"}>:&nbsp;</span>
+let previewArray = [
+  {
+    filter: (element: any) => typeof element.value === "string",
+    Component: (props: any) => <PrintStringType value={props.value} />,
+  },
+  {
+    filter: (element: any) => typeof element.value === "number",
+    Component: (props: any) => <PrintNumberType value={props.value} />,
+  },
+  {
+    filter: (element: any) => typeof element.value === "boolean",
+    Component: (props: any) => <PrintBooleanType value={props.value} />,
+  },
+  {
+    filter: (element: any) => typeof element.value === "object",
+    Component: () => (
+      <div>
         &#123;<span className="grey">&#8230;</span>&#125;
       </div>
-      <div className={"printTab"}>{props.loop(props)}</div>
-    </div>
-  ) : (
-    <div>
-      <div className={"dirname"} onClick={() => setIsOpen(true)}>
-        <span className="Pointing_Small_Triangle">&#9654;</span>
-        &nbsp;{props.name}
-        <span className="grey">:</span>
-        &nbsp;Object &#123;
-        <span className="grey">&#8230;</span>&#125;
-      </div>
-    </div>
-  );
-}
+    ),
+  },
+];
 
-function PrintArray(props: any) {
-  const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
-  return isOpen ? (
-    <div>
-      <div className={"dirname"} onClick={() => setIsOpen(false)}>
-        <span className="Pointing_Small_Triangle">&#9660;</span>
-        &nbsp;{props.name}
-        <span className="grey">: ({props.value.length})</span>&nbsp;[
-        <span className="grey">&#8230;</span>]
+let previewObject = [
+  {
+    filter: (element: any) => typeof element.value === "string",
+    Component: (props: any) => (
+      <PrintNamedStringType value={props.value} name={props.name} />
+    ),
+  },
+  {
+    filter: (element: any) => typeof element.value === "number",
+    Component: (props: any) => (
+      <PrintNamedNumberType value={props.value} name={props.name} />
+    ),
+  },
+  {
+    filter: (element: any) => typeof element.value === "boolean",
+    Component: (props: any) => (
+      <PrintNamedBooleanType value={props.value} name={props.name} />
+    ),
+  },
+  {
+    filter: (element: any) => typeof element.value === "object",
+    Component: (props: any) => (
+      <div>
+        <span className={"name"}>{props.name}</span>
+        <span>
+          &#123;<span className="grey">&#8230;</span>&#125;
+        </span>
       </div>
-      <div className={"printTab"}>{props.loop(props)}</div>
-    </div>
-  ) : (
-    <div>
-      <div className={"dirname"} onClick={() => setIsOpen(true)}>
-        <span className="Pointing_Small_Triangle">&#9654;</span>
-        &nbsp;{props.name}
-        <span className={"grey"}>:</span>&nbsp;Array
-        <span className="grey">({props.value.length})</span>&nbsp;[
-        <span className="grey">&#8230;</span>]
-      </div>
-    </div>
-  );
-}
+    ),
+  },
+];
 
-export default defaultDrawer;
+export { defaultDrawer, previewArray, previewObject };
