@@ -36,9 +36,19 @@ import { TilingWindowManager } from "c141";
 />
 ```
 
-### Log -TO CLEAN/PUSH-
-Formated logger  
+### Log
+Log print you a list of logs
 
+```javascript
+
+import { Log } from "c141";
+
+<Log
+  logs={}
+  channels={}
+  types={}
+/>
+```
 
 # TODO ! ------------------------------------------------------
 
@@ -79,3 +89,14 @@ DASHBOARD / WIDGET
 
 When keypress <LEADER> for 2sec without any other key event, shadow screen and display general basic cheatsheet.
 Each keybinded element must provide his own cheatsheet to the global man. On mouseover an element, make it bright and display only his related keyEvents on the cheatsheet.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
