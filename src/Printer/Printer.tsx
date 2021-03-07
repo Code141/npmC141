@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import DefaultDrawer from "./DefaultDrawer";
 import "./style.scss";
 
@@ -28,26 +28,26 @@ function Print(props: any) {
   let name = props.name;
   let value = props.value;
   let drawer = props.drawer ? props.drawer : DefaultDrawer;
-  let deepness = props.deepness;
-  let maxDeepness = props.maxDeepness;
-
+  let deepness = 0; // accumulatore
+  let maxDeepness = props.maxDeepness ? props.maxDeepness : 0;
   return (
     <div className="printer">
-      {
-        <Loop
-          name={name}
-          value={value}
-          drawer={drawer}
-          deepness={deepness}
-          maxDeepness={maxDeepness}
-        />
-      }
+      {selectDrawer({ name, value, drawer, deepness, maxDeepness })}
     </div>
   );
 }
 
-function Loop(props: any): any {
-  const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
+function selectDrawer(props: any) {
+  for (let i = 0, l = props.drawer.length; i < l; i++) {
+    let e = props.drawer[i];
+    if (e.filter(props)) {
+      return e.Component(props, loop);
+    }
+  }
+  // NO DRAWER FINDED. DRAW DRAWER NOT SUPPORTER OR DRAW DEFAULT DRAWER ?
+}
+
+function loop(props: any): any {
   let child = null;
 
   // transformer Loop en FONCTION NON REACT
@@ -55,56 +55,34 @@ function Loop(props: any): any {
   // could return total nblines
 
   let l: number;
-  let maxDeepness = isOpen ? props.maxDeepness : 0;
+
   if (props.value.constructor === Array) {
     l = props.value.length;
-    if (!isOpen && l >= 3) l = 3;
     child = new Array(l);
     for (let i = 0; i < l; i++) {
-      child[i] = (
-        <Loop
-          name={i}
-          value={props.value[i]}
-          drawer={props.drawer}
-          deepness={props.deepness + 1}
-          maxDeepness={maxDeepness}
-        />
-      );
+      child[i] = selectDrawer({
+        name: i,
+        value: props.value[i],
+        drawer: props.drawer,
+        deepness: props.deepness + 1,
+        maxDeepness: props.maxDeepness,
+      });
     }
   } else if (props.value.constructor === Object) {
     let entries = Object.entries(props.value);
     l = entries.length;
-    if (!isOpen && l >= 3) l = 3;
     child = new Array(l);
     for (let i = 0; i < l; i++) {
-      child[i] = (
-        <Loop
-          name={entries[i][0]}
-          value={entries[i][1]}
-          drawer={props.drawer}
-          deepness={props.deepness + 1}
-          maxDeepness={maxDeepness}
-        />
-      );
+      child[i] = selectDrawer({
+        name: entries[i][0],
+        value: entries[i][1],
+        drawer: props.drawer,
+        deepness: props.deepness + 1,
+        maxDeepness: props.maxDeepness,
+      });
     }
   }
-
-  for (let i = 0, l = props.drawer.length; i < l; i++) {
-    let e = props.drawer[i];
-    if (e.filter(props)) {
-      let Component = e.Component;
-      return (
-        <Component
-          name={props.name}
-          value={props.value}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        >
-          {child}
-        </Component>
-      );
-    }
-  }
+  return child;
   // NO FILTER FOR THIS
   // MUST RETURN SOMETHING
   // OR AT LEST, LOG

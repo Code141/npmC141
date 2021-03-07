@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.scss";
 
 let defaultDrawer = [
   {
     filter: (element: any) => element.value.constructor === Array,
-    Component: PrintArray,
+    Component: (props: any, loop: any) => <PrintArray {...props} loop={loop} />,
   },
   {
     filter: (element: any) => element.value.constructor === Object,
-    Component: PrintDictionary,
+    Component: (props: any, loop: any) => (
+      <PrintDictionary {...props} loop={loop} />
+    ),
   },
   {
     filter: () => true,
-    Component: PrintOther,
+    Component: (props: any, loop: any) => <PrintOther {...props} loop={loop} />,
   },
 ];
 
@@ -46,19 +48,21 @@ function PrintOther(props: any) {
 }
 
 function PrintDictionary(props: any) {
-  return props.isOpen ? (
+  const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
+  console.log(props);
+  return isOpen ? (
     <div>
-      <div className={"dirname"} onClick={() => props.setIsOpen(false)}>
+      <div className={"dirname"} onClick={() => setIsOpen(false)}>
         <span className="Pointing_Small_Triangle">&#9660;</span>
         &nbsp;{props.name}
         <span className={"grey"}>:&nbsp;</span>
         &#123;<span className="grey">&#8230;</span>&#125;
       </div>
-      <div className={"printTab"}>{props.children}</div>
+      <div className={"printTab"}>{props.loop(props)}</div>
     </div>
   ) : (
     <div>
-      <div className={"dirname"} onClick={() => props.setIsOpen(true)}>
+      <div className={"dirname"} onClick={() => setIsOpen(true)}>
         <span className="Pointing_Small_Triangle">&#9654;</span>
         &nbsp;{props.name}
         <span className="grey">:</span>
@@ -70,19 +74,20 @@ function PrintDictionary(props: any) {
 }
 
 function PrintArray(props: any) {
-  return props.isOpen ? (
+  const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
+  return isOpen ? (
     <div>
-      <div className={"dirname"} onClick={() => props.setIsOpen(false)}>
+      <div className={"dirname"} onClick={() => setIsOpen(false)}>
         <span className="Pointing_Small_Triangle">&#9660;</span>
         &nbsp;{props.name}
         <span className="grey">: ({props.value.length})</span>&nbsp;[
         <span className="grey">&#8230;</span>]
       </div>
-      <div className={"printTab"}>{props.children}</div>
+      <div className={"printTab"}>{props.loop(props)}</div>
     </div>
   ) : (
     <div>
-      <div className={"dirname"} onClick={() => props.setIsOpen(true)}>
+      <div className={"dirname"} onClick={() => setIsOpen(true)}>
         <span className="Pointing_Small_Triangle">&#9654;</span>
         &nbsp;{props.name}
         <span className={"grey"}>:</span>&nbsp;Array

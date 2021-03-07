@@ -2,7 +2,6 @@
 import "./style.scss";
 declare let defaultDrawer: {
     filter: (element: any) => boolean;
-    Component: typeof PrintArray;
+    Component: (props: any, loop: any) => JSX.Element;
 }[];
-declare function PrintArray(props: any): JSX.Element;
 export default defaultDrawer;
