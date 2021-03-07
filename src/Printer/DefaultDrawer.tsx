@@ -38,7 +38,7 @@ function PrintOther(props: any) {
 
   return (
     <div>
-      <div className={"name"}>{props.name}</div>
+      <div className={"name"}>&nbsp;&nbsp;{props.name}</div>
       <span className={"grey"}>:&nbsp;</span>
       <div className={"inline"}>{jsx}</div>
     </div>

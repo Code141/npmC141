@@ -17,6 +17,8 @@ import "./style.scss";
 
 // REFLECHIRE A UNE ARBORESCENCE DE DRAWER (CASCADING)
 
+// Deporter l'appel de la LOOP dans les components
+
 function Print(props: any) {
   // init here
   // => LOOP DETECTOR (circulary refence, mayby use symbol ?)

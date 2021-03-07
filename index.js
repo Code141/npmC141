@@ -66,7 +66,9 @@ function PrintOther(props) {
     // AND SPAN HEIGT= 17
     // BUT DIV HEIGT=21
     return (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("div", { className: "name" }, props.name),
+        React__default['default'].createElement("div", { className: "name" },
+            "\u00A0\u00A0",
+            props.name),
         React__default['default'].createElement("span", { className: "grey" }, ":\u00A0"),
         React__default['default'].createElement("div", { className: "inline" }, jsx)));
 }
