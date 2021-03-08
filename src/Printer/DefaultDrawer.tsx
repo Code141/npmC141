@@ -45,6 +45,8 @@ import "./style.scss";
 
  */
 
+// SWITCHE ISN'T BETTER ?
+
 let defaultDrawer = [
   {
     filter: (element: any) => element.value.constructor === Array,
