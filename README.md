@@ -10,7 +10,7 @@ Feel free to Create issues if you find a bug, need something be implemented, or 
 Take any variable in argument (`Array`, `Object`, `String`, `Number`, or nested composition of each...)  
 If you don't provide a drawer, the printer will use his own standard built-in drawer.
 
-Full documentation here [PRINT README](https://github.com/Code141/npmC141/blob/master/src/Printer/README.mdPrinter)
+Full documentation here [PRINT README](https://github.com/Code141/npmC141/blob/master/src/Printer/README.md)
 
 ```javascript
 import { Print } from "react-c141";
