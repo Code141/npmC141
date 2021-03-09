@@ -12,8 +12,6 @@ import {
 } from "./Components";
 import "./style.scss";
 /*
-
-
     Data Types
         undefined
         Boolean
@@ -23,6 +21,7 @@ import "./style.scss";
         Symbol
 
     Structural Types:
+
         Object
 						 new Object
 						 new Array
@@ -32,6 +31,7 @@ import "./style.scss";
 						 new WeakSet
 						 new Date
 						 and almost everything made with new keywor
+
         Function
 						a non-data structure, though it also answers for
 						typeof operator: typeof instance === "function".
@@ -48,6 +48,26 @@ import "./style.scss";
 // SWITCHE ISN'T BETTER ?
 
 let defaultDrawer = [
+  {
+    filter: (element: any) => typeof element.value === "string",
+    // IF THIS FILTER MATCH, COULD CHECK PARENTS
+    Component: (props: any) => (
+      <PrintNamedStringType value={props.value} name={props.name} />
+    ),
+  },
+  {
+    filter: (element: any) => typeof element.value === "number",
+    Component: (props: any) => (
+      <PrintNamedNumberType value={props.value} name={props.name} />
+    ),
+  },
+  {
+    filter: (element: any) => typeof element.value === "boolean",
+    Component: (props: any) => (
+      <PrintNamedBooleanType value={props.value} name={props.name} />
+    ),
+  },
+
   {
     filter: (element: any) => element.value.constructor === Array,
     Component: (props: any, loop: any) => <PrintArray {...props} loop={loop} />,

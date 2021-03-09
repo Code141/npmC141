@@ -1,7 +1,7 @@
 import React from "react";
 import { defaultDrawer } from "./DefaultDrawer";
 import "./style.scss";
-
+// Mozilla sort A-Z objects Keys when foldOPEN
 // create usual filters like
 // shadow (don't draw the element himself but draw children)
 // don't draw
@@ -39,6 +39,18 @@ function selectDrawer(props: any) {
       );
     }
   }
+
+  for (let i = 0, l = defaultDrawer.length; i < l; i++) {
+    let { filter, Component } = defaultDrawer[i];
+    if (filter(props)) {
+      // SUBDRAWER
+
+      return Component(props, (maxChild: any, drawerOverride: any) =>
+        loop(props, maxChild, drawerOverride)
+      );
+    }
+  }
+
   // NO DRAWER FINDED. IF DEBUG ON
   // TRY WITH DEFAULT DRAWER WRAPPED IN RED DIV ALERT
 }

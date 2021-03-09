@@ -68,7 +68,7 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  padding: 5px;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  /* HOVER SELECT FEATURE\n  \t.fold:hover {\n  \t\t.foldHeadLine{\n  \t\t\tcolor: white;\n  \t\t}\n  \t\tbackground-color: rgba(0, 0, 0, 0.2);\n  \t\tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \t\tmargin: -1px;\n  \t}\n  \t*/\n  text-overflow: ellipsis;\n}\n.printer .gluedPreview > :nth-of-type(n + 2)::before {\n  color: #FFFFFF;\n  content: \", \";\n}\n.printer .gluedPreview > :before, .printer .gluedPreview:last-child:after {\n  content: \" \";\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}\n.printer div.name {\n  display: inline-block;\n}\n.printer div.foldHeadLine {\n  width: 100%;\n}\n.printer div.foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .printTab {\n  padding-left: 11px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n}\n.printer span.object {\n  color: red;\n}\n.printer span.name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer span.number {\n  color: #86de74;\n}\n.printer span.boolean {\n  color: #86de74;\n}\n.printer span.string {\n  color: #ff7de9;\n}\n.printer span.string::after, .printer span.string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer span.grey {\n  color: #939395;\n}\n.printer span.Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n}");
+___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview {\n  margin: 0px 6px;\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview :not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .foldHeadLine {\n  padding-left: 7px;\n}\n.printer .printTab {\n  padding-left: 5px;\n  margin-left: 10px;\n  border-left: 1px solid #75bfff;\n}\n.printer .printTab > *:not(.fold) {\n  margin-left: 12px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n  position: relative;\n  vertical-align: 2px;\n}\n.printer .object {\n  color: red;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
 
 /*EXPORT TO ANOTHER PLACE THE FOLDER*/
 function Fold(props) {
@@ -94,21 +94,21 @@ function PrintNamedStringType(props) {
 }
 function PrintNumberType(props) {
     return (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("span", { className: "Number" }, props.value)));
+        React__default['default'].createElement("span", { className: "number" }, props.value)));
 }
 function PrintNamedNumberType(props) {
     return (React__default['default'].createElement("div", null,
         name(props.name),
-        React__default['default'].createElement("span", { className: "Number" }, props.value)));
+        React__default['default'].createElement("span", { className: "number" }, props.value)));
 }
 function PrintBooleanType(props) {
     return (React__default['default'].createElement("div", null,
-        React__default['default'].createElement("span", { className: "Boolean" }, props.value ? "true" : "false")));
+        React__default['default'].createElement("span", { className: "boolean" }, props.value ? "true" : "false")));
 }
 function PrintNamedBooleanType(props) {
     return (React__default['default'].createElement("div", null,
         name(props.name),
-        React__default['default'].createElement("span", { className: "Boolean" }, props.value ? "true" : "false")));
+        React__default['default'].createElement("span", { className: "boolean" }, props.value ? "true" : "false")));
 }
 function PrintOther(props) {
     var type = typeof props.value;
@@ -129,7 +129,9 @@ function PrintOther(props) {
     }
     return (React__default['default'].createElement("div", null,
         name(props.name),
-        React__default['default'].createElement("div", { className: "inline" }, jsx)));
+        React__default['default'].createElement("div", { className: "inline" },
+            "HAAAAAAAAAAAAAAAA",
+            jsx)));
 }
 function PrintDictionary(props) {
     var open = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
@@ -141,7 +143,10 @@ function PrintDictionary(props) {
     var close = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
         name(props.name),
         "Object {",
-        React__default['default'].createElement("span", { className: "inline gluedPreview" }, props.loop(3, previewObject)),
+        React__default['default'].createElement("span", { className: "gluedPreview" },
+            props.loop(3, previewObject),
+            Object.entries(props.value).length > 3 ? (React__default['default'].createElement("div", null,
+                React__default['default'].createElement("span", { className: "grey" }, "\u2026"))) : null),
         "}")); };
     return React__default['default'].createElement(Fold, __assign({}, props, { open: open, close: close }));
 }
@@ -163,14 +168,59 @@ function PrintArray(props) {
             props.value.length,
             ")"),
         "\u00A0[",
-        React__default['default'].createElement("span", { className: "inline gluedPreview" },
+        React__default['default'].createElement("span", { className: "gluedPreview" },
             props.loop(10, previewArray),
-            props.value.length > 10 ? (React__default['default'].createElement("span", { className: "grey" }, "\u2026")) : null),
+            props.value.length > 10 ? (React__default['default'].createElement("div", null,
+                React__default['default'].createElement("span", { className: "grey" }, "\u2026"))) : null),
         "]")); };
     return React__default['default'].createElement(Fold, __assign({}, props, { open: open, close: close }));
 }
 
+/*
+    Data Types
+        undefined
+        Boolean
+        Number
+        String
+        BigInt
+        Symbol
+
+    Structural Types:
+        Object
+                         new Object
+                         new Array
+                         new Map
+                         new Set
+                         new WeakMap
+                         new WeakSet
+                         new Date
+                         and almost everything made with new keywor
+        Function
+                        a non-data structure, though it also answers for
+                        typeof operator: typeof instance === "function".
+                        This is merely a special shorthand for Functions,
+                        though every Function constructor is derived from
+                        Object constructor.
+
+    Structural Root Primitive:
+        null WARNING typeof instance === "object".
+                    Special primitive type having additional usage for its value: if object is not inherited, then null is shown;
+
+ */
+// SWITCHE ISN'T BETTER ?
 var defaultDrawer = [
+    {
+        filter: function (element) { return typeof element.value === "string"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedStringType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof element.value === "number"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedNumberType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof element.value === "boolean"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedBooleanType, { value: props.value, name: props.name })); },
+    },
     {
         filter: function (element) { return element.value.constructor === Array; },
         Component: function (props, loop) { return React__default['default'].createElement(PrintArray, __assign({}, props, { loop: loop })); },
@@ -229,14 +279,7 @@ var previewObject = [
     },
 ];
 
-/*
-    undefined : typeof instance === "undefined"
-    Boolean : typeof instance === "boolean"
-    Number : typeof instance === "number"
-    String : typeof instance === "string"
-    BigInt : typeof instance === "bigint"
-    Symbol : typeof instance === "symbol"
-    */
+// Mozilla sort A-Z objects Keys when foldOPEN
 // create usual filters like
 // shadow (don't draw the element himself but draw children)
 // don't draw
@@ -259,6 +302,16 @@ function selectDrawer(props) {
     for (var i = 0, l = props.drawer.length; i < l; i++) {
         var _a = props.drawer[i], filter = _a.filter, Component = _a.Component;
         if (filter(props)) {
+            // SUBDRAWER
+            return Component(props, function (maxChild, drawerOverride) {
+                return loop(props, maxChild, drawerOverride);
+            });
+        }
+    }
+    for (var i = 0, l = defaultDrawer.length; i < l; i++) {
+        var _b = defaultDrawer[i], filter = _b.filter, Component = _b.Component;
+        if (filter(props)) {
+            // SUBDRAWER
             return Component(props, function (maxChild, drawerOverride) {
                 return loop(props, maxChild, drawerOverride);
             });

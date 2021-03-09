@@ -33,6 +33,7 @@ function PrintStringType(props: any) {
     </div>
   );
 }
+
 function PrintNamedStringType(props: any) {
   return (
     <div>
@@ -45,7 +46,7 @@ function PrintNamedStringType(props: any) {
 function PrintNumberType(props: any) {
   return (
     <div>
-      <span className={"Number"}>{props.value}</span>
+      <span className={"number"}>{props.value}</span>
     </div>
   );
 }
@@ -53,7 +54,7 @@ function PrintNamedNumberType(props: any) {
   return (
     <div>
       {name(props.name)}
-      <span className={"Number"}>{props.value}</span>
+      <span className={"number"}>{props.value}</span>
     </div>
   );
 }
@@ -61,7 +62,7 @@ function PrintNamedNumberType(props: any) {
 function PrintBooleanType(props: any) {
   return (
     <div>
-      <span className={"Boolean"}>{props.value ? "true" : "false"}</span>
+      <span className={"boolean"}>{props.value ? "true" : "false"}</span>
     </div>
   );
 }
@@ -69,7 +70,7 @@ function PrintNamedBooleanType(props: any) {
   return (
     <div>
       {name(props.name)}
-      <span className={"Boolean"}>{props.value ? "true" : "false"}</span>
+      <span className={"boolean"}>{props.value ? "true" : "false"}</span>
     </div>
   );
 }
@@ -77,7 +78,7 @@ function PrintNamedBooleanType(props: any) {
 function PrintObjectType(props: any) {
   return (
     <div>
-      <span className={"Object"}>{props.value}</span>
+      <span className={"object"}>{props.value}</span>
     </div>
   );
 }
@@ -86,7 +87,7 @@ function PrintNamedObjectType(props: any) {
   return (
     <div>
       {name(props.name)}
-      <span className={"Object"}>{props.value}</span>
+      <span className={"object"}>{props.value}</span>
     </div>
   );
 }
@@ -108,7 +109,7 @@ function PrintOther(props: any) {
   return (
     <div>
       {name(props.name)}
-      <div className={"inline"}>{jsx}</div>
+      <div className={"inline"}>HAAAAAAAAAAAAAAAA{jsx}</div>
     </div>
   );
 }
@@ -127,8 +128,14 @@ function PrintDictionary(props: any) {
     <>
       {name(props.name)}
       Object &#123;
-      <span className="inline gluedPreview">
+      <span className="gluedPreview">
         {props.loop(3, previewObject)}
+
+        {Object.entries(props.value).length > 3 ? (
+          <div>
+            <span className={"grey"}>&#8230;</span>
+          </div>
+        ) : null}
       </span>
       &#125;
     </>
@@ -149,10 +156,12 @@ function PrintArray(props: any) {
       {name(props.name)}
       Array
       <span className={"grey"}>({props.value.length})</span>&nbsp;[
-      <span className={"inline gluedPreview"}>
+      <span className={"gluedPreview"}>
         {props.loop(10, previewArray)}
         {props.value.length > 10 ? (
-          <span className={"grey"}>&#8230;</span>
+          <div>
+            <span className={"grey"}>&#8230;</span>
+          </div>
         ) : null}
       </span>
       ]
