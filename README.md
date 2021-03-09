@@ -83,7 +83,7 @@ import { LazyList } from "react-c141";
 ```
 
 # IDEAS ! ------------------------------------------------------
-
+-lightweight notification daemon
 -DASHBOARD / WIDGET
 
 -CHEAT SHEET
