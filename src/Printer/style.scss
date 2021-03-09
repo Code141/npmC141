@@ -22,6 +22,8 @@
 	font-size: 11px;
 	background: $backgroundColor;
 	color: $blue; // MAIN COLOR TEXT
+	width: 100%;
+	overflow: auto;
 
 	// FOLDED WITH GLUE AND PADDING
 	.gluedPreview{
