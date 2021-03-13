@@ -1,6 +1,6 @@
 
 ### TillingWindowManager
-The main goal of the arbo is to stay serialised (can be store in anything, cookies, store, be passed throughout HTTP or sockets, etc... )  
+The main goal of the arbo is to stay serialised (so can be store in anywhere, cookies, store, be passed throughout HTTP or sockets, etc... )  
 Userfull if you want sync multiple screens or drag and drop a custom composition from a browser to another.  
 There is a drag and drop separator between each window or group to resize groups.
 
