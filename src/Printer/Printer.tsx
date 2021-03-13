@@ -1,16 +1,15 @@
 import React from "react";
 import { defaultDrawer } from "./DefaultDrawer";
 import "./style.scss";
-// Mozilla sort A-Z objects Keys when foldOPEN
-// create usual filters like
-// shadow (don't draw the element himself but draw children)
-// don't draw
 
-// REFLECHIRE A UNE ARBORESCENCE DE DRAWER (CASCADING)
+interface PrintProps {
+  name: string;
+  value: any;
+  drawer: any;
+  maxDeepness: number;
+}
 
-// Deporter l'appel de la LOOP dans les components
-
-function Print(props: any) {
+function Print(props: PrintProps) {
   // init here
   // => LOOP DETECTOR (circulary refence, mayby use symbol ?)
   // give absolute_path for filters ?
@@ -27,6 +26,15 @@ function Print(props: any) {
     </div>
   );
 }
+
+// Mozilla sort A-Z objects Keys when foldOPEN
+// create usual filters like
+// shadow (don't draw the element himself but draw children)
+// don't draw
+
+// REFLECHIRE A UNE ARBORESCENCE DE DRAWER (CASCADING)
+
+// Deporter l'appel de la LOOP dans les components
 // at the end, rename in PRINT and set default value inside
 function selectDrawer(props: any) {
   for (let i = 0, l = props.drawer.length; i < l; i++) {

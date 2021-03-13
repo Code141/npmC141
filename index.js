@@ -68,7 +68,7 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  width: 100%;\n  overflow: auto;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview {\n  margin: 0px 6px;\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview :not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .foldHeadLine {\n  padding-left: 7px;\n}\n.printer .printTab {\n  padding-left: 5px;\n  margin-left: 10px;\n  border-left: 1px solid #75bfff;\n}\n.printer .printTab > *:not(.fold) {\n  margin-left: 12px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n  position: relative;\n  vertical-align: 2px;\n}\n.printer .object {\n  color: red;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
+___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  width: 100%;\n  overflow: auto;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview {\n  margin: 0px 6px;\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview :not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .foldHeadLine {\n  padding-left: 7px;\n}\n.printer .printTab {\n  padding-left: 5px;\n  margin-left: 10px;\n  border-left: 1px solid #75bfff;\n}\n.printer .printTab > *:not(.fold) {\n  margin-left: 19px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n  position: relative;\n  vertical-align: 2px;\n}\n.printer .object {\n  color: red;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
 
 /*EXPORT TO ANOTHER PLACE THE FOLDER*/
 function Fold(props) {
@@ -282,12 +282,6 @@ var previewObject = [
     },
 ];
 
-// Mozilla sort A-Z objects Keys when foldOPEN
-// create usual filters like
-// shadow (don't draw the element himself but draw children)
-// don't draw
-// REFLECHIRE A UNE ARBORESCENCE DE DRAWER (CASCADING)
-// Deporter l'appel de la LOOP dans les components
 function Print(props) {
     // init here
     // => LOOP DETECTOR (circulary refence, mayby use symbol ?)
@@ -300,6 +294,12 @@ function Print(props) {
     var maxDeepness = props.maxDeepness ? props.maxDeepness : 0;
     return (React__default['default'].createElement("div", { className: "printer" }, selectDrawer({ name: name, value: value, drawer: drawer, deepness: deepness, maxDeepness: maxDeepness })));
 }
+// Mozilla sort A-Z objects Keys when foldOPEN
+// create usual filters like
+// shadow (don't draw the element himself but draw children)
+// don't draw
+// REFLECHIRE A UNE ARBORESCENCE DE DRAWER (CASCADING)
+// Deporter l'appel de la LOOP dans les components
 // at the end, rename in PRINT and set default value inside
 function selectDrawer(props) {
     for (var i = 0, l = props.drawer.length; i < l; i++) {
