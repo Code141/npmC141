@@ -1,6 +1,6 @@
 {
   "name": "react-c141",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "author": "Geoffrey Lambinet",
   "license": "ISC",
@@ -9,6 +9,7 @@
     "url": "https://github.com/Code141/react-c141.git"
   },
   "main": "index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
