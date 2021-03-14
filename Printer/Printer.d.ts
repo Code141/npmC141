@@ -1,10 +1,10 @@
 /// <reference types="react" />
 import "./style.scss";
-interface PrintProps {
-    name: string;
+interface Print {
+    name?: string;
     value: any;
-    drawer: any;
+    drawer?: any;
     maxDeepness: number;
 }
-declare function Print(props: PrintProps): JSX.Element;
+declare function Print(props: Print): JSX.Element;
 export default Print;

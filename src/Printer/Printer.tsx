@@ -2,24 +2,25 @@ import React from "react";
 import { defaultDrawer } from "./DefaultDrawer";
 import "./style.scss";
 
-interface PrintProps {
-  name: string;
+interface Print {
   value: any;
-  drawer: any;
-  maxDeepness: number;
+  name?: string;
+  drawer?: any;
+  maxDeepness?: number;
 }
 
-function Print(props: PrintProps) {
+function Print(props: Print) {
   // init here
   // => LOOP DETECTOR (circulary refence, mayby use symbol ?)
   // give absolute_path for filters ?
   // recursive drawer will be more efficient and beautiful to write
 
-  let name = props.name;
   let value = props.value;
+  let name = props.name ?? "";
   let drawer = props.drawer ? props.drawer : defaultDrawer;
-  let deepness = 0; // accumulatore
   let maxDeepness = props.maxDeepness ? props.maxDeepness : 0;
+
+  let deepness = 0; // accumulatore
   return (
     <div className="printer">
       {selectDrawer({ name, value, drawer, deepness, maxDeepness })}

@@ -22,16 +22,20 @@
 	font-size: 11px;
 	background: $backgroundColor;
 	color: $blue; // MAIN COLOR TEXT
-	width: 100%;
+	display: inline-block;
 	overflow: auto;
 
 	// FOLDED WITH GLUE AND PADDING
 	.gluedPreview{
-		margin: 0px 6px;
+		&:not(:empty)
+		{
+			margin: 0px 6px;
+		}
+
 		& > * {
 			display: inline-block;
 		}
-		:not(:last-child):after{
+		div:not(:last-child):after{
 			color: #FFFFFF;
 			content: ",";
 			margin-right: 6px;
@@ -68,9 +72,8 @@
 		color: $grey;
 		cursor: pointer;
 		margin-right: 5px;
-		position:relative;
-		vertical-align: 2px;
 	}
+
 	/////////////////////////
 	.object {
 		color: red;
