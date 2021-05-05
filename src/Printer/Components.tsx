@@ -3,6 +3,7 @@ import { previewArray, previewObject } from "./DefaultDrawer";
 import "./style.scss";
 
 /*EXPORT TO ANOTHER PLACE THE FOLDER*/
+
 function Fold(props: any) {
   const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
 

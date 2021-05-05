@@ -68,7 +68,7 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  display: inline-block;\n  overflow: auto;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview:not(:empty) {\n  margin: 0px 6px;\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview div:not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .foldHeadLine {\n  padding-left: 7px;\n}\n.printer .printTab {\n  padding-left: 5px;\n  margin-left: 10px;\n  border-left: 1px solid #75bfff;\n}\n.printer .printTab > *:not(.fold) {\n  margin-left: 19px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n}\n.printer .object {\n  color: red;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
+___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  display: inline-block;\n  overflow: auto;\n  width: 100%;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview:not(:empty) {\n  margin: 0px 6px;\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview div:not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .foldHeadLine {\n  padding-left: 7px;\n}\n.printer .printTab {\n  padding-left: 5px;\n  margin-left: 10px;\n  border-left: 1px solid #75bfff;\n}\n.printer .printTab > *:not(.fold) {\n  margin-left: 19px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n}\n.printer .object {\n  color: red;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
 
 /*EXPORT TO ANOTHER PLACE THE FOLDER*/
 function Fold(props) {
@@ -225,11 +225,11 @@ var defaultDrawer = [
         Component: function (props) { return (React__default['default'].createElement(PrintNamedBooleanType, { value: props.value, name: props.name })); },
     },
     {
-        filter: function (element) { return element.value.constructor === Array; },
+        filter: function (element) { var _a; return ((_a = element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Array; },
         Component: function (props, loop) { return React__default['default'].createElement(PrintArray, __assign({}, props, { loop: loop })); },
     },
     {
-        filter: function (element) { return element.value.constructor === Object; },
+        filter: function (element) { var _a; return ((_a = element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Object; },
         Component: function (props, loop) { return (React__default['default'].createElement(PrintDictionary, __assign({}, props, { loop: loop }))); },
     },
     {
@@ -287,11 +287,12 @@ function Print(props) {
     // => LOOP DETECTOR (circulary refence, mayby use symbol ?)
     // give absolute_path for filters ?
     // recursive drawer will be more efficient and beautiful to write
-    var name = props.name;
+    var _a;
     var value = props.value;
+    var name = (_a = props.name) !== null && _a !== void 0 ? _a : "";
     var drawer = props.drawer ? props.drawer : defaultDrawer;
-    var deepness = 0; // accumulatore
     var maxDeepness = props.maxDeepness ? props.maxDeepness : 0;
+    var deepness = 0; // accumulatore
     return (React__default['default'].createElement("div", { className: "printer" }, selectDrawer({ name: name, value: value, drawer: drawer, deepness: deepness, maxDeepness: maxDeepness })));
 }
 // Mozilla sort A-Z objects Keys when foldOPEN
@@ -324,12 +325,13 @@ function selectDrawer(props) {
     // TRY WITH DEFAULT DRAWER WRAPPED IN RED DIV ALERT
 }
 function loop(props, maxChild, drawerOverride) {
+    var _a, _b, _c;
     var maxDeepness = props.maxDeepness;
     var drawer = drawerOverride ? drawerOverride : props.drawer;
     var child = null;
     var l;
-    if (props.value.constructor === Array) {
-        l = props.value.length;
+    if (((_a = props.value) === null || _a === void 0 ? void 0 : _a.constructor) === Array) {
+        l = (_b = props.value) === null || _b === void 0 ? void 0 : _b.length;
         if (maxChild) {
             l = maxChild < l ? maxChild : l;
             maxDeepness = 0;
@@ -345,7 +347,7 @@ function loop(props, maxChild, drawerOverride) {
             });
         }
     }
-    else if (props.value.constructor === Object) {
+    else if (((_c = props.value) === null || _c === void 0 ? void 0 : _c.constructor) === Object) {
         var entries = Object.entries(props.value);
         l = entries.length;
         if (maxChild) {

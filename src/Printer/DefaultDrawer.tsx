@@ -69,11 +69,11 @@ let defaultDrawer = [
   },
 
   {
-    filter: (element: any) => element.value.constructor === Array,
+    filter: (element: any) => element.value?.constructor === Array,
     Component: (props: any, loop: any) => <PrintArray {...props} loop={loop} />,
   },
   {
-    filter: (element: any) => element.value.constructor === Object,
+    filter: (element: any) => element.value?.constructor === Object,
     Component: (props: any, loop: any) => (
       <PrintDictionary {...props} loop={loop} />
     ),

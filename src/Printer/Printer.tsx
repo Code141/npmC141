@@ -70,8 +70,8 @@ function loop(props: any, maxChild: any, drawerOverride: any): any {
   let child = null;
   let l: number;
 
-  if (props.value.constructor === Array) {
-    l = props.value.length;
+  if (props.value?.constructor === Array) {
+    l = props.value?.length;
     if (maxChild) {
       l = maxChild < l ? maxChild : l;
       maxDeepness = 0;
@@ -87,7 +87,7 @@ function loop(props: any, maxChild: any, drawerOverride: any): any {
         maxDeepness: maxDeepness,
       });
     }
-  } else if (props.value.constructor === Object) {
+  } else if (props.value?.constructor === Object) {
     let entries = Object.entries(props.value);
     l = entries.length;
 
