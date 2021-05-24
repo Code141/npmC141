@@ -68,7 +68,7 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  display: inline-block;\n  overflow: auto;\n  width: 100%;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview:not(:empty) {\n  margin: 0px 6px;\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview div:not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .foldHeadLine {\n  padding-left: 7px;\n}\n.printer .printTab {\n  padding-left: 5px;\n  margin-left: 10px;\n  border-left: 1px solid #75bfff;\n}\n.printer .printTab > *:not(.fold) {\n  margin-left: 19px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n}\n.printer .object {\n  color: red;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
+___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  display: inline-block;\n  overflow: auto;\n  width: 100%;\n  padding: 5px;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview:not(:empty) {\n  margin: 0px 6px;\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview div:not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .foldHeadLine {\n  padding-left: 7px;\n}\n.printer .printTab {\n  padding-left: 5px;\n  margin-left: 10px;\n  border-left: 1px solid #75bfff;\n}\n.printer .printTab > *:not(.fold) {\n  margin-left: 19px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n}\n.printer .object {\n  color: red;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .bigint {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .undefined {\n  color: #939395;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .UNSUPORTED {\n  color: \"red\";\n  background: yellow;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
 
 /*EXPORT TO ANOTHER PLACE THE FOLDER*/
 function Fold(props) {
@@ -92,6 +92,15 @@ function PrintNamedStringType(props) {
         name(props.name),
         React__default['default'].createElement("span", { className: "string" }, props.value)));
 }
+function PrintUndefinedType() {
+    return (React__default['default'].createElement("div", null,
+        React__default['default'].createElement("span", { className: "undefined" }, "undefined")));
+}
+function PrintNamedUndefinedType(props) {
+    return (React__default['default'].createElement("div", null,
+        name(props.name),
+        React__default['default'].createElement("span", { className: "undefined" }, "undefined")));
+}
 function PrintNumberType(props) {
     return (React__default['default'].createElement("div", null,
         React__default['default'].createElement("span", { className: "number" }, props.value)));
@@ -100,6 +109,19 @@ function PrintNamedNumberType(props) {
     return (React__default['default'].createElement("div", null,
         name(props.name),
         React__default['default'].createElement("span", { className: "number" }, props.value)));
+}
+function PrintBigIntType(props) {
+    return (React__default['default'].createElement("div", null,
+        React__default['default'].createElement("span", { className: "bigint" },
+            props.value.toString(),
+            "n")));
+}
+function PrintNamedBigIntType(props) {
+    return (React__default['default'].createElement("div", null,
+        name(props.name),
+        React__default['default'].createElement("span", { className: "bigint" },
+            props.value.toString(),
+            "n")));
 }
 function PrintBooleanType(props) {
     return (React__default['default'].createElement("div", null,
@@ -116,22 +138,31 @@ function PrintOther(props) {
     if (type === "string") {
         jsx = React__default['default'].createElement("span", { className: "string" }, props.value);
     }
+    else if (type === "undefined") {
+        jsx = React__default['default'].createElement("span", { className: "undefined" }, "undefined");
+    }
     else if (type === "number") {
         jsx = React__default['default'].createElement("span", { className: "number" }, props.value);
+    }
+    else if (type === "bigint") {
+        jsx = React__default['default'].createElement("span", { className: "bigint" },
+            props.value.toString(),
+            "n");
     }
     else if (type === "boolean") {
         jsx = React__default['default'].createElement("span", { className: "boolean" }, props.value ? "true" : "false");
     }
+    else if (type === "object" && props.value === null) {
+        jsx = React__default['default'].createElement("span", { className: "number" }, "null");
+    }
     else {
-        jsx = React__default['default'].createElement("span", { className: "UNSUPPORTED" },
-            "UNSUPORTED ",
+        jsx = React__default['default'].createElement("span", { className: "UNSUPORTED" },
+            "UNSUPPORTED TYPE: ",
             type);
     }
     return (React__default['default'].createElement("div", null,
         name(props.name),
-        React__default['default'].createElement("div", { className: "inline" },
-            "HAAAAAAAAAAAAAAAA",
-            jsx)));
+        React__default['default'].createElement("div", { className: "inline" }, jsx)));
 }
 function PrintDictionary(props) {
     var open = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
@@ -212,24 +243,32 @@ function PrintArray(props) {
 // SWITCHE ISN'T BETTER ?
 var defaultDrawer = [
     {
-        filter: function (element) { return typeof element.value === "string"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "string"; },
         // IF THIS FILTER MATCH, COULD CHECK PARENTS
         Component: function (props) { return (React__default['default'].createElement(PrintNamedStringType, { value: props.value, name: props.name })); },
     },
     {
-        filter: function (element) { return typeof element.value === "number"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "undefined"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedUndefinedType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "number"; },
         Component: function (props) { return (React__default['default'].createElement(PrintNamedNumberType, { value: props.value, name: props.name })); },
     },
     {
-        filter: function (element) { return typeof element.value === "boolean"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "bigint"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedBigIntType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "boolean"; },
         Component: function (props) { return (React__default['default'].createElement(PrintNamedBooleanType, { value: props.value, name: props.name })); },
     },
     {
-        filter: function (element) { var _a; return ((_a = element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Array; },
+        filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Array; },
         Component: function (props, loop) { return React__default['default'].createElement(PrintArray, __assign({}, props, { loop: loop })); },
     },
     {
-        filter: function (element) { var _a; return ((_a = element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Object; },
+        filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Object; },
         Component: function (props, loop) { return (React__default['default'].createElement(PrintDictionary, __assign({}, props, { loop: loop }))); },
     },
     {
@@ -239,19 +278,27 @@ var defaultDrawer = [
 ];
 var previewArray = [
     {
-        filter: function (element) { return typeof element.value === "string"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "string"; },
         Component: function (props) { return React__default['default'].createElement(PrintStringType, { value: props.value }); },
     },
     {
-        filter: function (element) { return typeof element.value === "number"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "undefined"; },
+        Component: function () { return React__default['default'].createElement(PrintUndefinedType, null); },
+    },
+    {
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "number"; },
         Component: function (props) { return React__default['default'].createElement(PrintNumberType, { value: props.value }); },
     },
     {
-        filter: function (element) { return typeof element.value === "boolean"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "bigint"; },
+        Component: function (props) { return React__default['default'].createElement(PrintBigIntType, { value: props.value }); },
+    },
+    {
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "boolean"; },
         Component: function (props) { return React__default['default'].createElement(PrintBooleanType, { value: props.value }); },
     },
     {
-        filter: function (element) { return typeof element.value === "object"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "object"; },
         Component: function () { return (React__default['default'].createElement("div", null,
             "{",
             React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
@@ -260,19 +307,27 @@ var previewArray = [
 ];
 var previewObject = [
     {
-        filter: function (element) { return typeof element.value === "string"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "string"; },
         Component: function (props) { return (React__default['default'].createElement(PrintNamedStringType, { value: props.value, name: props.name })); },
     },
     {
-        filter: function (element) { return typeof element.value === "number"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "undefined"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedUndefinedType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "number"; },
         Component: function (props) { return (React__default['default'].createElement(PrintNamedNumberType, { value: props.value, name: props.name })); },
     },
     {
-        filter: function (element) { return typeof element.value === "boolean"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "bigint"; },
+        Component: function (props) { return (React__default['default'].createElement(PrintNamedBigIntType, { value: props.value, name: props.name })); },
+    },
+    {
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "boolean"; },
         Component: function (props) { return (React__default['default'].createElement(PrintNamedBooleanType, { value: props.value, name: props.name })); },
     },
     {
-        filter: function (element) { return typeof element.value === "object"; },
+        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "object"; },
         Component: function (props) { return (React__default['default'].createElement("div", null,
             React__default['default'].createElement("span", { className: "name" }, props.name),
             React__default['default'].createElement("span", null,

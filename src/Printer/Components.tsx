@@ -44,6 +44,23 @@ function PrintNamedStringType(props: any) {
   );
 }
 
+function PrintUndefinedType() {
+  return (
+    <div>
+      <span className={"undefined"}>undefined</span>
+    </div>
+  );
+}
+
+function PrintNamedUndefinedType(props: any) {
+  return (
+    <div>
+      {name(props.name)}
+      <span className={"undefined"}>undefined</span>
+    </div>
+  );
+}
+
 function PrintNumberType(props: any) {
   return (
     <div>
@@ -51,11 +68,29 @@ function PrintNumberType(props: any) {
     </div>
   );
 }
+
 function PrintNamedNumberType(props: any) {
   return (
     <div>
       {name(props.name)}
       <span className={"number"}>{props.value}</span>
+    </div>
+  );
+}
+
+function PrintBigIntType(props: any) {
+  return (
+    <div>
+      <span className={"bigint"}>{props.value.toString()}n</span>
+    </div>
+  );
+}
+
+function PrintNamedBigIntType(props: any) {
+  return (
+    <div>
+      {name(props.name)}
+      <span className={"bigint"}>{props.value.toString()}n</span>
     </div>
   );
 }
@@ -99,18 +134,24 @@ function PrintOther(props: any) {
 
   if (type === "string") {
     jsx = <span className={"string"}>{props.value}</span>;
+  } else if (type === "undefined") {
+    jsx = <span className={"undefined"}>undefined</span>;
   } else if (type === "number") {
     jsx = <span className={"number"}>{props.value}</span>;
+  } else if (type === "bigint") {
+    jsx = <span className={"bigint"}>{props.value.toString()}n</span>;
   } else if (type === "boolean") {
     jsx = <span className={"boolean"}>{props.value ? "true" : "false"}</span>;
+  } else if (type === "object" && props.value === null) {
+    jsx = <span className={"number"}>null</span>;
   } else {
-    jsx = <span className={"UNSUPPORTED"}>UNSUPORTED {type}</span>;
+    jsx = <span className={"UNSUPORTED"}>UNSUPPORTED TYPE: {type}</span>;
   }
 
   return (
     <div>
       {name(props.name)}
-      <div className={"inline"}>HAAAAAAAAAAAAAAAA{jsx}</div>
+      <div className={"inline"}>{jsx}</div>
     </div>
   );
 }
@@ -173,11 +214,15 @@ function PrintArray(props: any) {
 
 export {
   PrintStringType,
+  PrintUndefinedType,
   PrintNumberType,
+  PrintBigIntType,
   PrintBooleanType,
   PrintObjectType,
   PrintNamedStringType,
+  PrintNamedUndefinedType,
   PrintNamedNumberType,
+  PrintNamedBigIntType,
   PrintNamedBooleanType,
   PrintNamedObjectType,
   PrintOther,

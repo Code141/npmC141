@@ -25,6 +25,7 @@
 	display: inline-block;
 	overflow: auto;
 	width: 100%;
+	padding: 5px;
 
 	// FOLDED WITH GLUE AND PADDING
 	.gluedPreview{
@@ -88,10 +89,17 @@
 	.number{
 		color: $numberColor;
 	}
+	.bigint{
+		color: $bigintColor;
+	}
 	.boolean {
 		color: $booleanColor;
 	}
 
+
+	.undefined{
+		color: $undefinedColor;
+	}
 	.string {
 		color: $stringColor;
 		&::after,
@@ -106,8 +114,12 @@
 	}
 
 
+	.UNSUPORTED {
+			color: "red";
+			background: yellow;
+	}
 
-	// LAST USED BU HAAAAAAAAAAAAAA
+	// LAST USED BY PrintOther
 	.inline,
 	.inline > *
 	{

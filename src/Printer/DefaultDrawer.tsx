@@ -1,10 +1,14 @@
 import React from "react";
 import {
   PrintStringType,
+  PrintUndefinedType,
   PrintNumberType,
+  PrintBigIntType,
   PrintBooleanType,
   PrintNamedStringType,
+  PrintNamedUndefinedType,
   PrintNamedNumberType,
+  PrintNamedBigIntType,
   PrintNamedBooleanType,
   PrintOther,
   PrintDictionary,
@@ -49,31 +53,45 @@ import "./style.scss";
 
 let defaultDrawer = [
   {
-    filter: (element: any) => typeof element.value === "string",
+    filter: (element: any) => typeof element?.value === "string",
     // IF THIS FILTER MATCH, COULD CHECK PARENTS
     Component: (props: any) => (
       <PrintNamedStringType value={props.value} name={props.name} />
     ),
   },
+
   {
-    filter: (element: any) => typeof element.value === "number",
+    filter: (element: any) => typeof element?.value === "undefined",
+    Component: (props: any) => (
+      <PrintNamedUndefinedType value={props.value} name={props.name} />
+    ),
+  },
+
+  {
+    filter: (element: any) => typeof element?.value === "number",
     Component: (props: any) => (
       <PrintNamedNumberType value={props.value} name={props.name} />
     ),
   },
   {
-    filter: (element: any) => typeof element.value === "boolean",
+    filter: (element: any) => typeof element?.value === "bigint",
+    Component: (props: any) => (
+      <PrintNamedBigIntType value={props.value} name={props.name} />
+    ),
+  },
+  {
+    filter: (element: any) => typeof element?.value === "boolean",
     Component: (props: any) => (
       <PrintNamedBooleanType value={props.value} name={props.name} />
     ),
   },
 
   {
-    filter: (element: any) => element.value?.constructor === Array,
+    filter: (element: any) => element?.value?.constructor === Array,
     Component: (props: any, loop: any) => <PrintArray {...props} loop={loop} />,
   },
   {
-    filter: (element: any) => element.value?.constructor === Object,
+    filter: (element: any) => element?.value?.constructor === Object,
     Component: (props: any, loop: any) => (
       <PrintDictionary {...props} loop={loop} />
     ),
@@ -86,19 +104,27 @@ let defaultDrawer = [
 
 let previewArray = [
   {
-    filter: (element: any) => typeof element.value === "string",
+    filter: (element: any) => typeof element?.value === "string",
     Component: (props: any) => <PrintStringType value={props.value} />,
   },
   {
-    filter: (element: any) => typeof element.value === "number",
+    filter: (element: any) => typeof element?.value === "undefined",
+    Component: () => <PrintUndefinedType />,
+  },
+  {
+    filter: (element: any) => typeof element?.value === "number",
     Component: (props: any) => <PrintNumberType value={props.value} />,
   },
   {
-    filter: (element: any) => typeof element.value === "boolean",
+    filter: (element: any) => typeof element?.value === "bigint",
+    Component: (props: any) => <PrintBigIntType value={props.value} />,
+  },
+  {
+    filter: (element: any) => typeof element?.value === "boolean",
     Component: (props: any) => <PrintBooleanType value={props.value} />,
   },
   {
-    filter: (element: any) => typeof element.value === "object",
+    filter: (element: any) => typeof element?.value === "object",
     Component: () => (
       <div>
         &#123;<span className="grey">&#8230;</span>&#125;
@@ -109,25 +135,37 @@ let previewArray = [
 
 let previewObject = [
   {
-    filter: (element: any) => typeof element.value === "string",
+    filter: (element: any) => typeof element?.value === "string",
     Component: (props: any) => (
       <PrintNamedStringType value={props.value} name={props.name} />
     ),
   },
   {
-    filter: (element: any) => typeof element.value === "number",
+    filter: (element: any) => typeof element?.value === "undefined",
+    Component: (props: any) => (
+      <PrintNamedUndefinedType value={props.value} name={props.name} />
+    ),
+  },
+  {
+    filter: (element: any) => typeof element?.value === "number",
     Component: (props: any) => (
       <PrintNamedNumberType value={props.value} name={props.name} />
     ),
   },
   {
-    filter: (element: any) => typeof element.value === "boolean",
+    filter: (element: any) => typeof element?.value === "bigint",
+    Component: (props: any) => (
+      <PrintNamedBigIntType value={props.value} name={props.name} />
+    ),
+  },
+  {
+    filter: (element: any) => typeof element?.value === "boolean",
     Component: (props: any) => (
       <PrintNamedBooleanType value={props.value} name={props.name} />
     ),
   },
   {
-    filter: (element: any) => typeof element.value === "object",
+    filter: (element: any) => typeof element?.value === "object",
     Component: (props: any) => (
       <div>
         <span className={"name"}>{props.name}</span>
