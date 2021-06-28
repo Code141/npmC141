@@ -1,10 +1,6 @@
 /// <reference types="react" />
+import { Print, Element } from "./Types";
 import "./style.scss";
-interface Print {
-    value: any;
-    name?: string;
-    drawer?: any;
-    maxDeepness?: number;
-}
 declare function Print(props: Print): JSX.Element;
+export declare function selectDrawer(props: Element): JSX.Element;
 export default Print;

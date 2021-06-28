@@ -1,42 +1,26 @@
 @import "../scss/colors.scss";
 
-
-@mixin opacityStair($fade: 0.9, $step: 0.05) {
-	// Recursive sass example
-    
-	& + * {
-		opacity: $fade;
-		@if $fade <= $step {
-		  // exit
-		} @else {
-			@include opacityStair($fade - $step, $step)
-		}
-	}
-}
-
-
 .printer {
+	display: inline-block;
+	width: 100%;
+	overflow: auto;
+
 	font-family: "Ubuntu Mono", monospace ;
 	text-rendering: optimizespeed;
 	line-height: 14px;
 	font-size: 11px;
 	background: $backgroundColor;
-	color: $blue; // MAIN COLOR TEXT
-	display: inline-block;
-	overflow: auto;
-	width: 100%;
-	padding: 5px;
+	color: $blue;
 
-	// FOLDED WITH GLUE AND PADDING
 	.gluedPreview{
-		&:not(:empty)
-		{
-			margin: 0px 6px;
-		}
-
 		& > * {
 			display: inline-block;
 		}
+
+		&:not(:empty) {
+			margin: 0px 6px;
+		}
+
 		div:not(:last-child):after{
 			color: #FFFFFF;
 			content: ",";
@@ -54,21 +38,26 @@
 		margin: -1px;
 	}
 	*/
-	.foldHeadLine:hover {
-		background-color: $dirHoverColor;
-	}
 
-	.foldHeadLine {
-		padding-left: 7px;
+	.foldHeadLine{
+		//padding-left: 7px;
+		&:hover {
+			background-color: $dirHoverColor;
+		}
 	}
 
 	.printTab {
-		padding-left: 5px;
-		margin-left: 10px;
+		padding-left: 10px;
+		margin-left: 3px;
 		border-left: 1px solid $tabLineColor;
+		& > div > .name {
+			margin-left: 12px;
+		}
+		/*
 		& > *:not(.fold) {
 			margin-left: 19px;
 		}
+		*/
 	}
 	.Pointing_Small_Triangle{
 		color: $grey;
@@ -77,9 +66,6 @@
 	}
 
 	/////////////////////////
-	.object {
-		color: red;
-	}
 
 	.name::after{
 		color: $grey;
@@ -89,6 +75,10 @@
 	.number{
 		color: $numberColor;
 	}
+	.nan{
+		color: $nanColor;
+
+	}
 	.bigint{
 		color: $bigintColor;
 	}
@@ -96,10 +86,13 @@
 		color: $booleanColor;
 	}
 
-
 	.undefined{
 		color: $undefinedColor;
 	}
+	.null{
+		color: $nullColor;
+	}
+
 	.string {
 		color: $stringColor;
 		&::after,
@@ -113,10 +106,11 @@
 		color: $grey;
 	}
 
-
 	.UNSUPORTED {
-			color: "red";
-			background: yellow;
+			color: red;
+			font-weight: bolder;
+			padding: 0px 5px;
+			display: inline-block;
 	}
 
 	// LAST USED BY PrintOther

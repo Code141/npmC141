@@ -1,15 +1,4 @@
-/// <reference types="react" />
+import { Drawer } from "./Types";
 import "./style.scss";
-declare let defaultDrawer: {
-    filter: (element: any) => boolean;
-    Component: (props: any, loop: any) => JSX.Element;
-}[];
-declare let previewArray: {
-    filter: (element: any) => boolean;
-    Component: (props: any) => JSX.Element;
-}[];
-declare let previewObject: {
-    filter: (element: any) => boolean;
-    Component: (props: any) => JSX.Element;
-}[];
-export { defaultDrawer, previewArray, previewObject };
+declare let defaultDrawer: Drawer;
+export { defaultDrawer };
