@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { defaultDrawer } from "./DefaultDrawer";
 import "./style.scss";
 import { selectDrawer } from "./Printer";
 
-let name = (name: string) => <span className={"name"}>{name}</span>;
+let printName = (name: string) => <span className={"name"}>{name}</span>;
 
 function Fold(props: any) {
   const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
@@ -35,7 +34,7 @@ function PrintDictionary(props: any) {
 
   let open = () => (
     <>
-      {name(props.name)}
+      {printName(props.name)}
       &#123;<span className="grey">&#8230;</span>&#125;
     </>
   );
@@ -50,12 +49,13 @@ function PrintDictionary(props: any) {
     for (let i = 0; i < l; i++) {
       child[i] = (
         <div>
-          {typeof entries[i][1] !== "object" && name(entries[i][0])}
-          {entries[i][1] === null && name(entries[i][0])}
+          {typeof entries[i][1] !== "object" && printName(entries[i][0])}
+          {entries[i][1] === null && printName(entries[i][0])}
           {selectDrawer({
             name: entries[i][0],
             value: entries[i][1],
-            drawer: defaultDrawer,
+            drawer: props.mainDrawer,
+            mainDrawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
           })}
@@ -65,7 +65,7 @@ function PrintDictionary(props: any) {
 
     return (
       <>
-        {name(props.name)}
+        {printName(props.name)}
         Object &#123;
         <span className="gluedPreview">
           {child}
@@ -85,17 +85,27 @@ function PrintDictionary(props: any) {
     let l: number = entries.length;
     let child = new Array(l);
     for (let i = 0; i < l; i++) {
+      let name = null;
+
+      let result = selectDrawer({
+        name: entries[i][0],
+        value: entries[i][1],
+        drawer: props.mainDrawer,
+        mainDrawer: props.mainDrawer,
+        deepness: props.deepness + 1,
+        maxDeepness: props.maxDeepness,
+      });
+
+      if (
+        result.type.name !== "PrintArray" &&
+        result.type.name !== "PrintDictionary"
+      )
+        name = printName(entries[i][0].toString());
+
       child[i] = (
         <div>
-          {typeof entries[i][1] !== "object" && name(entries[i][0])}
-          {entries[i][1] === null && name(entries[i][0])}
-          {selectDrawer({
-            name: entries[i][0],
-            value: entries[i][1],
-            drawer: defaultDrawer,
-            deepness: props.deepness + 1,
-            maxDeepness: props.maxDeepness,
-          })}
+          {name}
+          {result}
         </div>
       );
     }
@@ -113,7 +123,7 @@ function PrintArray(props: any) {
     );
   let open = () => (
     <>
-      {name(props.name)}
+      {printName(props.name)}
       <span className="grey">({props.value.length})</span>&nbsp;[
       <span className="grey">&#8230;</span>]
     </>
@@ -131,7 +141,8 @@ function PrintArray(props: any) {
           {selectDrawer({
             name: i.toString(),
             value: props.value[i],
-            drawer: defaultDrawer,
+            drawer: props.mainDrawer,
+            mainDrawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
           })}
@@ -141,7 +152,7 @@ function PrintArray(props: any) {
 
     return (
       <>
-        {name(props.name)}
+        {printName(props.name)}
         Array
         <span className={"grey"}>({props.value.length})</span>&nbsp;[
         <span className={"gluedPreview"}>
@@ -160,18 +171,28 @@ function PrintArray(props: any) {
   let body = () => {
     let l: number = props.value?.length;
     let child = new Array(l);
+
     for (let i = 0; i < l; i++) {
+      let name = null;
+      let result = selectDrawer({
+        name: i.toString(),
+        value: props.value[i],
+        drawer: props.mainDrawer,
+        mainDrawer: props.mainDrawer,
+        deepness: props.deepness + 1,
+        maxDeepness: props.maxDeepness,
+      });
+
+      if (
+        result.type.name !== "PrintArray" &&
+        result.type.name !== "PrintDictionary"
+      )
+        name = printName(i.toString());
+
       child[i] = (
         <div>
-          {typeof props.value[i] !== "object" && name(i.toString())}
-          {props.value[i] === null && name(i.toString())}
-          {selectDrawer({
-            name: i.toString(),
-            value: props.value[i],
-            drawer: defaultDrawer,
-            deepness: props.deepness + 1,
-            maxDeepness: props.maxDeepness,
-          })}
+          {name}
+          {result}
         </div>
       );
     }

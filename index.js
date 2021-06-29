@@ -70,7 +70,7 @@ var __assign = function() {
 
 ___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  display: inline-block;\n  width: 100%;\n  overflow: auto;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview:not(:empty) {\n  margin: 0px 6px;\n}\n.printer .gluedPreview div:not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .printTab {\n  padding-left: 10px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n  /*\n  & > *:not(.fold) {\n  \tmargin-left: 19px;\n  }\n  */\n}\n.printer .printTab > div > .name {\n  margin-left: 12px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .nan {\n  color: #939395;\n}\n.printer .bigint {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .undefined {\n  color: #939395;\n}\n.printer .null {\n  color: #939395;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .UNSUPORTED {\n  color: red;\n  font-weight: bolder;\n  padding: 0px 5px;\n  display: inline-block;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
 
-var name = function (name) { return React__default['default'].createElement("span", { className: "name" }, name); };
+var printName = function (name) { return React__default['default'].createElement("span", { className: "name" }, name); };
 function Fold(props) {
     var _a = React.useState(props.deepness < props.maxDeepness), isOpen = _a[0], setIsOpen = _a[1];
     return isOpen ? (React__default['default'].createElement("div", { className: "fold" },
@@ -89,7 +89,7 @@ function PrintDictionary(props) {
             React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
             "}"));
     var open = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
-        name(props.name),
+        printName(props.name),
         "{",
         React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
         "}")); };
@@ -101,18 +101,19 @@ function PrintDictionary(props) {
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
             child[i] = (React__default['default'].createElement("div", null,
-                typeof entries[i][1] !== "object" && name(entries[i][0]),
-                entries[i][1] === null && name(entries[i][0]),
+                typeof entries[i][1] !== "object" && printName(entries[i][0]),
+                entries[i][1] === null && printName(entries[i][0]),
                 selectDrawer({
                     name: entries[i][0],
                     value: entries[i][1],
-                    drawer: defaultDrawer,
+                    drawer: props.mainDrawer,
+                    mainDrawer: props.mainDrawer,
                     deepness: props.deepness + 1,
                     maxDeepness: maxDeepness,
                 })));
         }
         return (React__default['default'].createElement(React__default['default'].Fragment, null,
-            name(props.name),
+            printName(props.name),
             "Object {",
             React__default['default'].createElement("span", { className: "gluedPreview" },
                 child,
@@ -125,16 +126,21 @@ function PrintDictionary(props) {
         var l = entries.length;
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
+            var name_1 = null;
+            var result = selectDrawer({
+                name: entries[i][0],
+                value: entries[i][1],
+                drawer: props.mainDrawer,
+                mainDrawer: props.mainDrawer,
+                deepness: props.deepness + 1,
+                maxDeepness: props.maxDeepness,
+            });
+            if (result.type.name !== "PrintArray" &&
+                result.type.name !== "PrintDictionary")
+                name_1 = printName(entries[i][0].toString());
             child[i] = (React__default['default'].createElement("div", null,
-                typeof entries[i][1] !== "object" && name(entries[i][0]),
-                entries[i][1] === null && name(entries[i][0]),
-                selectDrawer({
-                    name: entries[i][0],
-                    value: entries[i][1],
-                    drawer: defaultDrawer,
-                    deepness: props.deepness + 1,
-                    maxDeepness: props.maxDeepness,
-                })));
+                name_1,
+                result));
         }
         return child;
     };
@@ -147,7 +153,7 @@ function PrintArray(props) {
             React__default['default'].createElement("span", { className: "grey" }, "\u2026"),
             "]"));
     var open = function () { return (React__default['default'].createElement(React__default['default'].Fragment, null,
-        name(props.name),
+        printName(props.name),
         React__default['default'].createElement("span", { className: "grey" },
             "(",
             props.value.length,
@@ -165,13 +171,14 @@ function PrintArray(props) {
             child[i] = (React__default['default'].createElement("div", null, selectDrawer({
                 name: i.toString(),
                 value: props.value[i],
-                drawer: defaultDrawer,
+                drawer: props.mainDrawer,
+                mainDrawer: props.mainDrawer,
                 deepness: props.deepness + 1,
                 maxDeepness: maxDeepness,
             })));
         }
         return (React__default['default'].createElement(React__default['default'].Fragment, null,
-            name(props.name),
+            printName(props.name),
             "Array",
             React__default['default'].createElement("span", { className: "grey" },
                 "(",
@@ -189,16 +196,21 @@ function PrintArray(props) {
         var l = (_a = props.value) === null || _a === void 0 ? void 0 : _a.length;
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
+            var name_2 = null;
+            var result = selectDrawer({
+                name: i.toString(),
+                value: props.value[i],
+                drawer: props.mainDrawer,
+                mainDrawer: props.mainDrawer,
+                deepness: props.deepness + 1,
+                maxDeepness: props.maxDeepness,
+            });
+            if (result.type.name !== "PrintArray" &&
+                result.type.name !== "PrintDictionary")
+                name_2 = printName(i.toString());
             child[i] = (React__default['default'].createElement("div", null,
-                typeof props.value[i] !== "object" && name(i.toString()),
-                props.value[i] === null && name(i.toString()),
-                selectDrawer({
-                    name: i.toString(),
-                    value: props.value[i],
-                    drawer: defaultDrawer,
-                    deepness: props.deepness + 1,
-                    maxDeepness: props.maxDeepness,
-                })));
+                name_2,
+                result));
         }
         return child;
     };
@@ -238,32 +250,32 @@ function PrintArray(props) {
 var defaultDrawer = [
     {
         filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "undefined"; },
-        Component: function () { return React__default['default'].createElement("span", { className: "undefined" }, "undefined"); },
+        component: function () { return React__default['default'].createElement("span", { className: "undefined" }, "undefined"); },
     },
     {
         filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "boolean"; },
-        Component: function (props) { return (React__default['default'].createElement("span", { className: "boolean" }, props.value.toString())); },
+        component: function (props) { return (React__default['default'].createElement("span", { className: "boolean" }, props.value.toString())); },
     },
     {
         filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "number"; },
         subDrawer: [
             {
                 filter: function (element) { return isNaN(element.value); },
-                Component: function (props) { return React__default['default'].createElement("span", { className: "nan" }, props.value); },
+                component: function (props) { return React__default['default'].createElement("span", { className: "nan" }, props.value); },
             },
             {
                 filter: function () { return true; },
-                Component: function (props) { return React__default['default'].createElement("span", { className: "number" }, props.value); },
+                component: function (props) { return React__default['default'].createElement("span", { className: "number" }, props.value); },
             },
         ],
     },
     {
         filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "string"; },
-        Component: function (props) { return React__default['default'].createElement("span", { className: "string" }, props.value); },
+        component: function (props) { return React__default['default'].createElement("span", { className: "string" }, props.value); },
     },
     {
         filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "bigint"; },
-        Component: function (props) { return (React__default['default'].createElement("span", { className: "bigint" },
+        component: function (props) { return (React__default['default'].createElement("span", { className: "bigint" },
             props.value.toString(),
             "n")); },
     },
@@ -272,15 +284,15 @@ var defaultDrawer = [
         subDrawer: [
             {
                 filter: function (element) { return (element === null || element === void 0 ? void 0 : element.value) === null; },
-                Component: function () { return React__default['default'].createElement("span", { className: "null" }, "null"); },
+                component: function () { return React__default['default'].createElement("span", { className: "null" }, "null"); },
             },
             {
                 filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Array; },
-                Component: function (props) { return React__default['default'].createElement(PrintArray, __assign({}, props)); },
+                component: function (props) { return React__default['default'].createElement(PrintArray, __assign({}, props)); },
             },
             {
                 filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Object; },
-                Component: function (props) { return React__default['default'].createElement(PrintDictionary, __assign({}, props)); },
+                component: function (props) { return React__default['default'].createElement(PrintDictionary, __assign({}, props)); },
             },
         ],
     },
@@ -289,21 +301,28 @@ var defaultDrawer = [
 // => LOOP DETECTOR ? (circulary refence, mayby use symbol ?)
 // give absolute_path for filters ?
 function Print(props) {
-    var _a;
+    var _a, _b, _c;
     var value = props.value;
     var name = (_a = props.name) !== null && _a !== void 0 ? _a : "";
-    var drawer = props.drawer ? props.drawer : defaultDrawer;
-    var maxDeepness = props.maxDeepness ? props.maxDeepness : 0;
+    var drawer = (_b = props.drawer) !== null && _b !== void 0 ? _b : defaultDrawer;
+    var maxDeepness = (_c = props.maxDeepness) !== null && _c !== void 0 ? _c : 0;
     var deepness = 0; // accumulatore
-    return (React__default['default'].createElement("div", { className: "printer" }, selectDrawer({ name: name, value: value, drawer: drawer, deepness: deepness, maxDeepness: maxDeepness })));
+    return (React__default['default'].createElement("div", { className: "printer" }, selectDrawer({
+        name: name,
+        value: value,
+        drawer: drawer,
+        deepness: deepness,
+        maxDeepness: maxDeepness,
+        mainDrawer: drawer,
+    })));
 }
 function selectDrawer(props) {
     for (var i = 0, l = props.drawer.length; i < l; i++) {
-        var _a = props.drawer[i], filter = _a.filter, Component = _a.Component, subDrawer = _a.subDrawer;
+        var _a = props.drawer[i], filter = _a.filter, component = _a.component, subDrawer = _a.subDrawer;
         if (filter(props)) {
             var result = null;
-            if (Component)
-                result = Component(props);
+            if (component)
+                result = component(props);
             else if (subDrawer)
                 result = selectDrawer(__assign(__assign({}, props), { drawer: subDrawer }));
             if (result)
@@ -493,4 +512,5 @@ function TilingWindowManager(props) {
 exports.Log = Logger;
 exports.Print = Print;
 exports.TilingWindowManager = TilingWindowManager;
+exports.defaultDrawer = defaultDrawer;
 //# sourceMappingURL=index.js.map

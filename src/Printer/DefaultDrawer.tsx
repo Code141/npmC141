@@ -36,11 +36,11 @@ import "./style.scss";
 let defaultDrawer: Drawer = [
   {
     filter: (element) => typeof element?.value === "undefined",
-    Component: () => <span className={"undefined"}>undefined</span>,
+    component: () => <span className={"undefined"}>undefined</span>,
   },
   {
     filter: (element) => typeof element?.value === "boolean",
-    Component: (props) => (
+    component: (props) => (
       <span className={"boolean"}>{props.value.toString()}</span>
     ),
   },
@@ -49,21 +49,21 @@ let defaultDrawer: Drawer = [
     subDrawer: [
       {
         filter: (element) => isNaN(element.value),
-        Component: (props) => <span className={"nan"}>{props.value}</span>,
+        component: (props) => <span className={"nan"}>{props.value}</span>,
       },
       {
         filter: () => true,
-        Component: (props) => <span className={"number"}>{props.value}</span>,
+        component: (props) => <span className={"number"}>{props.value}</span>,
       },
     ],
   },
   {
     filter: (element) => typeof element?.value === "string",
-    Component: (props) => <span className={"string"}>{props.value}</span>,
+    component: (props) => <span className={"string"}>{props.value}</span>,
   },
   {
     filter: (element) => typeof element?.value === "bigint",
-    Component: (props) => (
+    component: (props) => (
       <span className={"bigint"}>{props.value.toString()}n</span>
     ),
   },
@@ -72,15 +72,15 @@ let defaultDrawer: Drawer = [
     subDrawer: [
       {
         filter: (element) => element?.value === null,
-        Component: () => <span className={"null"}>null</span>,
+        component: () => <span className={"null"}>null</span>,
       },
       {
         filter: (element) => element?.value?.constructor === Array,
-        Component: (props) => <PrintArray {...props} />,
+        component: (props) => <PrintArray {...props} />,
       },
       {
         filter: (element) => element?.value?.constructor === Object,
-        Component: (props) => <PrintDictionary {...props} />,
+        component: (props) => <PrintDictionary {...props} />,
       },
     ],
   },

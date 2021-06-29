@@ -8,13 +8,14 @@ export interface Print {
 export declare type Drawer = Pencil[];
 export interface Pencil {
     filter: (element: Element) => true | false;
-    Component?: (props: any) => JSX.Element;
+    component?: (props: ComponentsProps) => JSX.Element;
     subDrawer?: Drawer;
 }
 export interface Element {
     name: string;
     value: any;
     drawer: Drawer;
+    mainDrawer: Drawer;
     deepness: number;
     maxDeepness: number;
 }
