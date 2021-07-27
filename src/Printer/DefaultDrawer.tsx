@@ -19,7 +19,7 @@ import "./style.scss";
 						new WeakMap
 						new WeakSet
 						new Date
-						... and almost everything made with new keywor
+						... and almost everything made with new keyword
 				Function
 						a non-data structure, though it also answers for
 						typeof operator: typeof instance === "function".
@@ -52,7 +52,6 @@ let defaultDrawer: Drawer = [
         component: (props) => <span className={"nan"}>{props.value}</span>,
       },
       {
-        filter: () => true,
         component: (props) => <span className={"number"}>{props.value}</span>,
       },
     ],
@@ -82,7 +81,29 @@ let defaultDrawer: Drawer = [
         filter: (element) => element?.value?.constructor === Object,
         component: (props) => <PrintDictionary {...props} />,
       },
+      {
+        filter: (element) => element?.value?.constructor === Buffer,
+        component: () => {
+          return <>ArrayBuffer</>;
+        },
+      },
+      {
+        filter: (element) => !element?.value?.constructor, // NEEDED FOR OBJECT LITERAL WITHOUT 'OBJECT CONSTRUCTOR'
+        component: (props) => <PrintDictionary {...props} />,
+      },
     ],
+  },
+  {
+    component: (props) => {
+      console.log("PRINTER UNSUPORTED VALUE", props);
+      if (!props?.value?.constructor?.name) console.log(props.value);
+      return (
+        <div className="UNSUPORTED">
+          UNSUPORTED VALUE: {typeof props.value}{" "}
+          {props?.value?.constructor?.name}
+        </div>
+      );
+    },
   },
 ];
 

@@ -1,10 +1,19 @@
+//@ts-nocheck
 import React, { useState } from "react";
 import "./style.scss";
 import { selectDrawer } from "./Printer";
+import { defaultDrawer } from "./DefaultDrawer";
+import { Element } from "./Types";
 
 let printName = (name: string) => <span className={"name"}>{name}</span>;
 
-function Fold(props: any) {
+interface FoldProps extends Element {
+  open: () => JSX.Element;
+  close: () => JSX.Element;
+  body: () => JSX.Element;
+}
+
+export function Fold(props: FoldProps) {
   const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
   return isOpen ? (
     <div className={"fold"}>
@@ -24,7 +33,7 @@ function Fold(props: any) {
   );
 }
 
-function PrintDictionary(props: any) {
+function PrintDictionary(props: Element) {
   if (props.maxDeepness === -1)
     return (
       <>
@@ -48,17 +57,18 @@ function PrintDictionary(props: any) {
 
     for (let i = 0; i < l; i++) {
       child[i] = (
-        <div>
+        <div key={i}>
           {typeof entries[i][1] !== "object" && printName(entries[i][0])}
           {entries[i][1] === null && printName(entries[i][0])}
           {selectDrawer({
             name: entries[i][0],
             value: entries[i][1],
-            drawer: props.mainDrawer,
+            drawer: defaultDrawer,
             mainDrawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
-          })}
+            selectDrawer: selectDrawer,
+          } as Element)}
         </div>
       );
     }
@@ -94,16 +104,19 @@ function PrintDictionary(props: any) {
         mainDrawer: props.mainDrawer,
         deepness: props.deepness + 1,
         maxDeepness: props.maxDeepness,
+        selectDrawer: selectDrawer,
       });
 
       if (
+        //@ts-ignore
         result.type.name !== "PrintArray" &&
+        //@ts-ignore
         result.type.name !== "PrintDictionary"
       )
         name = printName(entries[i][0].toString());
 
       child[i] = (
-        <div>
+        <div key={i}>
           {name}
           {result}
         </div>
@@ -114,7 +127,7 @@ function PrintDictionary(props: any) {
   return <Fold {...props} open={open} close={close} body={body} />;
 }
 
-function PrintArray(props: any) {
+function PrintArray(props: Element) {
   if (props.maxDeepness === -1)
     return (
       <>
@@ -137,14 +150,15 @@ function PrintArray(props: any) {
     let child: JSX.Element[] = new Array(l);
     for (let i = 0; i < l; i++) {
       child[i] = (
-        <div>
+        <div key={i}>
           {selectDrawer({
             name: i.toString(),
             value: props.value[i],
-            drawer: props.mainDrawer,
+            drawer: defaultDrawer,
             mainDrawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
+            selectDrawer: selectDrawer,
           })}
         </div>
       );
@@ -181,16 +195,19 @@ function PrintArray(props: any) {
         mainDrawer: props.mainDrawer,
         deepness: props.deepness + 1,
         maxDeepness: props.maxDeepness,
+        selectDrawer: selectDrawer,
       });
 
       if (
+        //@ts-ignore
         result.type.name !== "PrintArray" &&
+        //@ts-ignore
         result.type.name !== "PrintDictionary"
       )
         name = printName(i.toString());
 
       child[i] = (
-        <div>
+        <div key={i}>
           {name}
           {result}
         </div>

@@ -8,8 +8,12 @@ export interface Print {
 export type Drawer = Pencil[];
 
 export interface Pencil {
-  filter: (element: Element) => true | false;
-  component?: (props: ComponentsProps) => JSX.Element;
+  filter?: (element: Element) => true | false;
+  component?: (
+    props: Element,
+    print?: (value: Element) => JSX.Element | null
+  ) => JSX.Element;
+
   subDrawer?: Drawer;
 }
 
@@ -20,8 +24,6 @@ export interface Element {
   mainDrawer: Drawer;
   deepness: number;
   maxDeepness: number;
-}
-
-export interface ComponentsProps extends Element {
-  deepness: number;
+  print?: (props: Element) => JSX.Element;
+  selectDrawer: (E: any) => any;
 }
