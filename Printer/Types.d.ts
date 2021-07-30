@@ -7,10 +7,9 @@ export interface Print {
 }
 export declare type Drawer = Pencil[];
 export interface Pencil {
-    filter: (element: Element) => true | false;
-    component?: (props: Element, print: (value: Element) => JSX.Element | null) => JSX.Element;
+    filter?: (element: Element) => true | false;
+    component?: (props: Element, print?: (value: Element) => JSX.Element | null) => JSX.Element;
     subDrawer?: Drawer;
-    wrapper?: (children: JSX.Element) => JSX.Element;
 }
 export interface Element {
     name: string;

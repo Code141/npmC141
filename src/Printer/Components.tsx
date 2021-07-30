@@ -61,6 +61,7 @@ function PrintDictionary(props: Element) {
           {typeof entries[i][1] !== "object" && printName(entries[i][0])}
           {entries[i][1] === null && printName(entries[i][0])}
           {selectDrawer({
+            ...props,
             name: entries[i][0],
             value: entries[i][1],
             drawer: defaultDrawer,
@@ -98,6 +99,7 @@ function PrintDictionary(props: Element) {
       let name = null;
 
       let result = selectDrawer({
+        ...props,
         name: entries[i][0],
         value: entries[i][1],
         drawer: props.mainDrawer,
@@ -152,6 +154,7 @@ function PrintArray(props: Element) {
       child[i] = (
         <div key={i}>
           {selectDrawer({
+            ...props,
             name: i.toString(),
             value: props.value[i],
             drawer: defaultDrawer,
@@ -189,6 +192,7 @@ function PrintArray(props: Element) {
     for (let i = 0; i < l; i++) {
       let name = null;
       let result = selectDrawer({
+        ...props,
         name: i.toString(),
         value: props.value[i],
         drawer: props.mainDrawer,

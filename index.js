@@ -68,6 +68,12 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+}
+
 ___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  display: inline-block;\n  width: 100%;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview:not(:empty) {\n  margin: 0px 6px;\n}\n.printer .gluedPreview div:not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .printTab {\n  padding-left: 10px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n  /*\n  & > *:not(.fold) {\n  \tmargin-left: 19px;\n  }\n  */\n}\n.printer .printTab > div > .name {\n  margin-left: 12px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .nan {\n  color: #939395;\n}\n.printer .bigint {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .undefined {\n  color: #939395;\n}\n.printer .null {\n  color: #939395;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .UNSUPORTED {\n  color: red;\n  font-weight: bolder;\n  padding: 0px 5px;\n  display: inline-block;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
 
 var printName = function (name) { return React__default['default'].createElement("span", { className: "name" }, name); };
@@ -103,15 +109,7 @@ function PrintDictionary(props) {
             child[i] = (React__default['default'].createElement("div", { key: i },
                 typeof entries[i][1] !== "object" && printName(entries[i][0]),
                 entries[i][1] === null && printName(entries[i][0]),
-                selectDrawer({
-                    name: entries[i][0],
-                    value: entries[i][1],
-                    drawer: defaultDrawer,
-                    mainDrawer: props.mainDrawer,
-                    deepness: props.deepness + 1,
-                    maxDeepness: maxDeepness,
-                    selectDrawer: selectDrawer,
-                })));
+                selectDrawer(__assign(__assign({}, props), { name: entries[i][0], value: entries[i][1], drawer: defaultDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: maxDeepness, selectDrawer: selectDrawer }))));
         }
         return (React__default['default'].createElement(React__default['default'].Fragment, null,
             printName(props.name),
@@ -128,15 +126,7 @@ function PrintDictionary(props) {
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
             var name_1 = null;
-            var result = selectDrawer({
-                name: entries[i][0],
-                value: entries[i][1],
-                drawer: props.mainDrawer,
-                mainDrawer: props.mainDrawer,
-                deepness: props.deepness + 1,
-                maxDeepness: props.maxDeepness,
-                selectDrawer: selectDrawer,
-            });
+            var result = selectDrawer(__assign(__assign({}, props), { name: entries[i][0], value: entries[i][1], drawer: props.mainDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness, selectDrawer: selectDrawer }));
             if (
             //@ts-ignore
             result.type.name !== "PrintArray" &&
@@ -173,15 +163,7 @@ function PrintArray(props) {
         var l = maxChild < ((_a = props.value) === null || _a === void 0 ? void 0 : _a.length) ? maxChild : (_b = props.value) === null || _b === void 0 ? void 0 : _b.length;
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
-            child[i] = (React__default['default'].createElement("div", { key: i }, selectDrawer({
-                name: i.toString(),
-                value: props.value[i],
-                drawer: defaultDrawer,
-                mainDrawer: props.mainDrawer,
-                deepness: props.deepness + 1,
-                maxDeepness: maxDeepness,
-                selectDrawer: selectDrawer,
-            })));
+            child[i] = (React__default['default'].createElement("div", { key: i }, selectDrawer(__assign(__assign({}, props), { name: i.toString(), value: props.value[i], drawer: defaultDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: maxDeepness, selectDrawer: selectDrawer }))));
         }
         return (React__default['default'].createElement(React__default['default'].Fragment, null,
             printName(props.name),
@@ -203,15 +185,7 @@ function PrintArray(props) {
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
             var name_2 = null;
-            var result = selectDrawer({
-                name: i.toString(),
-                value: props.value[i],
-                drawer: props.mainDrawer,
-                mainDrawer: props.mainDrawer,
-                deepness: props.deepness + 1,
-                maxDeepness: props.maxDeepness,
-                selectDrawer: selectDrawer,
-            });
+            var result = selectDrawer(__assign(__assign({}, props), { name: i.toString(), value: props.value[i], drawer: props.mainDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness, selectDrawer: selectDrawer }));
             if (
             //@ts-ignore
             result.type.name !== "PrintArray" &&
@@ -339,6 +313,8 @@ function Print(props) {
     var drawer = (_b = props.drawer) !== null && _b !== void 0 ? _b : defaultDrawer;
     var maxDeepness = (_c = props.maxDeepness) !== null && _c !== void 0 ? _c : 0;
     var deepness = 0; // accumulatore
+    //@ts-ignore
+    var path = [];
     return (React__default['default'].createElement("div", { className: "printer" }, selectDrawer({
         name: name,
         value: value,
@@ -347,22 +323,41 @@ function Print(props) {
         maxDeepness: maxDeepness,
         mainDrawer: drawer,
         selectDrawer: selectDrawer,
+        //@ts-ignore
+        path: path,
     })));
 }
+// EN CAS DE COMPONENT WRAPPER. ON NE VEUT PAS AVOIR A REDEFINIR SYSTEMATIQUEMENT
+// SON "SUBDRAWER" ASSOCIE (SI IL EXISTE) COMME ETANT LE NOUVEAU DRAWER.
+// L'INJECTER ICI (SANS L'EXECUTER) SI LE COMPONENT WRAPPER DOIT ETRE AFFICHE.
+// ET LAISSER LE COMPONENT WRAPPER DECIDER DE SI IL CONTINUE L'AFFICHAGE DE
+// SES PROPRES ENFANTS AVEC LEDIT SUBDRAWER
+// OU LE LAISSER EN REDEFINIR UN NOUVEAU.
+// LE LAISSER FINALEMENT EXECUTER LES ENFANTS
 function selectDrawer(props) {
     var _loop_1 = function (i, l) {
         var _a = props.drawer[i], filter = _a.filter, component = _a.component, subDrawer = _a.subDrawer;
         if (!filter || filter(props)) {
             var result = null;
+            //@ts-ignore
+            //props.path.push(`${props.name} `);
+            //@ts-ignore
+            props.selectDrawer = function (props2) {
+                return selectDrawer(__assign(__assign(__assign({}, props), { drawer: subDrawer, deepness: props.deepness + 1 }), props2));
+            };
             if (subDrawer) {
-                result = selectDrawer(__assign(__assign({}, props), { drawer: subDrawer, selectDrawer: selectDrawer }));
+                result = selectDrawer(__assign(__assign({}, props), { drawer: subDrawer, selectDrawer: selectDrawer, 
+                    //@ts-ignore
+                    path: __spreadArray(__spreadArray([], props.path), ["PRINT_SUB:" + props.name]) }));
             }
-            if ((subDrawer && result) || !subDrawer) {
-                if (component)
-                    result = component(props, function (value) {
-                        return selectDrawer(__assign(__assign({}, props), { drawer: subDrawer !== null && subDrawer !== void 0 ? subDrawer : props.mainDrawer, value: value, selectDrawer: selectDrawer }));
-                    });
-            }
+            // DOIT ETRE WRAPPE DANS UN SCOPE, Y PASSER LES PROPS, ET PROPOSER EN USAGE/modif
+            //fourrer le result du dubrawer au passage
+            if (component)
+                result = component(props, function (value) {
+                    return selectDrawer(__assign(__assign({}, props), { drawer: subDrawer !== null && subDrawer !== void 0 ? subDrawer : props.mainDrawer, value: value, selectDrawer: selectDrawer, 
+                        //@ts-ignore
+                        path: __spreadArray(__spreadArray([], props.path), ["PRINT_COMP:" + props.name]) }));
+                });
             if (result) {
                 return { value: result };
             }

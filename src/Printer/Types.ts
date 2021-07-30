@@ -20,10 +20,13 @@ export interface Pencil {
 export interface Element {
   name: string;
   value: any;
+
   drawer: Drawer;
   mainDrawer: Drawer;
+
   deepness: number;
   maxDeepness: number;
+
   print?: (props: Element) => JSX.Element;
   selectDrawer: (E: any) => any;
 }
