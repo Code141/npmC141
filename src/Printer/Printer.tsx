@@ -38,6 +38,10 @@ function Print(props: Print) {
 // OU LE LAISSER EN REDEFINIR UN NOUVEAU.
 // LE LAISSER FINALEMENT EXECUTER LES ENFANTS
 export function selectDrawer(props: Element): JSX.Element | null {
+  for (const key in props.drawer) {
+    console.log(`${key}: ${props.drawer[key]}`);
+  }
+
   for (let i = 0, l = props.drawer.length; i < l; i++) {
     let { filter, component, subDrawer } = props.drawer[i];
     if (!filter || filter(props)) {
@@ -45,37 +49,27 @@ export function selectDrawer(props: Element): JSX.Element | null {
 
       //@ts-ignore
       //props.path.push(`${props.name} `);
-      //@ts-ignore
 
-      props.selectDrawer = (props2) =>
+      props.selectDrawer = (newProps) =>
         selectDrawer({
           ...props,
           drawer: subDrawer,
           deepness: props.deepness + 1,
-          ...props2,
+          ...newProps,
         });
+
       if (subDrawer) {
         result = selectDrawer({
           ...props,
           drawer: subDrawer,
           selectDrawer: selectDrawer,
+          deepness: props.deepness + 1,
           //@ts-ignore
           path: [...props.path, `PRINT_SUB:${props.name}`],
         });
       }
-      // DOIT ETRE WRAPPE DANS UN SCOPE, Y PASSER LES PROPS, ET PROPOSER EN USAGE/modif
-      //fourrer le result du dubrawer au passage
-      if (component)
-        result = component(props, (value) =>
-          selectDrawer({
-            ...props,
-            drawer: subDrawer ?? props.mainDrawer,
-            value: value,
-            selectDrawer: selectDrawer,
-            //@ts-ignore
-            path: [...props.path, `PRINT_COMP:${props.name}`],
-          })
-        );
+
+      if (component) result = component(props);
 
       if (result) {
         return result;

@@ -335,6 +335,9 @@ function Print(props) {
 // OU LE LAISSER EN REDEFINIR UN NOUVEAU.
 // LE LAISSER FINALEMENT EXECUTER LES ENFANTS
 function selectDrawer(props) {
+    for (var key in props.drawer) {
+        console.log(key + ": " + props.drawer[key]);
+    }
     var _loop_1 = function (i, l) {
         var _a = props.drawer[i], filter = _a.filter, component = _a.component, subDrawer = _a.subDrawer;
         if (!filter || filter(props)) {
@@ -342,22 +345,16 @@ function selectDrawer(props) {
             //@ts-ignore
             //props.path.push(`${props.name} `);
             //@ts-ignore
-            props.selectDrawer = function (props2) {
-                return selectDrawer(__assign(__assign(__assign({}, props), { drawer: subDrawer, deepness: props.deepness + 1 }), props2));
+            props.selectDrawer = function (newProps) {
+                return selectDrawer(__assign(__assign(__assign({}, props), { drawer: subDrawer, deepness: props.deepness + 1 }), newProps));
             };
             if (subDrawer) {
-                result = selectDrawer(__assign(__assign({}, props), { drawer: subDrawer, selectDrawer: selectDrawer, 
+                result = selectDrawer(__assign(__assign({}, props), { drawer: subDrawer, selectDrawer: selectDrawer, deepness: props.deepness + 1, 
                     //@ts-ignore
                     path: __spreadArray(__spreadArray([], props.path), ["PRINT_SUB:" + props.name]) }));
             }
-            // DOIT ETRE WRAPPE DANS UN SCOPE, Y PASSER LES PROPS, ET PROPOSER EN USAGE/modif
-            //fourrer le result du dubrawer au passage
             if (component)
-                result = component(props, function (value) {
-                    return selectDrawer(__assign(__assign({}, props), { drawer: subDrawer !== null && subDrawer !== void 0 ? subDrawer : props.mainDrawer, value: value, selectDrawer: selectDrawer, 
-                        //@ts-ignore
-                        path: __spreadArray(__spreadArray([], props.path), ["PRINT_COMP:" + props.name]) }));
-                });
+                result = component(props);
             if (result) {
                 return { value: result };
             }
