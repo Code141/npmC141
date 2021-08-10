@@ -25,51 +25,56 @@ function Print(props: Print) {
         mainDrawer: drawer,
         selectDrawer: selectDrawer,
         //@ts-ignore
+        currentPencil: [],
+        //@ts-ignore
         path: path,
       })}
     </div>
   );
 }
-// EN CAS DE COMPONENT WRAPPER. ON NE VEUT PAS AVOIR A REDEFINIR SYSTEMATIQUEMENT
-// SON "SUBDRAWER" ASSOCIE (SI IL EXISTE) COMME ETANT LE NOUVEAU DRAWER.
-// L'INJECTER ICI (SANS L'EXECUTER) SI LE COMPONENT WRAPPER DOIT ETRE AFFICHE.
-// ET LAISSER LE COMPONENT WRAPPER DECIDER DE SI IL CONTINUE L'AFFICHAGE DE
-// SES PROPRES ENFANTS AVEC LEDIT SUBDRAWER
-// OU LE LAISSER EN REDEFINIR UN NOUVEAU.
-// LE LAISSER FINALEMENT EXECUTER LES ENFANTS
-export function selectDrawer(props: Element): JSX.Element | null {
-  for (const key in props.drawer) {
-    console.log(`${key}: ${props.drawer[key]}`);
-  }
 
-  for (let i = 0, l = props.drawer.length; i < l; i++) {
-    let { filter, component, subDrawer } = props.drawer[i];
+//INJECT KEY SOMEWHERE
+
+export function selectDrawer(props: Element): JSX.Element | null {
+  for (const key in props.drawer.pencils) {
+    let { filter, component, subDrawer } = props.drawer.pencils[key];
     if (!filter || filter(props)) {
       let result: JSX.Element | null = null;
 
-      //@ts-ignore
-      //props.path.push(`${props.name} `);
-
-      props.selectDrawer = (newProps) =>
-        selectDrawer({
+      let SUBDRAW = (newProps: any) => {
+        return selectDrawer({
           ...props,
-          drawer: subDrawer,
+          //@ts-ignore
+          currentPencil: [...props.currentPencil, key],
+          drawer: subDrawer ?? props.drawer ?? props.mainDrawer,
           deepness: props.deepness + 1,
           ...newProps,
         });
+      };
 
-      if (subDrawer) {
-        result = selectDrawer({
+      if (component)
+        result = component({
           ...props,
-          drawer: subDrawer,
-          selectDrawer: selectDrawer,
-          deepness: props.deepness + 1,
+          selectDrawer: SUBDRAW,
           //@ts-ignore
-          path: [...props.path, `PRINT_SUB:${props.name}`],
+          currentPencil: [...props.currentPencil, key],
         });
+      else {
+        if (subDrawer) {
+          result = selectDrawer({
+            ...props,
+            //@ts-ignore
+            currentPencil: [...props.currentPencil, key],
+            drawer: subDrawer,
+            selectDrawer: SUBDRAW,
+            deepness: props.deepness + 1,
+            //@ts-ignore
+            path: [...props.path, `PRINT_SUB:${props.name}`],
+          });
+        }
       }
 
-      if (component) result = component(props);
+      //@ts-ignore
 
       if (result) {
         return result;

@@ -60,12 +60,11 @@ function PrintDictionary(props: Element) {
         <div key={i}>
           {typeof entries[i][1] !== "object" && printName(entries[i][0])}
           {entries[i][1] === null && printName(entries[i][0])}
-          {selectDrawer({
+          {props.selectDrawer({
             ...props,
             name: entries[i][0],
             value: entries[i][1],
-            drawer: defaultDrawer,
-            mainDrawer: props.mainDrawer,
+            drawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
             selectDrawer: selectDrawer,
@@ -98,12 +97,11 @@ function PrintDictionary(props: Element) {
     for (let i = 0; i < l; i++) {
       let name = null;
 
-      let result = selectDrawer({
+      let result = props.selectDrawer({
         ...props,
         name: entries[i][0],
         value: entries[i][1],
         drawer: props.mainDrawer,
-        mainDrawer: props.mainDrawer,
         deepness: props.deepness + 1,
         maxDeepness: props.maxDeepness,
         selectDrawer: selectDrawer,
@@ -153,12 +151,12 @@ function PrintArray(props: Element) {
     for (let i = 0; i < l; i++) {
       child[i] = (
         <div key={i}>
-          {selectDrawer({
+          {props.selectDrawer({
             ...props,
             name: i.toString(),
             value: props.value[i],
-            drawer: defaultDrawer,
-            mainDrawer: props.mainDrawer,
+
+            drawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
             selectDrawer: selectDrawer,
@@ -191,12 +189,12 @@ function PrintArray(props: Element) {
 
     for (let i = 0; i < l; i++) {
       let name = null;
-      let result = selectDrawer({
+      let result = props.selectDrawer({
         ...props,
         name: i.toString(),
         value: props.value[i],
         drawer: props.mainDrawer,
-        mainDrawer: props.mainDrawer,
+
         deepness: props.deepness + 1,
         maxDeepness: props.maxDeepness,
         selectDrawer: selectDrawer,
@@ -222,4 +220,132 @@ function PrintArray(props: Element) {
   return <Fold {...props} open={open} close={close} body={body} />;
 }
 
+export const DrawerDebug = (props: any) => {
+  let entries = Object.entries(props.value);
+  let l: number = entries.length;
+  let child = new Array(l);
+  for (let i = 0; i < l; i++) {
+    let name = null;
+    let result = props.selectDrawer({
+      ...props,
+      name: entries[i][0],
+      value: entries[i][1],
+      drawer: props.mainDrawer,
+      mainDrawer: props.mainDrawer,
+      deepness: props.deepness + 1,
+      maxDeepness: props.maxDeepness,
+    });
+    child[i] = (
+      <div key={i}>
+        <h3 style={{ width: "none", display: "inline-block", margin: "0px" }}>
+          <span className={"name"}>{entries[i][0].toString()}</span>
+        </h3>
+        {result}
+      </div>
+    );
+  }
+  return (
+    <div
+      style={{
+        paddingLeft: "10px",
+      }}
+    >
+      <h2 style={{ margin: "5px 0px", color: "#b98eff" }}>
+        {props.value.drawerName}
+      </h2>
+      {props.selectDrawer({
+        ...props,
+        name: "pencils",
+        value: props.value.pencils,
+        drawer: props.mainDrawer,
+        mainDrawer: props.mainDrawer,
+        deepness: props.deepness + 1,
+        maxDeepness: props.maxDeepness,
+      })}
+    </div>
+  );
+};
+export const Pencils = (props: any) => {
+  let entries = Object.entries(props.value);
+  let l: number = entries.length;
+  let child = new Array(l);
+  for (let i = 0; i < l; i++) {
+    let pencil = entries[i][1];
+    let name = null;
+    child[i] = (
+      <div key={i} style={{ width: "300px" }}>
+        <h3
+          style={{
+            display: "inline-block",
+            margin: "0px 2px",
+          }}
+        >
+          {entries[i][0].toString()}
+        </h3>
+        {
+          //@ts-ignore
+          !pencil.subDrawer && !pencil.component && (
+            <div
+              className="badge"
+              style={{ fontSize: "9px", padding: "0px 4px", margin: "0px 2px" }}
+            >
+              <span style={{ color: "red" }}>NO COMPONENT</span>
+            </div>
+          )
+        }
+
+        {
+          //@ts-ignore
+          pencil.subDrawer && !pencil.component && (
+            <div
+              className="badge"
+              style={{ fontSize: "9px", padding: "0px 4px", margin: "0px 2px" }}
+            >
+              <span>Group</span>
+            </div>
+          )
+        }
+        {
+          //@ts-ignore
+          pencil.subDrawer && pencil.component && (
+            <div
+              className="badge"
+              style={{ fontSize: "9px", padding: "0px 4px", margin: "0px 2px" }}
+            >
+              <span style={{ color: "chocolate" }}>Wrapper</span>
+            </div>
+          )
+        }
+
+        {
+          //@ts-ignore
+          !pencil.filter && (
+            <div
+              className="badge"
+              style={{ fontSize: "9px", padding: "0px 4px", margin: "0px 2px" }}
+            >
+              <span style={{ color: "red" }}>DEAD-END</span>
+            </div>
+          )
+        }
+        {
+          //@ts-ignore
+          pencil.subDrawer ? (
+            <div style={{ paddingLeft: "10px", borderLeftStyle: "solid" }}>
+              {props.selectDrawer({
+                ...props,
+                name: entries[i][0],
+                //@ts-ignore
+                value: entries[i][1].subDrawer,
+                deepness: props.deepness + 1,
+                maxDeepness: props.maxDeepness,
+              })}
+            </div>
+          ) : null
+        }
+      </div>
+    );
+  }
+  return <div>{child}</div>;
+};
 export { PrintDictionary, PrintArray };

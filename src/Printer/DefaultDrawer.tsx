@@ -1,6 +1,11 @@
 import React from "react";
 import { Drawer } from "./Types";
-import { PrintDictionary, PrintArray } from "./Components";
+import {
+  PrintDictionary,
+  PrintArray,
+  DrawerDebug,
+  Pencils,
+} from "./Components";
 import "./style.scss";
 /*
 		Data Types :
@@ -33,78 +38,104 @@ import "./style.scss";
 						if object is not inherited, then null is shown;
  */
 
-let defaultDrawer: Drawer = [
-  {
-    filter: (element) => typeof element?.value === "undefined",
-    component: () => <span className={"undefined"}>undefined</span>,
-  },
-  {
-    filter: (element) => typeof element?.value === "boolean",
-    component: (props) => (
-      <span className={"boolean"}>{props.value.toString()}</span>
-    ),
-  },
-  {
-    filter: (element) => typeof element?.value === "number",
-    subDrawer: [
-      {
-        filter: (element) => isNaN(element.value),
-        component: (props) => <span className={"nan"}>{props.value}</span>,
-      },
-      {
-        component: (props) => <span className={"number"}>{props.value}</span>,
-      },
-    ],
-  },
-  {
-    filter: (element) => typeof element?.value === "string",
-    component: (props) => <span className={"string"}>{props.value}</span>,
-  },
-  {
-    filter: (element) => typeof element?.value === "bigint",
-    component: (props) => (
-      <span className={"bigint"}>{props.value.toString()}n</span>
-    ),
-  },
-  {
-    filter: (element) => typeof element?.value === "object",
-    subDrawer: [
-      {
-        filter: (element) => element?.value === null,
-        component: () => <span className={"null"}>null</span>,
-      },
-      {
-        filter: (element) => element?.value?.constructor === Array,
-        component: (props) => <PrintArray {...props} />,
-      },
-      {
-        filter: (element) => element?.value?.constructor === Object,
-        component: (props) => <PrintDictionary {...props} />,
-      },
-      {
-        filter: (element) => element?.value?.constructor === Buffer,
-        component: () => {
-          return <>ArrayBuffer</>;
+const defaultDrawer: Drawer = {
+  drawerName: "Built-in",
+  pencils: {
+    Undefined: {
+      filter: (element) => typeof element?.value === "undefined",
+      component: () => <span className={"undefined"}>undefined</span>,
+    },
+    Boolean: {
+      filter: (element) => typeof element?.value === "boolean",
+      component: (props) => (
+        <span className={"boolean"}>{props.value.toString()}</span>
+      ),
+    },
+    Number: {
+      filter: (element) => typeof element?.value === "number",
+      component: (props) =>
+        isNaN(props.value) ? (
+          <span className={"nan"}>{props.value}</span>
+        ) : (
+          <span className={"number"}>{props.value}</span>
+        ),
+    },
+    String: {
+      filter: (element) => typeof element?.value === "string",
+      component: (props) => <span className={"string"}>{props.value}</span>,
+    },
+    BigInt: {
+      filter: (element) => typeof element?.value === "bigint",
+      component: (props) => (
+        <span className={"bigint"}>{props.value.toString()}n</span>
+      ),
+    },
+    Object: {
+      filter: (element) => typeof element?.value === "object",
+      subDrawer: {
+        drawerName: "Constructor",
+        pencils: {
+          Null: {
+            filter: (element) => element?.value === null,
+            component: () => <span className={"null"}>null</span>,
+          },
+          Array: {
+            filter: (element) => element?.value?.constructor === Array,
+            component: (props) => <PrintArray {...props} />,
+          },
+          Object: {
+            filter: (element) => element?.value?.constructor === Object,
+            component: (props) => <PrintDictionary {...props} />,
+          },
+          Buffer: {
+            filter: (element) => element?.value?.constructor === Buffer,
+            component: () => {
+              return <>ArrayBuffer</>;
+            },
+          },
+          Literal: {
+            filter: (element) => !element?.value?.constructor, // NEEDED FOR OBJECT LITERAL WITHOUT 'OBJECT CONSTRUCTOR'
+            component: (props) => <PrintDictionary {...props} />,
+          },
         },
       },
-      {
-        filter: (element) => !element?.value?.constructor, // NEEDED FOR OBJECT LITERAL WITHOUT 'OBJECT CONSTRUCTOR'
-        component: (props) => <PrintDictionary {...props} />,
+    },
+    Function: {
+      filter: (element) => typeof element?.value === "function",
+      component: () => (
+        <span className="function">
+          function <span className="grey">∫()</span>
+        </span>
+      ),
+    },
+    UNSUPORTED: {
+      component: (props) => {
+        console.log("PRINTER UNSUPORTED VALUE", props);
+        if (!props?.value?.constructor?.name) console.log(props.value);
+        return (
+          <div className="UNSUPORTED">
+            UNSUPORTED VALUE: {typeof props.value}{" "}
+            {props?.value?.constructor?.name}
+          </div>
+        );
       },
-    ],
-  },
-  {
-    component: (props) => {
-      console.log("PRINTER UNSUPORTED VALUE", props);
-      if (!props?.value?.constructor?.name) console.log(props.value);
-      return (
-        <div className="UNSUPORTED">
-          UNSUPORTED VALUE: {typeof props.value}{" "}
-          {props?.value?.constructor?.name}
-        </div>
-      );
     },
   },
-];
+};
 
-export { defaultDrawer };
+const debugDrawer: Drawer = {
+  drawerName: "Drawer Draw",
+  pencils: {
+    pencils: {
+      filter: (element) =>
+        element?.value?.constructor === Object && element.name === "pencils",
+      component: (props) => <Pencils {...props} />,
+    },
+    drawer: {
+      filter: (element) => element?.value?.constructor === Object,
+      component: (props) => <DrawerDebug {...props} />,
+    },
+  },
+};
+
+export { defaultDrawer, debugDrawer };

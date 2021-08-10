@@ -74,7 +74,7 @@ function __spreadArray(to, from) {
     return to;
 }
 
-___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  display: inline-block;\n  width: 100%;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview:not(:empty) {\n  margin: 0px 6px;\n}\n.printer .gluedPreview div:not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .printTab {\n  padding-left: 10px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n  /*\n  & > *:not(.fold) {\n  \tmargin-left: 19px;\n  }\n  */\n}\n.printer .printTab > div > .name {\n  margin-left: 12px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .nan {\n  color: #939395;\n}\n.printer .bigint {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .undefined {\n  color: #939395;\n}\n.printer .null {\n  color: #939395;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .UNSUPORTED {\n  color: red;\n  font-weight: bolder;\n  padding: 0px 5px;\n  display: inline-block;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
+___$insertStyle("@charset \"UTF-8\";\n/* Thin Scrollbar */\n:root {\n  scrollbar-color: #737373 #38383d !important;\n  scrollbar-width: thin !important;\n}\n\n.printer {\n  display: inline-block;\n  width: 100%;\n  font-family: \"Ubuntu Mono\", monospace;\n  text-rendering: optimizespeed;\n  line-height: 14px;\n  font-size: 11px;\n  background: #232327;\n  color: #75bfff;\n  /*\n  //nice selection effect\n  .fold:hover {\n  \t// seems impossible to select firstchildName\n  \tbackground-color: rgba(0, 0, 0, 0.2);\n  \tborder: 1px solid rgba(255, 0, 0, 0.3);\n  \tmargin: -1px;\n  }\n  */\n}\n.printer .gluedPreview > * {\n  display: inline-block;\n}\n.printer .gluedPreview:not(:empty) {\n  margin: 0px 6px;\n}\n.printer .gluedPreview div:not(:last-child):after {\n  color: #FFFFFF;\n  content: \",\";\n  margin-right: 6px;\n}\n.printer .foldHeadLine:hover {\n  background-color: rgba(0, 0, 0, 0.2);\n}\n.printer .printTab {\n  padding-left: 10px;\n  margin-left: 3px;\n  border-left: 1px solid #75bfff;\n  /*\n  & > *:not(.fold) {\n  \tmargin-left: 19px;\n  }\n  */\n}\n.printer .printTab > div > .name {\n  margin-left: 12px;\n}\n.printer .Pointing_Small_Triangle {\n  color: #939395;\n  cursor: pointer;\n  margin-right: 5px;\n}\n.printer .name::after {\n  color: #939395;\n  content: \": \";\n}\n.printer .number {\n  color: #86de74;\n}\n.printer .nan {\n  color: #939395;\n}\n.printer .bigint {\n  color: #86de74;\n}\n.printer .boolean {\n  color: #86de74;\n}\n.printer .undefined {\n  color: #939395;\n}\n.printer .null {\n  color: #939395;\n}\n.printer .string {\n  color: #ff7de9;\n}\n.printer .string::after, .printer .string::before {\n  color: #939395;\n  content: '\"';\n}\n.printer .function {\n  color: #b98eff;\n}\n.printer .grey {\n  color: #939395;\n}\n.printer .UNSUPORTED {\n  color: red;\n  font-weight: bolder;\n  padding: 0px 5px;\n  display: inline-block;\n}\n.printer .inline,\n.printer .inline > * {\n  display: inline-block;\n}");
 
 var printName = function (name) { return React__default['default'].createElement("span", { className: "name" }, name); };
 function Fold(props) {
@@ -109,7 +109,7 @@ function PrintDictionary(props) {
             child[i] = (React__default['default'].createElement("div", { key: i },
                 typeof entries[i][1] !== "object" && printName(entries[i][0]),
                 entries[i][1] === null && printName(entries[i][0]),
-                selectDrawer(__assign(__assign({}, props), { name: entries[i][0], value: entries[i][1], drawer: defaultDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: maxDeepness, selectDrawer: selectDrawer }))));
+                props.selectDrawer(__assign(__assign({}, props), { name: entries[i][0], value: entries[i][1], drawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: maxDeepness, selectDrawer: selectDrawer }))));
         }
         return (React__default['default'].createElement(React__default['default'].Fragment, null,
             printName(props.name),
@@ -126,7 +126,7 @@ function PrintDictionary(props) {
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
             var name_1 = null;
-            var result = selectDrawer(__assign(__assign({}, props), { name: entries[i][0], value: entries[i][1], drawer: props.mainDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness, selectDrawer: selectDrawer }));
+            var result = props.selectDrawer(__assign(__assign({}, props), { name: entries[i][0], value: entries[i][1], drawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness, selectDrawer: selectDrawer }));
             if (
             //@ts-ignore
             result.type.name !== "PrintArray" &&
@@ -163,7 +163,7 @@ function PrintArray(props) {
         var l = maxChild < ((_a = props.value) === null || _a === void 0 ? void 0 : _a.length) ? maxChild : (_b = props.value) === null || _b === void 0 ? void 0 : _b.length;
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
-            child[i] = (React__default['default'].createElement("div", { key: i }, selectDrawer(__assign(__assign({}, props), { name: i.toString(), value: props.value[i], drawer: defaultDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: maxDeepness, selectDrawer: selectDrawer }))));
+            child[i] = (React__default['default'].createElement("div", { key: i }, props.selectDrawer(__assign(__assign({}, props), { name: i.toString(), value: props.value[i], drawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: maxDeepness, selectDrawer: selectDrawer }))));
         }
         return (React__default['default'].createElement(React__default['default'].Fragment, null,
             printName(props.name),
@@ -185,7 +185,7 @@ function PrintArray(props) {
         var child = new Array(l);
         for (var i = 0; i < l; i++) {
             var name_2 = null;
-            var result = selectDrawer(__assign(__assign({}, props), { name: i.toString(), value: props.value[i], drawer: props.mainDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness, selectDrawer: selectDrawer }));
+            var result = props.selectDrawer(__assign(__assign({}, props), { name: i.toString(), value: props.value[i], drawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness, selectDrawer: selectDrawer }));
             if (
             //@ts-ignore
             result.type.name !== "PrintArray" &&
@@ -200,6 +200,53 @@ function PrintArray(props) {
     };
     return React__default['default'].createElement(Fold, __assign({}, props, { open: open, close: close, body: body }));
 }
+var DrawerDebug = function (props) {
+    var entries = Object.entries(props.value);
+    var l = entries.length;
+    var child = new Array(l);
+    for (var i = 0; i < l; i++) {
+        var result = props.selectDrawer(__assign(__assign({}, props), { name: entries[i][0], value: entries[i][1], drawer: props.mainDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness }));
+        child[i] = (React__default['default'].createElement("div", { key: i },
+            React__default['default'].createElement("h3", { style: { width: "none", display: "inline-block", margin: "0px" } },
+                React__default['default'].createElement("span", { className: "name" }, entries[i][0].toString())),
+            result));
+    }
+    return (React__default['default'].createElement("div", { style: {
+            paddingLeft: "10px",
+        } },
+        React__default['default'].createElement("h2", { style: { margin: "5px 0px", color: "#b98eff" } }, props.value.drawerName),
+        props.selectDrawer(__assign(__assign({}, props), { name: "pencils", value: props.value.pencils, drawer: props.mainDrawer, mainDrawer: props.mainDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness }))));
+};
+var Pencils = function (props) {
+    var entries = Object.entries(props.value);
+    var l = entries.length;
+    var child = new Array(l);
+    for (var i = 0; i < l; i++) {
+        var pencil = entries[i][1];
+        child[i] = (React__default['default'].createElement("div", { key: i, style: { width: "300px" } },
+            React__default['default'].createElement("h3", { style: {
+                    display: "inline-block",
+                    margin: "0px 2px",
+                } }, entries[i][0].toString()),
+            //@ts-ignore
+            !pencil.subDrawer && !pencil.component && (React__default['default'].createElement("div", { className: "badge", style: { fontSize: "9px", padding: "0px 4px", margin: "0px 2px" } },
+                React__default['default'].createElement("span", { style: { color: "red" } }, "NO COMPONENT"))),
+            //@ts-ignore
+            pencil.subDrawer && !pencil.component && (React__default['default'].createElement("div", { className: "badge", style: { fontSize: "9px", padding: "0px 4px", margin: "0px 2px" } },
+                React__default['default'].createElement("span", null, "Group"))),
+            //@ts-ignore
+            pencil.subDrawer && pencil.component && (React__default['default'].createElement("div", { className: "badge", style: { fontSize: "9px", padding: "0px 4px", margin: "0px 2px" } },
+                React__default['default'].createElement("span", { style: { color: "chocolate" } }, "Wrapper"))),
+            //@ts-ignore
+            !pencil.filter && (React__default['default'].createElement("div", { className: "badge", style: { fontSize: "9px", padding: "0px 4px", margin: "0px 2px" } },
+                React__default['default'].createElement("span", { style: { color: "red" } }, "DEAD-END"))),
+            //@ts-ignore
+            pencil.subDrawer ? (React__default['default'].createElement("div", { style: { paddingLeft: "10px", borderLeftStyle: "solid" } }, props.selectDrawer(__assign(__assign({}, props), { name: entries[i][0], 
+                //@ts-ignore
+                value: entries[i][1].subDrawer, deepness: props.deepness + 1, maxDeepness: props.maxDeepness })))) : null));
+    }
+    return React__default['default'].createElement("div", null, child);
+};
 
 /*
         Data Types :
@@ -231,78 +278,97 @@ function PrintArray(props) {
                         Special primitive type having additional usage for its value:
                         if object is not inherited, then null is shown;
  */
-var defaultDrawer = [
-    {
-        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "undefined"; },
-        component: function () { return React__default['default'].createElement("span", { className: "undefined" }, "undefined"); },
-    },
-    {
-        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "boolean"; },
-        component: function (props) { return (React__default['default'].createElement("span", { className: "boolean" }, props.value.toString())); },
-    },
-    {
-        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "number"; },
-        subDrawer: [
-            {
-                filter: function (element) { return isNaN(element.value); },
-                component: function (props) { return React__default['default'].createElement("span", { className: "nan" }, props.value); },
+var defaultDrawer = {
+    drawerName: "Built-in",
+    pencils: {
+        Undefined: {
+            filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "undefined"; },
+            component: function () { return React__default['default'].createElement("span", { className: "undefined" }, "undefined"); },
+        },
+        Boolean: {
+            filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "boolean"; },
+            component: function (props) { return (React__default['default'].createElement("span", { className: "boolean" }, props.value.toString())); },
+        },
+        Number: {
+            filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "number"; },
+            component: function (props) {
+                return isNaN(props.value) ? (React__default['default'].createElement("span", { className: "nan" }, props.value)) : (React__default['default'].createElement("span", { className: "number" }, props.value));
             },
-            {
-                component: function (props) { return React__default['default'].createElement("span", { className: "number" }, props.value); },
-            },
-        ],
-    },
-    {
-        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "string"; },
-        component: function (props) { return React__default['default'].createElement("span", { className: "string" }, props.value); },
-    },
-    {
-        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "bigint"; },
-        component: function (props) { return (React__default['default'].createElement("span", { className: "bigint" },
-            props.value.toString(),
-            "n")); },
-    },
-    {
-        filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "object"; },
-        subDrawer: [
-            {
-                filter: function (element) { return (element === null || element === void 0 ? void 0 : element.value) === null; },
-                component: function () { return React__default['default'].createElement("span", { className: "null" }, "null"); },
-            },
-            {
-                filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Array; },
-                component: function (props) { return React__default['default'].createElement(PrintArray, __assign({}, props)); },
-            },
-            {
-                filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Object; },
-                component: function (props) { return React__default['default'].createElement(PrintDictionary, __assign({}, props)); },
-            },
-            {
-                filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Buffer; },
-                component: function () {
-                    return React__default['default'].createElement(React__default['default'].Fragment, null, "ArrayBuffer");
+        },
+        String: {
+            filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "string"; },
+            component: function (props) { return React__default['default'].createElement("span", { className: "string" }, props.value); },
+        },
+        BigInt: {
+            filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "bigint"; },
+            component: function (props) { return (React__default['default'].createElement("span", { className: "bigint" },
+                props.value.toString(),
+                "n")); },
+        },
+        Object: {
+            filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "object"; },
+            subDrawer: {
+                drawerName: "Constructor",
+                pencils: {
+                    Null: {
+                        filter: function (element) { return (element === null || element === void 0 ? void 0 : element.value) === null; },
+                        component: function () { return React__default['default'].createElement("span", { className: "null" }, "null"); },
+                    },
+                    Array: {
+                        filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Array; },
+                        component: function (props) { return React__default['default'].createElement(PrintArray, __assign({}, props)); },
+                    },
+                    Object: {
+                        filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Object; },
+                        component: function (props) { return React__default['default'].createElement(PrintDictionary, __assign({}, props)); },
+                    },
+                    Buffer: {
+                        filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Buffer; },
+                        component: function () {
+                            return React__default['default'].createElement(React__default['default'].Fragment, null, "ArrayBuffer");
+                        },
+                    },
+                    Literal: {
+                        filter: function (element) { var _a; return !((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor); },
+                        component: function (props) { return React__default['default'].createElement(PrintDictionary, __assign({}, props)); },
+                    },
                 },
             },
-            {
-                filter: function (element) { var _a; return !((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor); },
-                component: function (props) { return React__default['default'].createElement(PrintDictionary, __assign({}, props)); },
+        },
+        Function: {
+            filter: function (element) { return typeof (element === null || element === void 0 ? void 0 : element.value) === "function"; },
+            component: function () { return (React__default['default'].createElement("span", { className: "function" },
+                "function ",
+                React__default['default'].createElement("span", { className: "grey" }, "\u222B()"))); },
+        },
+        UNSUPORTED: {
+            component: function (props) {
+                var _a, _b, _c, _d;
+                console.log("PRINTER UNSUPORTED VALUE", props);
+                if (!((_b = (_a = props === null || props === void 0 ? void 0 : props.value) === null || _a === void 0 ? void 0 : _a.constructor) === null || _b === void 0 ? void 0 : _b.name))
+                    console.log(props.value);
+                return (React__default['default'].createElement("div", { className: "UNSUPORTED" },
+                    "UNSUPORTED VALUE: ",
+                    typeof props.value,
+                    " ", (_d = (_c = props === null || props === void 0 ? void 0 : props.value) === null || _c === void 0 ? void 0 : _c.constructor) === null || _d === void 0 ? void 0 :
+                    _d.name));
             },
-        ],
-    },
-    {
-        component: function (props) {
-            var _a, _b, _c, _d;
-            console.log("PRINTER UNSUPORTED VALUE", props);
-            if (!((_b = (_a = props === null || props === void 0 ? void 0 : props.value) === null || _a === void 0 ? void 0 : _a.constructor) === null || _b === void 0 ? void 0 : _b.name))
-                console.log(props.value);
-            return (React__default['default'].createElement("div", { className: "UNSUPORTED" },
-                "UNSUPORTED VALUE: ",
-                typeof props.value,
-                " ", (_d = (_c = props === null || props === void 0 ? void 0 : props.value) === null || _c === void 0 ? void 0 : _c.constructor) === null || _d === void 0 ? void 0 :
-                _d.name));
         },
     },
-];
+};
+var debugDrawer = {
+    drawerName: "Drawer Draw",
+    pencils: {
+        pencils: {
+            filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Object && element.name === "pencils"; },
+            component: function (props) { return React__default['default'].createElement(Pencils, __assign({}, props)); },
+        },
+        drawer: {
+            filter: function (element) { var _a; return ((_a = element === null || element === void 0 ? void 0 : element.value) === null || _a === void 0 ? void 0 : _a.constructor) === Object; },
+            component: function (props) { return React__default['default'].createElement(DrawerDebug, __assign({}, props)); },
+        },
+    },
+};
 
 // => LOOP DETECTOR ? (circulary refence, mayby use symbol ?)
 // give absolute_path for filters ?
@@ -324,44 +390,44 @@ function Print(props) {
         mainDrawer: drawer,
         selectDrawer: selectDrawer,
         //@ts-ignore
+        currentPencil: [],
+        //@ts-ignore
         path: path,
     })));
 }
-// EN CAS DE COMPONENT WRAPPER. ON NE VEUT PAS AVOIR A REDEFINIR SYSTEMATIQUEMENT
-// SON "SUBDRAWER" ASSOCIE (SI IL EXISTE) COMME ETANT LE NOUVEAU DRAWER.
-// L'INJECTER ICI (SANS L'EXECUTER) SI LE COMPONENT WRAPPER DOIT ETRE AFFICHE.
-// ET LAISSER LE COMPONENT WRAPPER DECIDER DE SI IL CONTINUE L'AFFICHAGE DE
-// SES PROPRES ENFANTS AVEC LEDIT SUBDRAWER
-// OU LE LAISSER EN REDEFINIR UN NOUVEAU.
-// LE LAISSER FINALEMENT EXECUTER LES ENFANTS
+//INJECT KEY SOMEWHERE
 function selectDrawer(props) {
-    for (var key in props.drawer) {
-        console.log(key + ": " + props.drawer[key]);
-    }
-    var _loop_1 = function (i, l) {
-        var _a = props.drawer[i], filter = _a.filter, component = _a.component, subDrawer = _a.subDrawer;
+    var _loop_1 = function (key) {
+        var _a = props.drawer.pencils[key], filter = _a.filter, component = _a.component, subDrawer = _a.subDrawer;
         if (!filter || filter(props)) {
             var result = null;
-            //@ts-ignore
-            //props.path.push(`${props.name} `);
-            //@ts-ignore
-            props.selectDrawer = function (newProps) {
-                return selectDrawer(__assign(__assign(__assign({}, props), { drawer: subDrawer, deepness: props.deepness + 1 }), newProps));
-            };
-            if (subDrawer) {
-                result = selectDrawer(__assign(__assign({}, props), { drawer: subDrawer, selectDrawer: selectDrawer, deepness: props.deepness + 1, 
+            var SUBDRAW = function (newProps) {
+                var _a;
+                return selectDrawer(__assign(__assign(__assign({}, props), { 
                     //@ts-ignore
-                    path: __spreadArray(__spreadArray([], props.path), ["PRINT_SUB:" + props.name]) }));
-            }
+                    currentPencil: __spreadArray(__spreadArray([], props.currentPencil), [key]), drawer: (_a = subDrawer !== null && subDrawer !== void 0 ? subDrawer : props.drawer) !== null && _a !== void 0 ? _a : props.mainDrawer, deepness: props.deepness + 1 }), newProps));
+            };
             if (component)
-                result = component(props);
+                result = component(__assign(__assign({}, props), { selectDrawer: SUBDRAW, 
+                    //@ts-ignore
+                    currentPencil: __spreadArray(__spreadArray([], props.currentPencil), [key]) }));
+            else {
+                if (subDrawer) {
+                    result = selectDrawer(__assign(__assign({}, props), { 
+                        //@ts-ignore
+                        currentPencil: __spreadArray(__spreadArray([], props.currentPencil), [key]), drawer: subDrawer, selectDrawer: SUBDRAW, deepness: props.deepness + 1, 
+                        //@ts-ignore
+                        path: __spreadArray(__spreadArray([], props.path), ["PRINT_SUB:" + props.name]) }));
+                }
+            }
+            //@ts-ignore
             if (result) {
                 return { value: result };
             }
         }
     };
-    for (var i = 0, l = props.drawer.length; i < l; i++) {
-        var state_1 = _loop_1(i);
+    for (var key in props.drawer.pencils) {
+        var state_1 = _loop_1(key);
         if (typeof state_1 === "object")
             return state_1.value;
     }
@@ -544,5 +610,6 @@ exports.Fold = Fold;
 exports.Log = Logger;
 exports.Print = Print;
 exports.TilingWindowManager = TilingWindowManager;
+exports.debugDrawer = debugDrawer;
 exports.defaultDrawer = defaultDrawer;
 //# sourceMappingURL=index.js.map

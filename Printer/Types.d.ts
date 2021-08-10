@@ -5,7 +5,12 @@ export interface Print {
     drawer?: Drawer;
     maxDeepness?: number;
 }
-export declare type Drawer = Pencil[];
+export interface Drawer {
+    drawerName: string;
+    pencils: {
+        [pencilName: string]: Pencil;
+    };
+}
 export interface Pencil {
     filter?: (element: Element) => true | false;
     component?: (props: Element, print?: (value: Element) => JSX.Element | null) => JSX.Element;
