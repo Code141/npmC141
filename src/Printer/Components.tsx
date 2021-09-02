@@ -1,8 +1,6 @@
 //@ts-nocheck
 import React, { useState } from "react";
 import "./style.scss";
-import { selectDrawer } from "./Printer";
-import { defaultDrawer } from "./DefaultDrawer";
 import { Element } from "./Types";
 
 let printName = (name: string) => <span className={"name"}>{name}</span>;
@@ -67,7 +65,6 @@ function PrintDictionary(props: Element) {
             drawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
-            selectDrawer: selectDrawer,
           } as Element)}
         </div>
       );
@@ -104,7 +101,6 @@ function PrintDictionary(props: Element) {
         drawer: props.mainDrawer,
         deepness: props.deepness + 1,
         maxDeepness: props.maxDeepness,
-        selectDrawer: selectDrawer,
       });
 
       if (
@@ -159,7 +155,6 @@ function PrintArray(props: Element) {
             drawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
-            selectDrawer: selectDrawer,
           })}
         </div>
       );
@@ -197,7 +192,6 @@ function PrintArray(props: Element) {
 
         deepness: props.deepness + 1,
         maxDeepness: props.maxDeepness,
-        selectDrawer: selectDrawer,
       });
 
       if (
