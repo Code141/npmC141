@@ -92,8 +92,6 @@ function PrintDictionary(props: Element) {
     let l: number = entries.length;
     let child = new Array(l);
     for (let i = 0; i < l; i++) {
-      let name = null;
-
       let result = props.selectDrawer({
         ...props,
         name: entries[i][0],
@@ -102,18 +100,11 @@ function PrintDictionary(props: Element) {
         deepness: props.deepness + 1,
         maxDeepness: props.maxDeepness,
       });
-
-      if (
-        //@ts-ignore
-        result.type.name !== "PrintArray" &&
-        //@ts-ignore
-        result.type.name !== "PrintDictionary"
-      )
-        name = printName(entries[i][0].toString());
-
       child[i] = (
         <div key={i}>
-          {name}
+          {props?.value?.constructor !== Object &&
+            props?.value?.constructor !== Array &&
+            printName(i.toString())}
           {result}
         </div>
       );
@@ -151,7 +142,6 @@ function PrintArray(props: Element) {
             ...props,
             name: i.toString(),
             value: props.value[i],
-
             drawer: props.mainDrawer,
             deepness: props.deepness + 1,
             maxDeepness: maxDeepness,
@@ -183,7 +173,6 @@ function PrintArray(props: Element) {
     let child = new Array(l);
 
     for (let i = 0; i < l; i++) {
-      let name = null;
       let result = props.selectDrawer({
         ...props,
         name: i.toString(),
@@ -194,17 +183,11 @@ function PrintArray(props: Element) {
         maxDeepness: props.maxDeepness,
       });
 
-      if (
-        //@ts-ignore
-        result.type.name !== "PrintArray" &&
-        //@ts-ignore
-        result.type.name !== "PrintDictionary"
-      )
-        name = printName(i.toString());
-
       child[i] = (
         <div key={i}>
-          {name}
+          {props?.value?.constructor !== Object &&
+            props?.value?.constructor !== Array &&
+            printName(i.toString())}
           {result}
         </div>
       );
