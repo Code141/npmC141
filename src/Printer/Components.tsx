@@ -102,9 +102,10 @@ function PrintDictionary(props: Element) {
       });
       child[i] = (
         <div key={i}>
-          {props?.value?.constructor !== Object &&
-            props?.value?.constructor !== Array &&
-            printName(i.toString())}
+          {entries[i][1]?.constructor !== Object &&
+            entries[i][1]?.constructor !== Array &&
+            printName(entries[i][0])}
+
           {result}
         </div>
       );
@@ -185,8 +186,8 @@ function PrintArray(props: Element) {
 
       child[i] = (
         <div key={i}>
-          {props?.value?.constructor !== Object &&
-            props?.value?.constructor !== Array &&
+          {props.value[i]?.constructor !== Object &&
+            props.value[i]?.constructor !== Array &&
             printName(i.toString())}
           {result}
         </div>
