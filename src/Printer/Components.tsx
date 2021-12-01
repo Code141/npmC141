@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.scss";
 import { Element } from "./Types";
 
@@ -13,6 +13,9 @@ interface FoldProps extends Element {
 
 export function Fold(props: FoldProps) {
   const [isOpen, setIsOpen] = useState(props.deepness < props.maxDeepness);
+  useEffect(() => {
+    setIsOpen(props.deepness < props.maxDeepness);
+  }, [props.maxDeepness]);
   return isOpen ? (
     <div className={"fold"}>
       <div className={"foldHeadLine"} onClick={() => setIsOpen(false)}>
